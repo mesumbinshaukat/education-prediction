@@ -106,11 +106,11 @@ footer {
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" required>
                 <label for="attendance" class="form-label">Attendance</label>
-                <input type="number" class="form-control" id="attendance" name="attendance" required>
+                <input type="number" min="0" class="form-control" id="attendance" name="attendance" required>
                 <label for="homework" class="form-label">Homework Completion</label>
-                <input type="number" class="form-control" id="homework" name="homework_completion" required>
+                <input type="number" min="0" class="form-control" id="homework" name="homework_completion" required>
                 <label for="test_scores" class="form-label">Test Scores</label>
-                <input type="number" class="form-control" id="test_scores" name="test_scores" required>
+                <input type="number" min="0" class="form-control" id="test_scores" name="test_scores" required>
                 <button type="submit" class="btn btn-primary w-100 mt-3">Predict Performance</button>
             </form>
         </div>
