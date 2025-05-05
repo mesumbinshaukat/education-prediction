@@ -3,94 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <title>Prediction Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <style>
-        /* Custom Styles for Result Page */
         body {
-            background: #f4f6f9;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(120deg, #ff4b2b 0%, #ff416c 100%);
+            min-height: 100vh;
         }
         .navbar {
-            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.85);
+            border-bottom: 2px solid #ff416c;
         }
-        .navbar:hover {
-            background-color: #343a40;
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.7rem;
+            letter-spacing: 1px;
         }
         .container {
-            margin-top: 50px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .card {
-            border-radius: 10px;
-            transition: all 0.3s ease-in-out;
-        }
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            border-radius: 18px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+            background: #fff;
+            margin: 40px auto;
+            max-width: 500px;
+            padding: 32px 28px;
         }
         .card-title {
-            color: #343a40;
+            color: #ff416c;
+            font-weight: 700;
             font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+        .alert-success, .alert-danger {
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin: 18px 0;
+        }
+        .alert-success {
+            background: linear-gradient(90deg, #56f2a8 0%, #2fed80 100%);
+            color: #1b5e20;
+            border: none;
+        }
+        .alert-danger {
+            background: linear-gradient(90deg, #ffb2b2 0%, #ff416c 100%);
+            color: #b71c1c;
+            border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%);
+            border: none;
+            border-radius: 20px;
             font-weight: bold;
+            padding: 12px 0;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: background 0.2s;
         }
-        .btn {
-            border-radius: 5px;
-            padding: 10px 20px;
-            transition: all 0.3s ease;
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #ff416c 0%, #ff4b2b 100%);
         }
-        .btn:hover {
-            background-color: #007bff;
+        .card-text strong {
+            color: #ff416c;
+        }
+        .fa-check-circle, .fa-times-circle, .fa-download {
+            margin-right: 8px;
+        }
+        footer {
+            background: rgba(0,0,0,0.85);
             color: #fff;
-        }
-        .footer {
-            background-color: #343a40;
-            color: #fff;
-            padding: 15px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
             text-align: center;
-            box-shadow: 0 -1px 10px rgba(0,0,0,0.1);
-        }
-        .footer a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 15px;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        /* Animation for alerts */
-        .alert {
-            animation: fadeIn 1s ease;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            padding: 18px 0 10px 0;
+            margin-bottom: 0;
+            border-top: 2px solid #ff416c;
+            font-size: 1rem;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">EduPredict</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
-                    </li>
-                </ul>
+            <a class="navbar-brand" href="{{ url_for ('index')}}">EduPredict</a>
+            <div class="collapse navbar-collapse justify-content-between">
                 <div class="d-flex align-items-center">
                     {% if 'username' in session %}
                         <span class="navbar-text me-3">Welcome, {{ session['username'] }}!</span>
@@ -102,13 +106,14 @@
             </div>
         </div>
     </nav>
-
-    <!-- Prediction Result Section -->
-    <div class="container mt-5">
-        <h1 class="text-center text-primary mb-4">Prediction Result</h1>
-        <div class="card text-center mt-4 p-4 shadow-sm">
-            <h3 class="card-title mb-3">Performance Prediction</h3>
-            
+    <div class="container">
+        <div class="card text-center shadow-lg">
+            <div class="d-flex align-items-center justify-content-start mb-3" style="gap: 12px;">
+                <a href="{{ url_for('index') }}" class="btn btn-link p-0" style="font-size: 1.5rem; color: #ff416c;">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h3 class="card-title mb-0" style="flex: 1; color: #ff416c;">Performance Prediction</h3>
+            </div>
             {% if prediction == 1 %}
                 <div class="alert alert-success" role="alert">
                     <i class="fas fa-check-circle"></i> <strong>Good Result!</strong> The student is likely to perform well.
@@ -118,31 +123,19 @@
                     <i class="fas fa-times-circle"></i> <strong>Bad Result!</strong> The student may not succeed based on current indicators.
                 </div>
             {% endif %}
-            
             <p class="card-text">Prediction: <strong>{{ prediction }}</strong></p>
             <p class="card-text">Probability: <strong>{{ probability }}%</strong></p>
-
-            <h4 class="mt-4">Student Details:</h4>
+            <h4 class="mt-4" style="color:#ff416c;">Student Details:</h4>
             <p>Name: <strong>{{ student.name }}</strong></p>
             <p>Student ID: <strong>{{ student.student_id }}</strong></p>
             <p>Email: <strong>{{ student.email }}</strong></p>
-
-            <a href="{{ url_for('report', student_id=student.student_id) }}" class="btn btn-primary mt-3">Download Report <i class="fas fa-download"></i></a>
+            <a href="{{ url_for('report', student_id=student.student_id) }}" class="btn btn-primary mt-3">
+                <i class="fas fa-download"></i>Download Report
+            </a>
         </div>
     </div>
-
-    <!-- Footer Section -->
-    <footer class="footer">
-        <span>&copy; 2024 EduPredict. All Rights Reserved.</span>
-        <div class="social-icons mt-2">
-            <a href="https://www.facebook.com" target="_blank" class="text-light mx-2"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.twitter.com" target="_blank" class="text-light mx-2"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.linkedin.com" target="_blank" class="text-light mx-2"><i class="fab fa-linkedin"></i></a>
-        </div>
+    <footer>
+        <span>EduPredict &copy; 2024. All rights reserved.</span>
     </footer>
-
-    <!-- Bootstrap JS and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
