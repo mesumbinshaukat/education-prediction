@@ -7,7 +7,7 @@ import numpy as np
 from fpdf import FPDF  # For generating PDF reports
 from config import get_db
 from functools import wraps
-from model import predict_performance
+# from model import predict_performance
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Set a secret key for sessions
@@ -135,7 +135,7 @@ def report(student_id):
             pdf.set_font("Arial", 'B', 16)
             pdf.cell(200, 10, txt="STUDENT APPRAISAL REPORT", ln=True, align='C')
             pdf.set_font("Arial", '', 12)
-            pdf.cell(200, 10, txt="MONTH OF OCTOBER 2024", ln=True, align='C')
+            pdf.cell(200, 10, txt="MONTH OF MAY 2025", ln=True, align='C')
             pdf.ln(10)
 
             # Student Details Section
@@ -160,7 +160,7 @@ def report(student_id):
             pdf.cell(50, 10, txt="Faculty:", ln=False)
             pdf.cell(100, 10, txt="Aseef Ahmed", ln=True)
             pdf.cell(50, 10, txt="Coordinator", ln=False)
-            pdf.cell(100, 10, txt="Syeda Iqra Jaffri", ln=True)
+            pdf.cell(100, 10, txt="Maham Haider", ln=True)
 
             # Prediction and Remarks Section
             pdf.ln(5)
