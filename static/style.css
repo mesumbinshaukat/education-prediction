@@ -13,7 +13,7 @@ h1, h2, h3 {
 
 /* Navbar */
 .navbar {
-    background-color: #333;
+    background-color: #260B08;
     color: white;
 }
 
@@ -24,12 +24,12 @@ h1, h2, h3 {
 }
 
 .navbar a:hover {
-    background-color: #575757;
+    background-color: #260B08;
+    color: white;
 }
 
 /* Forms */
 form {
-    max-width: 500px;
     margin: 50px auto;
     padding: 20px;
     background: #fff;

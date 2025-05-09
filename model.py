@@ -5,7 +5,20 @@ from sklearn.preprocessing import StandardScaler
 import pickle
 import os
 
-data = pd.read_csv('data/student_performance_data.csv')
+data = pd.read_csv('data/student_performance_dataset.csv')
+
+# Print object columns for debugging
+categorical_cols = data.select_dtypes(include=['object']).columns.tolist()
+print("Columns with object dtype:", categorical_cols)
+
+# Remove the target column if it's in the list
+if 'performance' in categorical_cols:
+    categorical_cols.remove('performance')
+
+# One-hot encode all remaining categorical columns
+if categorical_cols:
+    data = pd.get_dummies(data, columns=categorical_cols)
+
 X = data.drop(columns=['performance'])
 y = data['performance']
 
