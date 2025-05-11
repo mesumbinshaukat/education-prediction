@@ -11,35 +11,46 @@
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(120deg, #ff4b2b 0%, #ff416c 100%);
+            background: #181A1B;
             min-height: 100vh;
+            color: #F5F6FA;
         }
         .navbar {
-            background: rgba(0,0,0,0.85);
-            border-bottom: 2px solid #ff416c;
+            background: #23272B !important;
+            border-bottom: 2px solid #444950;
         }
         .navbar-brand {
             font-weight: bold;
             font-size: 1.7rem;
             letter-spacing: 1px;
+            color: #F5F6FA !important;
         }
-        .container {
+        .navbar-nav .nav-link {
+            color: #F5F6FA !important;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        .navbar-nav .nav-link.active {
+            color: #fff !important;
+            text-decoration: underline;
+        }
+        .main-content {
             min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
         }
         .card {
             position: relative;
             border-radius: 18px;
             box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-            background: #fff;
+            background: #23272B;
             margin: 40px auto;
-            max-width: 500px;
             padding: 32px 28px;
+            color: #F5F6FA;
+            max-width: 600px;
         }
         .card-title {
-            color: #ff416c;
+            color: #F5F6FA;
             font-weight: 700;
             font-size: 1.5rem;
             margin-bottom: 0;
@@ -48,61 +59,73 @@
             border-radius: 10px;
             font-size: 1.1rem;
             margin: 18px 0;
+            border: none;
+            color: #fff;
         }
         .alert-success {
-            background: linear-gradient(90deg, #56f2a8 0%, #2fed80 100%);
-            color: #1b5e20;
-            border: none;
+            background: #3CB371;
         }
         .alert-danger {
-            background: linear-gradient(90deg, #ffb2b2 0%, #ff416c 100%);
-            color: #b71c1c;
-            border: none;
+            background: #C0392B;
         }
         .btn-primary {
-            background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%);
+            background: #444950;
             border: none;
             border-radius: 20px;
             font-weight: bold;
             padding: 12px 0;
             font-size: 1.1rem;
             letter-spacing: 1px;
+            color: #F5F6FA;
             transition: background 0.2s;
         }
         .btn-primary:hover {
-            background: linear-gradient(90deg, #ff416c 0%, #ff4b2b 100%);
+            background: #23272B;
+            color: #fff;
         }
         .card-text strong {
-            color: #ff416c;
+            color: #F5F6FA;
         }
         .fa-check-circle, .fa-times-circle, .fa-download {
             margin-right: 8px;
         }
         footer {
-            background: rgba(0,0,0,0.85);
-            color: #fff;
+            background: #23272B;
+            color: #F5F6FA;
             text-align: center;
             padding: 18px 0 10px 0;
-            margin-bottom: 0;
-            border-top: 2px solid #ff416c;
+            border-top: 2px solid #444950;
             font-size: 1rem;
             letter-spacing: 1px;
+            margin-top: 62px !important;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for ('index')}}">EduPredict</a>
-            <div class="collapse navbar-collapse justify-content-between">
-                <div class="d-flex align-items-center">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Education Prediction</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('prediction_history') }}">Prediction History</a>
+                    </li>
                     {% if 'username' in session %}
-                        <span class="navbar-text me-3">Welcome, {{ session['username'] }}!</span>
-                        <a class="btn btn-outline-light" href="{{ url_for('logout') }}">Logout</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                        </li>
                     {% else %}
-                        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                        </li>
                     {% endif %}
-                </div>
+                </ul>
             </div>
         </div>
     </nav>

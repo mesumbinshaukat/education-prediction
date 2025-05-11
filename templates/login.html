@@ -8,57 +8,158 @@
     <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <title>Login - EduPredict</title>
     <style>
-        /* Extra Styles for Animations and Hover Effects */
         body {
-            background: linear-gradient(45deg, #3498db, #8e44ad);
-            font-family: 'Arial', sans-serif;
+            background: #181A1B;
+            font-family: 'Montserrat', sans-serif;
+            color: #F5F6FA;
         }
         .navbar {
-            background: rgba(0, 0, 0, 0.8);
+            background: #23272B !important;
         }
         .navbar-brand {
             font-weight: bold;
             font-size: 1.5rem;
+            color: #F5F6FA !important;
         }
         .navbar-nav .nav-link {
             font-weight: 500;
-            color: white;
+            color: #F5F6FA !important;
             transition: color 0.3s ease-in-out;
         }
         .navbar-nav .nav-link:hover {
-            color: #3498db;
+            color: #ff416c !important;
         }
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease-in-out;
+        .card, .slider-container {
+            border-radius: 18px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+            background: #23272B;
+            color: #F5F6FA;
         }
         .card:hover {
             transform: scale(1.05);
         }
-        .form-control {
+        .form-control, input {
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: #181A1B;
+            color: #F5F6FA;
+            border: 1.5px solid #444950;
+            box-shadow: none;
         }
-        .btn-primary {
-            background-color: #3498db;
+        .form-control:focus, input:focus {
+            border-color: #ff416c;
+            box-shadow: 0 0 0 2px #ff416c33;
+            background: #181A1B;
+            color: #F5F6FA;
+        }
+        .btn-primary, button {
+            background: #444950;
             border: none;
             border-radius: 10px;
+            color: #F5F6FA;
             transition: background-color 0.3s ease-in-out;
         }
-        .btn-primary:hover {
-            background-color: #2980b9;
+        .btn-primary:hover, button:hover, button:focus {
+            background: #23272B;
+            color: #fff;
         }
-        .social-icons i {
+        .social-icons i, .social i {
             font-size: 24px;
+            color: #F5F6FA;
             transition: color 0.3s ease;
         }
-        .social-icons a:hover i {
-            color: #3498db;
+        .social-icons a:hover i, .social:hover i {
+            color: #ff416c;
         }
         .footer {
-            background: rgba(0, 0, 0, 0.8);
+            background: #23272B;
+            color: #F5F6FA;
+        }
+        .slider-bg {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #181A1B;
+            padding: 40px 0;
+        }
+        .slider-container {
+            background: #23272B;
+            border-radius: 18px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.18);
             position: relative;
+            overflow: hidden;
+            width: 900px;
+            max-width: 100%;
+            min-height: 520px;
+            display: flex;
+        }
+        form {
+            background: #23272B;
+            color: #F5F6FA;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        form h2 {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #ff416c;
+        }
+        .overlay {
+            background: linear-gradient(120deg, #ff4b2b, #ff416c 80%);
+            color: #fff;
+        }
+        .social {
+            border: 2px solid #444950;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            width: 44px;
+            font-size: 22px;
+            color: #F5F6FA;
+            background: #23272B;
+            margin: 0 6px;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .social:hover {
+            color: #fff;
+            border-color: #ff416c;
+        }
+        .social:hover .fa-facebook-f {
+            color: #1877f3;
+        }
+        .social:hover .fa-google {
+            color: #ea4335;
+        }
+        .social:hover .fa-linkedin-in {
+            color: #0a66c2;
+        }
+        .social .fa-facebook-f {
+            color: #F5F6FA;
+        }
+        .social .fa-google {
+            color: #F5F6FA;
+        }
+        .social .fa-linkedin-in {
+            color: #F5F6FA;
+        }
+        .social:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #ff416c33;
+        }
+        .forgot-link {
+            color: #ff416c;
+            font-size: 0.98em;
+            margin-top: 6px;
+            margin-bottom: 0;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .forgot-link:hover {
+            color: #fff;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -69,11 +170,8 @@
         <form action="{{ url_for('register') }}" method="POST" autocomplete="off">
           <h2>Create Account</h2>
           <div class="social-container">
-            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social"><i class="fab fa-google"></i></a>
-            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+           
           </div>
-          <span>or use your email for registration</span>
           <input type="text" placeholder="Username" name="username" required />
           <input type="email" placeholder="Email" name="email" required />
           <input type="password" placeholder="Password" name="password" required />
@@ -84,11 +182,8 @@
         <form action="{{ url_for('login') }}" method="POST" autocomplete="off">
           <h2>Sign In</h2>
           <div class="social-container">
-            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social"><i class="fab fa-google"></i></a>
-            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+           
           </div>
-          <span>or use your account</span>
           <input type="text" placeholder="Username" name="username" required />
           <input type="password" placeholder="Password" name="password" required />
           <button type="submit">Sign In</button>
@@ -136,11 +231,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f6f5f7;
+    background: #181A1B;
     padding: 40px 0;
   }
   .slider-container {
-    background: #fff;
+    background: #23272B;
     border-radius: 18px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.18);
     position: relative;
@@ -239,19 +334,15 @@
     transform: translateX(20%);
   }
   form {
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 340px;
-    padding: 30px 0;
+    background: #23272B;
+    color: #F5F6FA;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   }
   form h2 {
     font-weight: 700;
     margin-bottom: 10px;
+    color: #ff416c;
   }
   input {
     background: #f0f0f0;
@@ -299,25 +390,48 @@
     gap: 12px;
   }
   .social {
-    border: 1px solid #ddd;
+    border: 2px solid #444950;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    width: 40px;
-    font-size: 18px;
-    color: #333;
-    background: #fff;
-    transition: background 0.2s, color 0.2s;
+    height: 44px;
+    width: 44px;
+    font-size: 22px;
+    color: #F5F6FA;
+    background: #23272B;
+    margin: 0 6px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
   .social:hover {
-    background: #ff416c;
     color: #fff;
     border-color: #ff416c;
   }
+  .social:hover .fa-facebook-f {
+    color: #1877f3;
+  }
+  .social:hover .fa-google {
+    color: #ea4335;
+  }
+  .social:hover .fa-linkedin-in {
+    color: #0a66c2;
+  }
+  .social .fa-facebook-f {
+    color: #F5F6FA;
+  }
+  .social .fa-google {
+    color: #F5F6FA;
+  }
+  .social .fa-linkedin-in {
+    color: #F5F6FA;
+  }
+  .social:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #ff416c33;
+  }
   .forgot-link {
-    color: #1976d2;
+    color: #ff416c;
     font-size: 0.98em;
     margin-top: 6px;
     margin-bottom: 0;
@@ -325,7 +439,7 @@
     transition: color 0.2s;
   }
   .forgot-link:hover {
-    color: #ff416c;
+    color: #fff;
     text-decoration: underline;
   }
   @media (max-width: 900px) {
