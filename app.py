@@ -111,6 +111,16 @@ def predict():
     }
     session['student_data'] = student_data
 
+    # Store prediction in database
+    prediction_history = {
+        'username': session['username'],
+        'timestamp': datetime.now(),
+        'student_data': student_data,
+        'prediction': prediction,
+        'probability': probability
+    }
+    db.predictionHistory.insert_one(prediction_history)
+
     # Prediction message
     prediction_message = "Good Result! The student is likely to perform well." if prediction == 1 else "Bad Result! The student may not succeed based on current indicators."
 
@@ -231,6 +241,18 @@ def report(student_id):
     else:
         flash('Student not found!', 'danger')
         return redirect(url_for('index'))
+
+# Add new route for prediction history
+@app.route('/prediction-history')
+@login_required
+def prediction_history():
+    # Get all predictions for the current user
+    predictions = list(db.predictionHistory.find(
+        {'username': session['username']},
+        {'_id': 0}  # Exclude MongoDB _id field
+    ).sort('timestamp', -1))  # Sort by timestamp in descending order
+    
+    return render_template('prediction_history.html', predictions=predictions)
 
 if __name__ == '__main__':
     app.run(debug=True)

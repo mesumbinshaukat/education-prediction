@@ -24,7 +24,7 @@ h1, h2, h3 {
 }
 
 .navbar a:hover {
-    background-color: #260B08;
+    /* background-color: #260B08; */
     color: white;
 }
 
@@ -32,7 +32,7 @@ h1, h2, h3 {
 form {
     margin: 50px auto;
     padding: 20px;
-    background: #fff;
+    background: #181A1B;
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
 }
