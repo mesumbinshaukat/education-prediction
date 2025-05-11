@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file
+import json
+from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file, jsonify, Response
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
@@ -10,6 +11,7 @@ from functools import wraps
 import pickle
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
+from bson import ObjectId, json_util
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -27,6 +29,11 @@ def login_required(f):
     return decorated_function
 
 @app.route('/')
+def home():
+    """Public home page accessible without login"""
+    return render_template('home.html')
+
+@app.route('/dashboard')
 @login_required
 def index():
     return render_template('index.html')
@@ -92,34 +99,50 @@ def predict():
         percentage = (test_scores * 0.5) + (attendance * 0.3) + (homework_completion * 0.2)
         prediction = 1 if percentage > 60 else 0
         probability = round(percentage, 2)
+        confidence = probability / 100.0  # Convert to 0-1 range for consistency
 
-        student_data = {
+        # Convert numeric prediction to text status
+        prediction_text = "Good" if prediction == 1 else "Needs Improvement"
+        
+        # Create predicted_scores object for visualization
+        predicted_scores = {
+            "Attendance Score": attendance,
+            "Homework Score": homework_completion,
+            "Test Score": test_scores,
+            "Overall": percentage
+        }
+
+        # Create a single comprehensive prediction record
+        prediction_data = {
+            # Student information
             'name': name,
-            'student_id': student_id,
+            'student_id': student_id, 
             'email': email,
             'attendance': attendance,
             'homework_completion': homework_completion,
             'test_scores': test_scores,
-            'prediction': prediction,
-            'probability': probability,
-            'created_at': datetime.now()
+            
+            # Prediction results
+            'prediction': prediction_text,  # Store as text for display
+            'prediction_number': prediction,  # Store original numeric value
+            'prediction_score': percentage,  # Overall score for comparison
+            'probability': probability,  # Original probability (percent format)
+            'confidence': confidence,  # Normalized confidence (0-1 range)
+            'predicted_scores': predicted_scores,  # For visualization
+            
+            # Metadata
+            'username': session.get('username', 'public'),  # Include user if available
+            'created_at': datetime.now(),
+            'timestamp': datetime.now()  # For compatibility with both naming conventions
         }
-
-        db.predictionHistory.insert_one(student_data)
-        stored = db.predictionHistory.find_one({'student_id': student_id})
-        stored.pop('_id', None)
-        session['student_data'] = stored
-
-            # Store prediction in database
-        prediction_history = {
-        'username': session['username'],
-        'timestamp': datetime.now(),
-        'student_data': student_data,
-        'prediction': prediction,
-        'probability': probability
-         }
         
-        db.predictionHistory.insert_one(prediction_history)
+        # Insert the prediction once
+        result = db.predictionHistory.insert_one(prediction_data)
+        
+        # Store in session for PDF generation
+        prediction_data_for_session = prediction_data.copy()
+        prediction_data_for_session.pop('_id', None)  # Remove ObjectId for session
+        session['student_data'] = prediction_data_for_session
     
     
         prediction_message = "Good Result! The student is likely to perform well." if prediction == 1 else "Bad Result! The student may not succeed based on current indicators."
@@ -279,6 +302,154 @@ def prediction_history():
     ).sort('timestamp', -1))  # Sort by timestamp in descending order
     
     return render_template('prediction_history.html', predictions=predictions)
+
+# Custom JSON encoder for MongoDB types
+class MongoJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, ObjectId):
+            return str(obj)
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+        return super(MongoJSONEncoder, self).default(obj)
+
+# API endpoint for prediction history data
+@app.route('/api/predictions')
+def api_predictions():
+    """
+    API endpoint to fetch paginated prediction history
+    Query parameters:
+      - skip: number of records to skip (default 0)
+      - limit: maximum number of records to return (default 20)
+    """
+    try:
+        skip = request.args.get('skip', default=0, type=int)
+        limit = request.args.get('limit', default=20, type=int)
+        
+        # Fetch predictions from MongoDB with pagination
+        # Don't exclude _id here - we'll handle it during serialization
+        predictions = list(db.predictionHistory.find().sort('created_at', -1).skip(skip).limit(limit))
+        
+        # Process results to be JSON serializable
+        processed_predictions = []
+        for pred in predictions:
+            # Create a new dictionary for the processed prediction
+            processed_pred = {}
+            
+            # Handle _id explicitly
+            if '_id' in pred:
+                processed_pred['id'] = str(pred['_id'])
+            
+            # Add timestamp
+            if 'created_at' in pred:
+                processed_pred['timestamp'] = pred['created_at'].isoformat() if hasattr(pred['created_at'], 'isoformat') else str(pred['created_at'])
+            elif 'timestamp' in pred:
+                processed_pred['timestamp'] = pred['timestamp'].isoformat() if hasattr(pred['timestamp'], 'isoformat') else str(pred['timestamp'])
+            else:
+                # Default timestamp if none exists
+                processed_pred['timestamp'] = datetime.now().isoformat()
+            
+            # Ensure required fields have default values
+            for field in ['student_id', 'name', 'email', 'attendance', 'homework_completion', 'test_scores']:
+                processed_pred[field] = 'N/A'
+                
+            # Default numerical values
+            for field in ['attendance', 'homework_completion', 'test_scores', 'prediction_score']:
+                if field not in processed_pred or processed_pred[field] == 'N/A':
+                    processed_pred[field] = 0
+            
+            # Flatten student_data if present
+            if 'student_data' in pred and isinstance(pred['student_data'], dict):
+                for key, value in pred['student_data'].items():
+                    # Avoid ObjectId and datetime issues
+                    if isinstance(value, ObjectId):
+                        processed_pred[key] = str(value)
+                    elif isinstance(value, datetime):
+                        processed_pred[key] = value.isoformat()
+                    else:
+                        processed_pred[key] = value
+            
+            # Copy remaining fields, handling special types
+            for key, value in pred.items():
+                if key not in ['_id', 'student_data', 'created_at'] and key not in processed_pred:
+                    if isinstance(value, ObjectId):
+                        processed_pred[key] = str(value)
+                    elif isinstance(value, datetime):
+                        processed_pred[key] = value.isoformat()
+                    else:
+                        processed_pred[key] = value
+            
+            # Convert numeric prediction to text status
+            if 'prediction' in processed_pred:
+                # If prediction is stored as 0/1
+                if processed_pred['prediction'] in [0, 1, '0', '1']:
+                    numeric_pred = int(processed_pred['prediction'])
+                    if numeric_pred == 1:
+                        processed_pred['prediction'] = 'Good'
+                    else:
+                        processed_pred['prediction'] = 'Needs Improvement'
+                # If prediction is already a string but needs normalization
+                elif isinstance(processed_pred['prediction'], str):
+                    pred_lower = processed_pred['prediction'].lower()
+                    if 'excellent' in pred_lower:
+                        processed_pred['prediction'] = 'Excellent'
+                    elif 'good' in pred_lower:
+                        processed_pred['prediction'] = 'Good'
+                    elif 'average' in pred_lower:
+                        processed_pred['prediction'] = 'Average'
+                    elif 'needs' in pred_lower or 'improvement' in pred_lower or 'poor' in pred_lower:
+                        processed_pred['prediction'] = 'Needs Improvement'
+                    else:
+                        # Default if string doesn't match any known category
+                        processed_pred['prediction'] = 'Undefined'
+            else:
+                # Default if prediction field is missing
+                processed_pred['prediction'] = 'Undefined'
+                
+            # Calculate overall score if not present
+            if 'prediction_score' not in processed_pred:
+                # Try to calculate from components if available
+                if all(k in processed_pred for k in ['attendance', 'homework_completion', 'test_scores']):
+                    try:
+                        attendance = float(processed_pred['attendance'])
+                        homework = float(processed_pred['homework_completion'])
+                        tests = float(processed_pred['test_scores'])
+                        processed_pred['prediction_score'] = (tests * 0.5) + (attendance * 0.3) + (homework * 0.2)
+                    except (ValueError, TypeError):
+                        processed_pred['prediction_score'] = 0
+                # Use probability if available
+                elif 'probability' in processed_pred:
+                    processed_pred['prediction_score'] = processed_pred['probability']
+                else:
+                    processed_pred['prediction_score'] = 0
+            
+            # Ensure confidence is present and in decimal form (0-1 range)
+            if 'confidence' not in processed_pred:
+                if 'probability' in processed_pred:
+                    # Normalize probability to 0-1 range if it looks like a percentage
+                    prob_value = float(processed_pred['probability'])
+                    if prob_value > 1:
+                        processed_pred['confidence'] = prob_value / 100
+                    else:
+                        processed_pred['confidence'] = prob_value
+                else:
+                    # Default confidence based on prediction_score
+                    score = float(processed_pred['prediction_score'])
+                    if score > 1:
+                        processed_pred['confidence'] = min(score / 100, 1.0)  # Normalize to 0-1
+                    else:
+                        processed_pred['confidence'] = score
+            
+            processed_predictions.append(processed_pred)
+        
+        # Use json_util from bson to handle MongoDB types properly
+        return Response(
+            json_util.dumps(processed_predictions),
+            mimetype='application/json'
+        )
+    
+    except Exception as e:
+        app.logger.error(f"API Error: {str(e)}")
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

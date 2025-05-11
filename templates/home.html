@@ -3,120 +3,859 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduPredict Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Education Prediction System - Home</title>
+    
+    <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    
+    <!-- Custom Styles -->
     <style>
-  body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(120deg, #ff4b2b 0%, #ff416c 100%);
-    font-family: 'Montserrat', sans-serif;
-}
-.main-center {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 80vh;
-}
-.card {
-    border-radius: 18px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-    background: #fff;
-    max-width: auto;
-    width: 100%;
-    padding: 48px 40px 40px 40px;
-    margin: 40px 0;
-}
-.card h1 {
-    color: #ff416c;
-    font-weight: 700;
-    margin-bottom: 32px;
-    font-size: 2.1rem;
-}
-.form-label {
-    color: #ff416c;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-.form-control {
-    border-radius: 10px;
-    border: 1.5px solid #ff416c;
-    background: #f6f5f7;
-    margin-bottom: 8px;
-    font-size: 1.08rem;
-    padding: 14px 16px;
-}
-.form-control:focus {
-    border-color: #ff4b2b;
-    box-shadow: 0 0 0 2px #ff416c33;
-}
-.btn-primary {
-    background: linear-gradient(90deg, #ff4b2b 0%, #ff416c 100%);
-    border: none;
-    border-radius: 20px;
-    font-weight: bold;
-    padding: 14px 0;
-    font-size: 1.15rem;
-    letter-spacing: 1px;
-    transition: background 0.2s;
-}
-.btn-primary:hover {
-    background: linear-gradient(90deg, #ff416c 0%, #ff4b2b 100%);
-}
-footer {
-    background: rgba(0,0,0,0.85);
-    color: #fff;
-    text-align: center;
-    padding: 18px 0 10px 0;
-    border-top: 2px solid #ff416c;
-    font-size: 1rem;
-    letter-spacing: 1px;
-}
+        :root {
+            --bg-dark: #181A1B;
+            --card-bg: #23272B;
+            --border-color: #444950;
+            --text-color: #F5F6FA;
+            --hover-color: #2C3238;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar {
+            background-color: var(--card-bg) !important;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.7rem;
+            letter-spacing: 1px;
+            color: var(--text-color) !important;
+        }
+        
+        .navbar-nav .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            margin-left: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: #fff !important;
+            transform: translateY(-2px);
+        }
+        
+        .navbar-nav .nav-link.active {
+            color: #fff !important;
+            text-decoration: underline;
+        }
+        
+        .hero-section {
+            padding: 30px 0;
+        }
+        
+        .carousel {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+        }
+        
+        .carousel-inner img {
+            height: 450px;
+            object-fit: cover;
+        }
+        
+        .carousel-caption {
+            background: rgba(35, 39, 43, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        
+        .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            border-left: 5px solid var(--border-color);
+            padding-left: 15px;
+        }
+        
+        .table-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+        }
+        
+        table {
+            margin-bottom: 0 !important;
+            color: var(--text-color) !important;
+        }
+        
+        .table thead th {
+            background-color: var(--border-color) !important;
+            color: var(--text-color);
+            font-weight: 600;
+            padding: 15px;
+            border-color: var(--bg-dark);
+        }
+        
+        .table tbody td {
+            padding: 15px;
+            border-color: var(--border-color);
+            vertical-align: middle;
+        }
+        
+        .table tbody tr {
+            transition: all 0.2s ease;
+        }
+        
+        .table tbody tr:hover {
+            background-color: var(--hover-color);
+            cursor: pointer;
+            transform: translateY(-2px);
+        }
+        
+        #loader {
+            text-align: center;
+            padding: 15px;
+            color: var(--text-color);
+            background: var(--card-bg);
+            border-radius: 0 0 15px 15px;
+            font-weight: 500;
+        }
+        
+        .badge {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background-color: rgba(0, 200, 83, 0.25);
+            color: #00C853;
+        }
+        
+        .badge-danger {
+            background-color: rgba(244, 67, 54, 0.25);
+            color: #F44336;
+        }
+        
+        .badge-warning {
+            background-color: rgba(255, 152, 0, 0.25);
+            color: #FF9800;
+        }
+        
+        .badge-info {
+            background-color: rgba(33, 150, 243, 0.25);
+            color: #2196F3;
+        }
+        
+        /* Modal / Drawer Styles */
+        .modal-content {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px;
+        }
+        
+        .modal-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 20px;
+        }
+        
+        .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+        
+        .chart-container {
+            margin-top: 20px;
+            position: relative;
+            height: 300px;
+        }
+        
+        .student-info {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: var(--hover-color);
+        }
+        
+        .student-info h5 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        
+        footer {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            text-align: center;
+            padding: 18px 0;
+            margin-top: auto;
+            border-top: 2px solid var(--border-color);
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">EduPredict</a>
-            <div class="collapse navbar-collapse justify-content-between">
-                <div class="d-flex align-items-center">
-                    {% if 'username' in session %}
-                        <span class="navbar-text me-3">Welcome, {{ session['username'] }}!</span>
-                        <a class="btn btn-outline-light" href="{{ url_for('logout') }}">Logout</a>
-                    {% else %}
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">Education Prediction</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-                        <a class="nav-link" href="{{ url_for('register') }}">Register</a>
-                    {% endif %}
-                </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="card shadow-lg">
-            <h1 class="text-center">Student Performance Prediction</h1>
-            <form action="{{ url_for('predict') }}" method="POST" style="width: 100%;">
-                <label for="name" class="form-label">Student Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-                <label for="student_id" class="form-label">Student ID</label>
-                <input type="text" class="form-control" id="student_id" name="student_id" required>
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-                <label for="attendance" class="form-label">Attendance</label>
-                <input type="number" min="0" class="form-control" id="attendance" name="attendance" required>
-                <label for="homework" class="form-label">Homework Completion</label>
-                <input type="number" min="0" class="form-control" id="homework" name="homework_completion" required>
-                <label for="test_scores" class="form-label">Test Scores</label>
-                <input type="number" min="0" class="form-control" id="test_scores" name="test_scores" required>
-                <button type="submit" class="btn btn-primary w-100 mt-3">Predict Performance</button>
-            </form>
+
+    <!-- Hero Section with Carousel -->
+    <section class="hero-section">
+        <div class="container">
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+                </div>
+                <div class="carousel-inner">
+                    <!-- Predict Student Performance -->
+                    <div class="carousel-item active">
+                        <div class="d-block w-100" style="height: 450px; background: linear-gradient(135deg, #1e3c72, #2a5298); position: relative; overflow: hidden;">
+                            <!-- Dynamic visualization elements -->
+                            <div class="prediction-dashboard" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; padding: 20px;">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-5 d-flex align-items-center justify-content-center">
+                                            <div class="prediction-metric text-center">
+                                                <div class="circular-progress" style="width: 220px; height: 220px; position: relative; margin: 0 auto;">
+                                                    <svg width="220" height="220" viewBox="0 0 220 220">
+                                                        <circle cx="110" cy="110" r="90" fill="none" stroke="#2c3e5066" stroke-width="20"></circle>
+                                                        <circle cx="110" cy="110" r="90" fill="none" stroke="#4CAF50" stroke-width="20" stroke-dasharray="565.48" stroke-dashoffset="120" stroke-linecap="round" style="transform: rotate(-90deg); transform-origin: center; animation: progress-animation 2s ease-out forwards;"></circle>
+                                                    </svg>
+                                                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
+                                                        <h2 style="font-size: 2.5rem; margin: 0;">78%</h2>
+                                                        <p style="margin: 0; font-size: 1rem;">Accuracy</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="prediction-bars">
+                                                <div class="prediction-bar-item" style="margin-bottom: 15px;">
+                                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                        <span>High Achievers</span>
+                                                        <span>42%</span>
+                                                    </div>
+                                                    <div style="height: 10px; background: rgba(255,255,255,0.2); border-radius: 5px; overflow: hidden;">
+                                                        <div style="height: 100%; width: 42%; background: #4CAF50; animation: bar-animation 1.5s ease-out;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="prediction-bar-item" style="margin-bottom: 15px;">
+                                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                        <span>Average Performers</span>
+                                                        <span>35%</span>
+                                                    </div>
+                                                    <div style="height: 10px; background: rgba(255,255,255,0.2); border-radius: 5px; overflow: hidden;">
+                                                        <div style="height: 100%; width: 35%; background: #2196F3; animation: bar-animation 1.5s ease-out;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="prediction-bar-item" style="margin-bottom: 15px;">
+                                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                        <span>Need Support</span>
+                                                        <span>23%</span>
+                                                    </div>
+                                                    <div style="height: 10px; background: rgba(255,255,255,0.2); border-radius: 5px; overflow: hidden;">
+                                                        <div style="height: 100%; width: 23%; background: #FF9800; animation: bar-animation 1.5s ease-out;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="prediction-icons" style="display: flex; margin-top: 20px; color: white;">
+                                                <div style="flex: 1; text-align: center;">
+                                                    <i class="fas fa-brain" style="font-size: 2rem;"></i>
+                                                    <p style="margin-top: 5px; font-size: 0.9rem;">AI Powered</p>
+                                                </div>
+                                                <div style="flex: 1; text-align: center;">
+                                                    <i class="fas fa-chart-line" style="font-size: 2rem;"></i>
+                                                    <p style="margin-top: 5px; font-size: 0.9rem;">Real-time</p>
+                                                </div>
+                                                <div style="flex: 1; text-align: center;">
+                                                    <i class="fas fa-bullseye" style="font-size: 2rem;"></i>
+                                                    <p style="margin-top: 5px; font-size: 0.9rem;">Accurate</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>Predict Student Performance</h3>
+                            <p>Use advanced analytics to forecast student outcomes and improve learning.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Interactive Data Visualization -->
+                    <div class="carousel-item">
+                        <div class="d-block w-100" style="height: 450px; background: linear-gradient(135deg, #11998e, #38ef7d); position: relative; overflow: hidden;">
+                            <div class="data-dashboard" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; padding: 20px;">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- Pie Chart -->
+                                            <div class="dashboard-chart text-center" style="position: relative; height: 200px; width: 200px; margin: 0 auto;">
+                                                <svg width="200" height="200" viewBox="0 0 200 200" style="transform: rotate(-90deg);">
+                                                    <circle cx="100" cy="100" r="80" fill="none" stroke="#dadada" stroke-width="20" />
+                                                    
+                                                    <!-- Performance Distribution -->
+                                                    <circle cx="100" cy="100" r="80" fill="none" stroke="#FF9800" stroke-width="20" stroke-dasharray="503" stroke-dashoffset="377" />
+                                                    <circle cx="100" cy="100" r="80" fill="none" stroke="#2196F3" stroke-width="20" stroke-dasharray="503" stroke-dashoffset="251" stroke-dashoffset="377" />
+                                                    <circle cx="100" cy="100" r="80" fill="none" stroke="#4CAF50" stroke-width="20" stroke-dasharray="503" stroke-dashoffset="126" stroke-dashoffset="251" />
+                                                </svg>
+                                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                                    <h4 style="margin: 0; color: white; font-size: 1.2rem;">Subject<br>Distribution</h4>
+                                                </div>
+                                            </div>
+                                            <div style="margin-top: 15px; display: flex; justify-content: center;">
+                                                <div style="margin: 0 10px; display: flex; align-items: center;">
+                                                    <span style="width: 12px; height: 12px; background: #4CAF50; border-radius: 50%; display: inline-block; margin-right: 5px;"></span>
+                                                    <span style="color: white; font-size: 0.8rem;">Math</span>
+                                                </div>
+                                                <div style="margin: 0 10px; display: flex; align-items: center;">
+                                                    <span style="width: 12px; height: 12px; background: #2196F3; border-radius: 50%; display: inline-block; margin-right: 5px;"></span>
+                                                    <span style="color: white; font-size: 0.8rem;">Science</span>
+                                                </div>
+                                                <div style="margin: 0 10px; display: flex; align-items: center;">
+                                                    <span style="width: 12px; height: 12px; background: #FF9800; border-radius: 50%; display: inline-block; margin-right: 5px;"></span>
+                                                    <span style="color: white; font-size: 0.8rem;">Language</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="line-chart" style="position: relative; height: 180px; margin-top: 10px;">
+                                                <!-- Line Chart -->
+                                                <svg viewbox="0 0 500 200" style="width: 100%; height: 100%;">
+                                                    <!-- Axis Lines -->
+                                                    <line x1="50" y1="170" x2="450" y2="170" stroke="rgba(255,255,255,0.3)" />
+                                                    <line x1="50" y1="30" x2="50" y2="170" stroke="rgba(255,255,255,0.3)" />
+                                                    
+                                                    <!-- Performance Line -->
+                                                    <polyline
+                                                        fill="none"
+                                                        stroke="#ffffff"
+                                                        stroke-width="3"
+                                                        points="
+                                                        50,120
+                                                        100,100
+                                                        150,110
+                                                        200,95
+                                                        250,90
+                                                        300,60
+                                                        350,50
+                                                        400,65
+                                                        450,50
+                                                        "
+                                                        style="animation: line-animation 2s ease-out forwards;"
+                                                    />
+                                                    
+                                                    <!-- Data Points -->
+                                                    <circle cx="50" cy="120" r="4" fill="white" />
+                                                    <circle cx="100" cy="100" r="4" fill="white" />
+                                                    <circle cx="150" cy="110" r="4" fill="white" />
+                                                    <circle cx="200" cy="95" r="4" fill="white" />
+                                                    <circle cx="250" cy="90" r="4" fill="white" />
+                                                    <circle cx="300" cy="60" r="4" fill="white" />
+                                                    <circle cx="350" cy="50" r="4" fill="white" />
+                                                    <circle cx="400" cy="65" r="4" fill="white" />
+                                                    <circle cx="450" cy="50" r="4" fill="white" />
+                                                </svg>
+                                            </div>
+                                            <div class="metrics-dashboard" style="display: flex; margin-top: 20px;">
+                                                <div style="flex: 1; background: rgba(255,255,255,0.2); border-radius: 10px; padding: 10px; margin: 0 5px; text-align: center;">
+                                                    <h3 style="margin: 0; font-size: 1.8rem; color: white;">87%</h3>
+                                                    <p style="margin: 5px 0 0; font-size: 0.8rem; color: white;">Engagement</p>
+                                                </div>
+                                                <div style="flex: 1; background: rgba(255,255,255,0.2); border-radius: 10px; padding: 10px; margin: 0 5px; text-align: center;">
+                                                    <h3 style="margin: 0; font-size: 1.8rem; color: white;">92%</h3>
+                                                    <p style="margin: 5px 0 0; font-size: 0.8rem; color: white;">Completion</p>
+                                                </div>
+                                                <div style="flex: 1; background: rgba(255,255,255,0.2); border-radius: 10px; padding: 10px; margin: 0 5px; text-align: center;">
+                                                    <h3 style="margin: 0; font-size: 1.8rem; color: white;">76%</h3>
+                                                    <p style="margin: 5px 0 0; font-size: 0.8rem; color: white;">Accuracy</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>Interactive Data Visualization</h3>
+                            <p>Visualize student data with intuitive charts and graphs.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Drive Student Success -->
+                    <div class="carousel-item">
+                        <div class="d-block w-100" style="height: 450px; background: linear-gradient(135deg, #614385, #516395); position: relative; overflow: hidden;">
+                            <div class="success-dashboard" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; padding: 20px;">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <!-- Student Success Metrics -->
+                                            <div class="success-metrics" style="display: flex; margin-bottom: 25px;">
+                                                <div style="flex: 1; background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px; margin-right: 10px; text-align: center; position: relative; overflow: hidden;">
+                                                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #8E2DE2, #4A00E0);"></div>
+                                                    <i class="fas fa-trophy" style="font-size: 2rem; color: gold; margin-bottom: 10px;"></i>
+                                                    <h3 style="margin: 0; font-size: 2.2rem; color: white;">98%</h3>
+                                                    <p style="margin: 5px 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.8);">Graduation Rate</p>
+                                                </div>
+                                                <div style="flex: 1; background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px; margin-right: 10px; text-align: center; position: relative; overflow: hidden;">
+                                                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #FF416C, #FF4B2B);"></div>
+                                                    <i class="fas fa-book-reader" style="font-size: 2rem; color: #FF416C; margin-bottom: 10px;"></i>
+                                                    <h3 style="margin: 0; font-size: 2.2rem; color: white;">86%</h3>
+                                                    <p style="margin: 5px 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.8);">Academic Growth</p>
+                                                </div>
+                                                <div style="flex: 1; background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px; text-align: center; position: relative; overflow: hidden;">
+                                                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #11998e, #38ef7d);"></div>
+                                                    <i class="fas fa-university" style="font-size: 2rem; color: #38ef7d; margin-bottom: 10px;"></i>
+                                                    <h3 style="margin: 0; font-size: 2.2rem; color: white;">92%</h3>
+                                                    <p style="margin: 5px 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.8);">College Acceptance</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Achievement Progress Tracker -->
+                                            <div class="achievement-tracker" style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px;">
+                                                <h4 style="margin: 0 0 15px 0; color: white; font-size: 1.2rem;">Student Achievement Milestones</h4>
+                                                
+                                                <!-- Milestone Progress Bars -->
+                                                <div style="margin-bottom: 12px;">
+                                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                        <span style="color: white; font-size: 0.9rem;">Advanced Mathematics</span>
+                                                        <span style="color: white; font-size: 0.9rem;">92%</span>
+                                                    </div>
+                                                    <div style="height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden;">
+                                                        <div style="height: 100%; width: 92%; background: linear-gradient(90deg, #00B4DB, #0083B0); animation: bar-animation 1.5s ease-out;"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div style="margin-bottom: 12px;">
+                                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                        <span style="color: white; font-size: 0.9rem;">Science Projects</span>
+                                                        <span style="color: white; font-size: 0.9rem;">78%</span>
+                                                    </div>
+                                                    <div style="height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden;">
+                                                        <div style="height: 100%; width: 78%; background: linear-gradient(90deg, #FDC830, #F37335); animation: bar-animation 1.5s ease-out;"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div style="margin-bottom: 12px;">
+                                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                        <span style="color: white; font-size: 0.9rem;">Language Proficiency</span>
+                                                        <span style="color: white; font-size: 0.9rem;">85%</span>
+                                                    </div>
+                                                    <div style="height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden;">
+                                                        <div style="height: 100%; width: 85%; background: linear-gradient(90deg, #BC4E9C, #F80759); animation: bar-animation 1.5s ease-out;"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div>
+                                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                                        <span style="color: white; font-size: 0.9rem;">Critical Thinking</span>
+                                                        <span style="color: white; font-size: 0.9rem;">89%</span>
+                                                    </div>
+                                                    <div style="height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden;">
+                                                        <div style="height: 100%; width: 89%; background: linear-gradient(90deg, #3494E6, #EC6EAD); animation: bar-animation 1.5s ease-out;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <!-- Progress Tracking Radial Chart -->
+                                            <div class="circular-progress-container" style="position: relative; width: 220px; height: 220px; margin: 20px auto;">
+                                                <svg width="220" height="220" viewBox="0 0 220 220">
+                                                    <!-- Background Circles -->
+                                                    <circle cx="110" cy="110" r="95" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"></circle>
+                                                    <circle cx="110" cy="110" r="75" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"></circle>
+                                                    <circle cx="110" cy="110" r="55" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"></circle>
+                                                    
+                                                    <!-- Progress Circles -->
+                                                    <circle cx="110" cy="110" r="95" fill="none" stroke="#FF416C" stroke-width="12" stroke-dasharray="596.9" stroke-dashoffset="60" stroke-linecap="round" transform="rotate(-90 110 110)"></circle>
+                                                    <circle cx="110" cy="110" r="75" fill="none" stroke="#4A00E0" stroke-width="12" stroke-dasharray="471.2" stroke-dashoffset="94" stroke-linecap="round" transform="rotate(-90 110 110)"></circle>
+                                                    <circle cx="110" cy="110" r="55" fill="none" stroke="#38ef7d" stroke-width="12" stroke-dasharray="345.6" stroke-dashoffset="35" stroke-linecap="round" transform="rotate(-90 110 110)"></circle>
+                                                </svg>
+                                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
+                                                    <h2 style="font-size: 2.8rem; margin: 0; font-weight: 700;">84%</h2>
+                                                    <p style="margin: 0; font-size: 1rem;">Success Rate</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Legend -->
+                                            <div style="margin-top: 20px; text-align: center;">
+                                                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                                                    <span style="width: 12px; height: 12px; background: #FF416C; border-radius: 50%; display: inline-block; margin-right: 8px;"></span>
+                                                    <span style="color: white; font-size: 0.9rem;">Academic Success</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                                                    <span style="width: 12px; height: 12px; background: #4A00E0; border-radius: 50%; display: inline-block; margin-right: 8px;"></span>
+                                                    <span style="color: white; font-size: 0.9rem;">Career Readiness</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center; justify-content: center;">
+                                                    <span style="width: 12px; height: 12px; background: #38ef7d; border-radius: 50%; display: inline-block; margin-right: 8px;"></span>
+                                                    <span style="color: white; font-size: 0.9rem;">Personal Growth</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>Drive Student Success</h3>
+                            <p>Make data-driven decisions to enhance education outcomes.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Table Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title mb-4">
+                <i class="fas fa-history me-2"></i>Prediction History
+            </h2>
+            <div class="table-container">
+                <table class="table" id="prediction-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Attendance</th>
+                            <th>Homework</th>
+                            <th>Test Scores</th>
+                            <th>Prediction</th>
+                            <th>Confidence</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Records loaded dynamically -->
+                    </tbody>
+                </table>
+                <div id="loader">
+                    <i class="fas fa-circle-notch fa-spin me-2"></i>Loading predictions...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prediction Details Modal -->
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">Student Performance Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="student-info" id="student-details">
+                        <!-- Student details injected here -->
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="studentChart"></canvas>
+                    </div>
+                    <div class="mt-4" id="prediction-summary">
+                        <!-- Prediction summary injected here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Footer -->
     <footer>
-        <span>EduPredict &copy; 2025. All rights reserved.</span>
+        <div class="container">
+            <span>Education Prediction &copy; 2025. All rights reserved.</span>
+        </div>
     </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Infinite Scroll and Visualization Logic -->
+    <script>
+        // Variables for infinite scrolling
+        let skip = 0;
+        const limit = 20;
+        let isLoading = false;
+        let hasMoreData = true;
+        let counter = 1;
+        let chart = null;
+
+        // Load prediction data
+        function loadPredictions() {
+            if (isLoading || !hasMoreData) return;
+            
+            isLoading = true;
+            document.getElementById('loader').innerHTML = '<i class="fas fa-circle-notch fa-spin me-2"></i>Loading predictions...';
+            
+            // Fetch predictions from API
+            fetch(`/api/predictions?skip=${skip}&limit=${limit}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('table-body');
+                    
+                    // Check if we have data
+                    if (data.length === 0) {
+                        hasMoreData = false;
+                        document.getElementById('loader').innerHTML = 'No more records to display';
+                        return;
+                    }
+                    
+                    // Add each prediction to the table
+                    data.forEach(prediction => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${counter++}</td>
+                            <td>${prediction.student_id}</td>
+                            <td>${prediction.name}</td>
+                            <td>${prediction.email}</td>
+                            <td>${prediction.attendance}%</td>
+                            <td>${prediction.homework_completion}%</td>
+                            <td>${prediction.test_scores}%</td>
+                            <td>
+                                <span class="badge ${getBadgeClass(prediction.prediction)}">
+                                    ${prediction.prediction}
+                                </span>
+                            </td>
+                            <td>${(prediction.confidence * 100).toFixed(1)}%</td>
+                            <td>${formatDate(prediction.timestamp)}</td>
+                        `;
+                        
+                        // Add click event to show details modal
+                        row.addEventListener('click', () => showPredictionDetails(prediction));
+                        tableBody.appendChild(row);
+                    });
+                    
+                    // Update skip for next load
+                    skip += data.length;
+                    isLoading = false;
+                })
+                .catch(error => {
+                    console.error('Error loading predictions:', error);
+                    document.getElementById('loader').innerHTML = 'Error loading data. <a href="#" onclick="loadPredictions()">Try again</a>';
+                    isLoading = false;
+                });
+        }
+        
+        // Helper function to determine badge class based on prediction
+        function getBadgeClass(prediction) {
+            switch(prediction.toLowerCase()) {
+                case 'excellent':
+                    return 'badge-success';
+                case 'good':
+                    return 'badge-info';
+                case 'average':
+                    return 'badge-warning';
+                case 'needs improvement':
+                    return 'badge-danger';
+                default:
+                    return 'badge-info';
+            }
+        }
+        
+        // Format date string
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        }
+        
+        // Show prediction details in modal
+        function showPredictionDetails(prediction) {
+            // Set student details
+            document.getElementById('student-details').innerHTML = `
+                <h5><i class="fas fa-user-graduate me-2"></i>${prediction.name}</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Student ID:</strong> ${prediction.student_id}</p>
+                        <p><strong>Email:</strong> ${prediction.email}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Prediction:</strong> <span class="badge ${getBadgeClass(prediction.prediction)}">${prediction.prediction}</span></p>
+                        <p><strong>Confidence:</strong> ${(prediction.confidence * 100).toFixed(1)}%</p>
+                    </div>
+                </div>
+            `;
+            
+            // Set prediction summary
+            document.getElementById('prediction-summary').innerHTML = `
+                <h5 class="mb-3">Prediction Summary</h5>
+                <p>Based on the student's performance metrics, the prediction system indicates 
+                   a <strong>${prediction.prediction.toLowerCase()}</strong> outcome with 
+                   ${(prediction.confidence * 100).toFixed(1)}% confidence. This assessment 
+                   considers attendance, homework completion, and test scores as key factors.</p>
+            `;
+            
+            // Create visualization chart
+            const ctx = document.getElementById('studentChart').getContext('2d');
+            
+            // Clear previous chart if it exists
+            if (chart) {
+                chart.destroy();
+            }
+            
+            // Prepare data for chart
+            let chartData = {
+                labels: ['Attendance', 'Homework Completion', 'Test Scores', 'Overall Score'],
+                datasets: [{
+                    label: 'Student Performance',
+                    data: [
+                        prediction.attendance,
+                        prediction.homework_completion,
+                        prediction.test_scores,
+                        prediction.prediction_score
+                    ],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)',
+                        'rgba(255, 99, 132, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            };
+            
+            // Create chart
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
+            modal.show();
+        }
+        
+        // Initialize infinite scroll detection
+        window.addEventListener('scroll', function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500 && !isLoading) {
+                loadPredictions();
+            }
+        });
+        
+        // Initial load when page is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load initial batch of predictions
+            loadPredictions();
+            
+            // Initialize any tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
 </body>
 </html>
