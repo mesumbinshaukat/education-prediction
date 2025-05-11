@@ -7,6 +7,7 @@ import numpy as np
 from fpdf import FPDF  # For generating PDF reports
 from config import get_db
 from functools import wraps
+from routes.student_analytics import student_analytics
 # from model import predict_performance
 
 app = Flask(__name__)
@@ -28,6 +29,9 @@ def login_required(f):
 @login_required  # Protect the home route
 def index():
     return render_template('index.html')
+
+# Register the student_analytics blueprint
+app.register_blueprint(student_analytics)
 
 # User Registration
 @app.route('/register', methods=['POST', 'GET'])
@@ -85,36 +89,44 @@ def logout():
 @app.route('/predict', methods=['POST'])
 @login_required
 def predict():
-    # Collect the features for prediction
-    name = request.form['name']
-    student_id = request.form['student_id']
-    email = request.form['email']
-    attendance = float(request.form['attendance'])
-    homework_completion = float(request.form['homework_completion'])
-    test_scores = float(request.form['test_scores'])
+    try:
+        name = request.form['name']
+        student_id = request.form['student_id']
+        email = request.form['email']
+        attendance = float(request.form['attendance'])
+        homework_completion = float(request.form['homework_completion'])
+        test_scores = float(request.form['test_scores'])
 
-    # Use formula to calculate percentage and prediction
-    percentage = (test_scores * 0.5) + (attendance * 0.3) + (homework_completion * 0.2)
-    prediction = 1 if percentage > 60 else 0
-    probability = round(percentage, 2)
+        percentage = (test_scores * 0.5) + (attendance * 0.3) + (homework_completion * 0.2)
+        prediction = 1 if percentage > 60 else 0
+        probability = round(percentage, 2)
 
-    # Store student and prediction details in the session
-    student_data = {
-        'name': name,
-        'student_id': student_id,
-        'email': email,
-        'attendance': attendance,
-        'homework_completion': homework_completion,
-        'test_scores': test_scores,
-        'prediction': prediction,
-        'probability': probability,
-    }
-    session['student_data'] = student_data
+        student_data = {
+            'name': name,
+            'student_id': student_id,
+            'email': email,
+            'attendance': attendance,
+            'homework_completion': homework_completion,
+            'test_scores': test_scores,
+            'prediction': prediction,
+            'probability': probability,
+            'created_at': datetime.now()
+        }
 
-    # Prediction message
-    prediction_message = "Good Result! The student is likely to perform well." if prediction == 1 else "Bad Result! The student may not succeed based on current indicators."
+        # Save to session
+        session['student_data'] = student_data
 
-    return render_template('result.html', prediction=prediction, probability=probability, prediction_message=prediction_message, student=student_data)
+        # Save to MongoDB (new addition)
+        db.predictionHistory.insert_one(student_data)
+
+        prediction_message = "Good Result! The student is likely to perform well." if prediction == 1 else "Bad Result! The student may not succeed based on current indicators."
+
+        return render_template('result.html', prediction=prediction, probability=probability, prediction_message=prediction_message, student=student_data)
+
+    except Exception as e:
+        flash(f"Prediction failed: {e}", 'danger')
+        return redirect(url_for('index'))
+
 
 # PDF Report Generation
 @app.route('/report/<student_id>', methods=['GET'])
