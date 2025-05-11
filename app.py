@@ -89,6 +89,13 @@ def logout():
 @login_required
 def predict():
     try:
+        # Debug logging
+        print(f"Form data received: {request.form}")
+        print(f"Session data: {session}")
+
+        if 'username' not in session:
+            flash("Please login to make predictions", 'danger')
+            return redirect(url_for('login'))
         name = request.form['name']
         student_id = request.form['student_id']
         email = request.form['email']
@@ -97,12 +104,18 @@ def predict():
         test_scores = float(request.form['test_scores'])
 
         percentage = (test_scores * 0.5) + (attendance * 0.3) + (homework_completion * 0.2)
-        prediction = 1 if percentage > 60 else 0
+        
+        # Calculate prediction status based on percentage
+        if percentage >= 80:
+            prediction_text = "Excellent"
+        elif percentage >= 60:
+            prediction_text = "Good"
+        else:
+            prediction_text = "Needs Improvement"
+            
+        prediction = 1 if percentage >= 60 else 0  # Keep for backward compatibility
         probability = round(percentage, 2)
         confidence = probability / 100.0  # Convert to 0-1 range for consistency
-
-        # Convert numeric prediction to text status
-        prediction_text = "Good" if prediction == 1 else "Needs Improvement"
         
         # Create predicted_scores object for visualization
         predicted_scores = {
@@ -169,7 +182,7 @@ def predict():
                 print("Best_model.pkl updated successfully.")
         # --- END: Retrain and save the model ---
 
-        return render_template('result.html', prediction=prediction, probability=probability, prediction_message=prediction_message, student=student_data)
+        return render_template('result.html', prediction=prediction_text, probability=probability, prediction_message=prediction_message, student=prediction_data)
 
     except Exception as e:
         flash(f"Prediction failed: {e}", 'danger')
@@ -183,7 +196,8 @@ def report(student_id):
     
     if student and student['student_id'] == student_id:
         try:
-            prediction = 'Good Student' if student['prediction'] == 1 else 'Needs Improvement'
+            # Use the text-based prediction directly
+            prediction = student['prediction']
             probability = student['probability']
             percentage = round((student['test_scores'] * 0.5) + (student['attendance'] * 0.3) + (student['homework_completion'] * 0.2), 2)
 

@@ -148,28 +148,28 @@
                                 <div>
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <span style="font-size:0.95rem; color:#aaa;">{{ pred.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
-                                        <a href="{{ url_for('report', student_id=pred.student_data.student_id) }}" class="btn btn-primary btn-sm">
+                                        <a href="{{ url_for('report', student_id=pred.student_id) }}" class="btn btn-primary btn-sm">
                                             <i class="fas fa-file-pdf"></i> Report
                                         </a>
                                     </div>
-                                    <h5 class="card-title mb-1" style="color:#ff416c;">{{ pred.student_data.name }}</h5>
+                                    <h5 class="card-title mb-1" style="color:#ff416c;">{{ pred.name }}</h5>
                                     <div class="mb-2" style="font-size:1rem;">
-                                        <strong>ID:</strong> {{ pred.student_data.student_id }}<br>
-                                        <strong>Email:</strong> {{ pred.student_data.email }}
+                                        <strong>ID:</strong> {{ pred.student_id }}<br>
+                                        <strong>Email:</strong> {{ pred.email }}
                                     </div>
                                     <div class="row mb-2" style="font-size:1rem;">
-                                        <div class="col-6"><strong>Attendance:</strong> {{ pred.student_data.attendance }}%</div>
-                                        <div class="col-6"><strong>Homework:</strong> {{ pred.student_data.homework_completion }}%</div>
-                                        <div class="col-12"><strong>Test Scores:</strong> {{ pred.student_data.test_scores }}%</div>
+                                        <div class="col-6"><strong>Attendance:</strong> {{ pred.attendance }}%</div>
+                                        <div class="col-6"><strong>Homework:</strong> {{ pred.homework_completion }}%</div>
+                                        <div class="col-12"><strong>Test Scores:</strong> {{ pred.test_scores }}%</div>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center mt-2" style="gap:18px;">
                                     <div>
                                         <strong>Prediction:</strong>
-                                        {% if pred.prediction == 1 %}
-                                            <span class="badge bg-success">Good</span>
+                                        {% if pred.prediction in ['Good', 'Excellent'] %}
+                                            <span class="badge bg-success">{{ pred.prediction }}</span>
                                         {% else %}
-                                            <span class="badge bg-danger">Needs Improvement</span>
+                                            <span class="badge bg-danger">{{ pred.prediction }}</span>
                                         {% endif %}
                                     </div>
                                     <div><strong>Probability:</strong> {{ pred.probability }}%</div>

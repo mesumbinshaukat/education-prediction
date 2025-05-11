@@ -137,13 +137,13 @@
                 </a>
                 <h3 class="card-title mb-0" style="flex: 1; color: #ff416c;">Performance Prediction</h3>
             </div>
-            {% if prediction == 1 %}
+            {% if prediction in ['Good', 'Excellent'] %}
                 <div class="alert alert-success" role="alert">
-                    <i class="fas fa-check-circle"></i> <strong>Good Result!</strong> The student is likely to perform well.
+                    <i class="fas fa-check-circle"></i> <strong>{{ prediction }} Result!</strong> The student is likely to perform well.
                 </div>
-            {% elif prediction == 0 %}
+            {% else %}
                 <div class="alert alert-danger" role="alert">
-                    <i class="fas fa-times-circle"></i> <strong>Bad Result!</strong> The student may not succeed based on current indicators.
+                    <i class="fas fa-times-circle"></i> <strong>{{ prediction }}</strong> The student may need additional support based on current indicators.
                 </div>
             {% endif %}
             <p class="card-text">Prediction: <strong>{{ prediction }}</strong></p>
