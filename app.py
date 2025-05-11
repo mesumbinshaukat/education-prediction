@@ -4,14 +4,15 @@ from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import numpy as np
-from fpdf import FPDF  # For generating PDF reports
+from fpdf import FPDF
 from config import get_db
 from functools import wraps
-from routes.student_analytics import student_analytics
-# from model import predict_performance
+import pickle
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Set a secret key for sessions
+app.secret_key = 'your_secret_key'
 
 # Connect to MongoDB
 db = get_db()
@@ -26,14 +27,10 @@ def login_required(f):
     return decorated_function
 
 @app.route('/')
-@login_required  # Protect the home route
+@login_required
 def index():
     return render_template('index.html')
 
-# Register the student_analytics blueprint
-app.register_blueprint(student_analytics)
-
-# User Registration
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
@@ -53,10 +50,8 @@ def register():
             return redirect(url_for('login'))
         else:
             flash('Username already exists!', 'danger')
-
     return render_template('register.html')
 
-# User Login
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
@@ -68,15 +63,13 @@ def login():
             user = users.find_one({"username": username})
             if user and check_password_hash(user['password'], password):
                 session['username'] = username
-                session['email'] = user['email']  # Add email to session
+                session['email'] = user['email']
                 flash('Login successful!', 'success')
                 return redirect(url_for('index'))
             else:
                 flash('Invalid credentials, please try again.', 'danger')
-
     return render_template('login.html')
 
-# User Logout
 @app.route('/logout')
 @login_required
 def logout():
@@ -85,7 +78,6 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
 
-# Prediction Route
 @app.route('/predict', methods=['POST'])
 @login_required
 def predict():
@@ -113,13 +105,34 @@ def predict():
             'created_at': datetime.now()
         }
 
-        # Save to session
-        session['student_data'] = student_data
-
-        # Save to MongoDB (new addition)
         db.predictionHistory.insert_one(student_data)
+        stored = db.predictionHistory.find_one({'student_id': student_id})
+        stored.pop('_id', None)
+        session['student_data'] = stored
 
         prediction_message = "Good Result! The student is likely to perform well." if prediction == 1 else "Bad Result! The student may not succeed based on current indicators."
+
+        # --- START: Retrain and save the model ---
+        history = list(db.predictionHistory.find({}))
+
+        if len(history) >= 5:  # Minimum data to avoid crash
+            X = np.array([[s['attendance'], s['homework_completion'], s['test_scores']] for s in history])
+            y = np.array([s['prediction'] for s in history])
+
+            scaler = StandardScaler()
+            X_scaled = scaler.fit_transform(X)
+
+            model = LogisticRegression()
+            model.fit(X_scaled, y)
+          
+            with open('./models/scaler.pkl', 'wb') as f:
+                pickle.dump(scaler, f)
+                print("Scaler.pkl updated successfully.")
+
+            with open('./models/best_model.pkl', 'wb') as f:
+                pickle.dump(model, f)
+                print("Best_model.pkl updated successfully.")
+        # --- END: Retrain and save the model ---
 
         return render_template('result.html', prediction=prediction, probability=probability, prediction_message=prediction_message, student=student_data)
 
