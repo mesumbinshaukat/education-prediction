@@ -1,3 +1,54 @@
+<!-- result.html -->
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Prediction Result</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Student Information</h3>
+                    <p><strong>Name:</strong> {{ student.name }}</p>
+                    <p><strong>Student ID:</strong> {{ student.student_id }}</p>
+                    <p><strong>Email:</strong> {{ student.email }}</p>
+                </div>
+                <div class="col-md-6">
+                    <h3>Performance Metrics</h3>
+                    <p><strong>Attendance:</strong> {{ student.attendance }}%</p>
+                    <p><strong>Homework Completion:</strong> {{ student.homework_completion }}%</p>
+                    <p><strong>Test Scores:</strong> {{ student.test_scores }}%</p>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="alert {{ 'alert-success' if prediction in ['Good', 'Excellent'] else 'alert-warning' }}">
+                        <h4 class="alert-heading">{{ prediction }}</h4>
+                        <p>{{ prediction_message }}</p>
+                        <hr>
+                        <p class="mb-0">Success Probability: {{ probability }}%</p>
+                    </div>
+                </div>
+            </div>
+
+            {% if show_report %}
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <a href="{{ url_for('report', student_id=student.student_id) }}" 
+                       class="btn btn-primary">
+                        <i class="fas fa-download"></i> Download Report
+                    </a>
+                    <a href="{{ url_for('prediction_history') }}" 
+                       class="btn btn-secondary ms-2">
+                        <i class="fas fa-history"></i> View History
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

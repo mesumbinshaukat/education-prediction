@@ -1,67 +1,456 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Student Demographic Analytics</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Analytics</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
         body {
-            background-color: #f5f6fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
+            font-family: 'Montserrat', sans-serif;
+            background: #181A1B;
+            min-height: 100vh;
+            color: #F5F6FA;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
+        .navbar {
+            background: #23272B !important;
+            border-bottom: 2px solid #444950;
         }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #2f3640;
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.7rem;
+            letter-spacing: 1px;
+            color: #F5F6FA !important;
         }
-
-        .chart-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
+        .navbar-nav .nav-link {
+            color: #F5F6FA !important;
+            font-weight: 500;
+            margin-left: 10px;
         }
-
-        .chart {
-            background-color: #ffffff;
-            padding: 20px;
+        .navbar-nav .nav-link.active {
+            color: #fff !important;
+            text-decoration: underline;
+        }
+        .main-content {
+            min-height: 80vh;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        .card {
+            position: relative;
+            border-radius: 18px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+            background: #23272B;
+            margin: 20px auto;
+            padding: 24px;
+            color: #F5F6FA;
+        }
+        .card h2 {
+            color: #F5F6FA;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+        }
+        .card h3 {
+            color: #ff416c;
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+        }
+        .stats-card {
+            background: #2C3238;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 16px;
+            height: 100%;
+            transition: transform 0.2s;
         }
-
-        .chart img {
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        .stats-card h4 {
+            color: #F5F6FA;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .stats-card .icon {
+            background: #444950;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .stats-card .icon i {
+            font-size: 1.5rem;
+            color: #ff416c;
+        }
+        .stats-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #F5F6FA;
+        }
+        .stats-card .label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        .table {
+            color: #F5F6FA;
+            margin-bottom: 0;
+        }
+        .table thead th {
+            background: #444950;
+            color: #F5F6FA;
+            font-weight: 600;
+            border: none;
+        }
+        .table tbody tr {
+            background-color: #23272B;
+            color: #F5F6FA;
+        }
+        .table tbody tr:hover {
+            background-color: #2C3238;
+        }
+        .btn-primary {
+            background: #444950;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: #F5F6FA;
+            transition: background 0.2s;
+        }
+        .btn-primary:hover {
+            background: #23272B;
+            color: #fff;
+        }
+        .chart-container {
+            height: 400px;
             width: 100%;
-            height: auto;
+            background: #2C3238;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
-
-        .error {
-            color: red;
+        footer {
+            background: #23272B;
+            color: #F5F6FA;
             text-align: center;
-            font-size: 18px;
-            margin-top: 40px;
+            padding: 18px 0 15px 0;
+            margin-bottom: 0;
+            border-top: 2px solid #444950;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-top: 26px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Student Demographic Analytics</h1>
-
-        {% if error %}
-            <div class="error">{{ error }}</div>
-        {% else %}
-            <div class="chart-container">
-                {% for image in images %}
-                <div class="chart">
-                    <img src="data:image/png;base64,{{ image }}">
-                </div>
-                {% endfor %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Education Prediction</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('prediction_history') }}">Prediction History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('analytics') }}">Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                </ul>
             </div>
-        {% endif %}
+        </div>
+    </nav>
+
+    <div class="main-content container">
+        <div class="card">
+            <h2 class="text-center">Student Performance Analytics</h2>
+            
+            <!-- Summary Stats -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Total Students</h4>
+                        <div class="value">{{ analytics.total_students }}</div>
+                        <div class="label">Predictions made</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h4>Good Predictions</h4>
+                        <div class="value">{{ analytics.good_predictions }}</div>
+                        <div class="label">Students likely to succeed</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h4>Needs Improvement</h4>
+                        <div class="value">{{ analytics.needs_improvement }}</div>
+                        <div class="label">Students at risk</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Avg. Performance</h4>
+                        <div class="value">{{ analytics.avg_probability }}%</div>
+                        <div class="label">Average success rate</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Distribution Chart -->
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Performance Distribution</h3>
+                    <div class="chart-container" id="performanceChart">
+                        {% if predictions|length == 0 %}
+                        <div class="alert alert-info text-center my-5">No data available to display performance chart.</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3>Factor Importance</h3>
+                    <div class="chart-container" id="factorChart"></div>
+                </div>
+            </div>
+            
+            <!-- Average Metrics Chart -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <h3>Average Performance Metrics</h3>
+                    <div class="chart-container" id="metricsChart">
+                        {% if analytics.total_students == 0 %}
+                        <div class="alert alert-info text-center my-5">No data available to display metrics chart.</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Predictions Table -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h3>Recent Predictions</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>ID</th>
+                                    <th>Attendance</th>
+                                    <th>Homework</th>
+                                    <th>Test Scores</th>
+                                    <th>Prediction</th>
+                                    <th>Probability</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pred in predictions[:10] %}
+                                <tr>
+                                    <td>{{ pred.name }}</td>
+                                    <td>{{ pred.student_id }}</td>
+                                    <td>{{ pred.attendance }}%</td>
+                                    <td>{{ pred.homework_completion }}%</td>
+                                    <td>{{ pred.test_scores }}%</td>
+                                    <td>
+                                        {% if pred.prediction == 1 or pred.prediction == "Good" or pred.prediction == "Excellent" %}
+                                            <span class="badge bg-success">{{ pred.prediction if pred.prediction is string else "Good" }}</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">{{ pred.prediction if pred.prediction is string else "Needs Improvement" }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ pred.probability }}%</td>
+                                    <td>{{ pred.formatted_date }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <footer>
+        <span>EduPredict &copy; 2025. All rights reserved.</span>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Plotly Charts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Performance Distribution Chart
+            var performanceData = [
+                {% for pred in predictions %}
+                    {% if pred.probability is defined and pred.probability is not none %}
+                        {{ pred.probability }},
+                    {% endif %}
+                {% endfor %}
+            ];
+            
+            // Check if we have data
+            if (performanceData.length === 0 || performanceData.every(item => item === undefined)) {
+                document.getElementById('performanceChart').innerHTML = '<div class="alert alert-info text-center my-5">No performance data available to display chart.</div>';
+            } else {
+                var trace = {
+                    x: performanceData,
+                    type: 'histogram',
+                    marker: {
+                        color: '#ff416c',
+                        line: {
+                            color: '#fff',
+                            width: 1
+                        }
+                    },
+                    opacity: 0.75,
+                    nbinsx: 10
+                };
+
+                var layout = {
+                    title: 'Student Performance Distribution',
+                    xaxis: {
+                        title: 'Performance Probability (%)',
+                        color: '#F5F6FA'
+                    },
+                    yaxis: {
+                        title: 'Number of Students',
+                        color: '#F5F6FA'
+                    },
+                    paper_bgcolor: '#2C3238',
+                    plot_bgcolor: '#2C3238',
+                    font: {
+                        color: '#F5F6FA'
+                    },
+                    margin: {
+                        l: 50,
+                        r: 30,
+                        b: 50,
+                        t: 60,
+                        pad: 10
+                    },
+                    responsive: true
+                };
+
+                Plotly.newPlot('performanceChart', [trace], layout);
+            }
+
+            // Factor Importance Chart
+            var factors = ['Test Scores', 'Attendance', 'Homework'];
+            var weights = [0.5, 0.3, 0.2]; // Weights according to formula in app.py
+
+            // Always show factor chart since it's static data
+            var barTrace = {
+                x: factors,
+                y: weights,
+                type: 'bar',
+                marker: {
+                    color: ['#4CAF50', '#2196F3', '#FFC107'],
+                    line: {
+                        color: '#fff',
+                        width: 1
+                    }
+                }
+            };
+
+            var barLayout = {
+                title: 'Weight of Each Factor in Prediction',
+                xaxis: {
+                    color: '#F5F6FA'
+                },
+                yaxis: {
+                    title: 'Weight in Calculation',
+                    color: '#F5F6FA'
+                },
+                paper_bgcolor: '#2C3238',
+                plot_bgcolor: '#2C3238',
+                font: {
+                    color: '#F5F6FA'
+                },
+                margin: {
+                    l: 50,
+                    r: 30,
+                    b: 80,
+                    t: 60,
+                    pad: 10
+                }
+            };
+
+            Plotly.newPlot('factorChart', [barTrace], barLayout);
+            
+            // Metrics comparison chart (only if data exists)
+            if ({{ analytics.total_students }} > 0) {
+                var metricsData = {
+                    x: ['Attendance', 'Homework', 'Test Scores', 'Overall'],
+                    y: [{{ analytics.avg_attendance }}, {{ analytics.avg_homework }}, {{ analytics.avg_tests }}, {{ analytics.avg_probability }}],
+                    type: 'bar',
+                    marker: {
+                        color: ['#2196F3', '#FFC107', '#4CAF50', '#ff416c'],
+                        line: {
+                            color: '#fff',
+                            width: 1
+                        }
+                    }
+                };
+                
+                var metricsLayout = {
+                    title: 'Average Student Performance by Category',
+                    xaxis: {
+                        color: '#F5F6FA'
+                    },
+                    yaxis: {
+                        title: 'Average Score (%)',
+                        color: '#F5F6FA'
+                    },
+                    paper_bgcolor: '#2C3238',
+                    plot_bgcolor: '#2C3238',
+                    font: {
+                        color: '#F5F6FA'
+                    },
+                    margin: {
+                        l: 50,
+                        r: 30,
+                        b: 80,
+                        t: 60,
+                        pad: 10
+                    }
+                };
+                
+                Plotly.newPlot('metricsChart', [metricsData], metricsLayout);
+            }
+        });
+    </script>
 </body>
 </html>

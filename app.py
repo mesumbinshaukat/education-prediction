@@ -1,14 +1,18 @@
 import os
 import json
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file, jsonify, Response
+from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file, after_this_request
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import numpy as np
+import pandas as pd
 from fpdf import FPDF
-from config import get_db
+from config import get_db, logger
 from functools import wraps
 import pickle
+import os
+import logging
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from bson import ObjectId, json_util
@@ -85,33 +89,55 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
 
+# Define feature names for consistency
+FEATURE_NAMES = ['attendance', 'homework_completion', 'test_scores']
+
 @app.route('/predict', methods=['POST'])
 @login_required
 def predict():
     try:
+        # Validate form data
+        required_fields = ['name', 'student_id', 'email', 'attendance', 'homework_completion', 'test_scores']
+        for field in required_fields:
+            if field not in request.form:
+                flash(f"Missing required field: {field}", 'danger')
+                return redirect(url_for('index'))
+
         # Debug logging
-        print(f"Form data received: {request.form}")
-        print(f"Session data: {session}")
+        logger.debug(f"Form data received: {request.form}")
 
         if 'username' not in session:
             flash("Please login to make predictions", 'danger')
             return redirect(url_for('login'))
+
+        # Get and validate form data
         name = request.form['name']
         student_id = request.form['student_id']
         email = request.form['email']
-        attendance = float(request.form['attendance'])
-        homework_completion = float(request.form['homework_completion'])
-        test_scores = float(request.form['test_scores'])
+        
+        try:
+            attendance = float(request.form['attendance'])
+            homework_completion = float(request.form['homework_completion'])
+            test_scores = float(request.form['test_scores'])
+        except ValueError:
+            flash("Invalid numerical values provided", 'danger')
+            return redirect(url_for('index'))
 
+        logger.info(f"Processing prediction for student {student_id}")
+
+        # Calculate percentage (for fallback and display)
         percentage = (test_scores * 0.5) + (attendance * 0.3) + (homework_completion * 0.2)
         
         # Calculate prediction status based on percentage
         if percentage >= 80:
             prediction_text = "Excellent"
+            prediction_message = "Excellent! The student shows strong potential."
         elif percentage >= 60:
             prediction_text = "Good"
+            prediction_message = "Good Result! The student is likely to perform well."
         else:
             prediction_text = "Needs Improvement"
+            prediction_message = "Attention Needed: The student may need additional support."
             
         prediction = 1 if percentage >= 60 else 0  # Keep for backward compatibility
         probability = round(percentage, 2)
@@ -150,172 +176,325 @@ def predict():
         }
         
         # Insert the prediction once
-        result = db.predictionHistory.insert_one(prediction_data)
+        try:
+            result = db.predictionHistory.insert_one(prediction_data)
+            logger.info(f"Prediction saved with ID: {result.inserted_id}")
+        except Exception as db_error:
+            logger.error(f"Database error: {str(db_error)}")
+            flash("Failed to save prediction to database, but will continue with results", 'warning')
+
+        # Store in session for PDF generation - create a simplified version that avoids complex objects
+        session['student_data'] = {
+            'name': name,
+            'student_id': student_id,
+            'email': email,
+            'attendance': attendance,
+            'homework_completion': homework_completion,
+            'test_scores': test_scores,
+            'prediction': prediction_text,
+            'probability': probability
+        }
         
-        # Store in session for PDF generation
-        prediction_data_for_session = prediction_data.copy()
-        prediction_data_for_session.pop('_id', None)  # Remove ObjectId for session
-        session['student_data'] = prediction_data_for_session
-    
-    
-        prediction_message = "Good Result! The student is likely to perform well." if prediction == 1 else "Bad Result! The student may not succeed based on current indicators."
+        logger.info(f"Session data stored for student: {student_id}")
 
         # --- START: Retrain and save the model ---
-        history = list(db.predictionHistory.find({}))
+        try:
+            history = list(db.predictionHistory.find({}))
 
-        if len(history) >= 5:  # Minimum data to avoid crash
-            X = np.array([[s['attendance'], s['homework_completion'], s['test_scores']] for s in history])
-            y = np.array([s['prediction'] for s in history])
+            if len(history) >= 5:  # Minimum data to avoid crash
+                # Create directory if it doesn't exist
+                os.makedirs('./models', exist_ok=True)
+                
+                X = np.array([[s['attendance'], s['homework_completion'], s['test_scores']] for s in history])
+                y = np.array([s['prediction_number'] if 'prediction_number' in s else (1 if s['prediction'] in ['Good', 'Excellent'] else 0) for s in history])
 
-            scaler = StandardScaler()
-            X_scaled = scaler.fit_transform(X)
+                scaler = StandardScaler()
+                X_scaled = scaler.fit_transform(X)
 
-            model = LogisticRegression()
-            model.fit(X_scaled, y)
-          
-            with open('./models/scaler.pkl', 'wb') as f:
-                pickle.dump(scaler, f)
-                print("Scaler.pkl updated successfully.")
+                model = LogisticRegression()
+                model.fit(X_scaled, y)
+              
+                with open('./models/scaler.pkl', 'wb') as f:
+                    pickle.dump(scaler, f)
+                    logger.info("Scaler.pkl updated successfully.")
 
-            with open('./models/best_model.pkl', 'wb') as f:
-                pickle.dump(model, f)
-                print("Best_model.pkl updated successfully.")
+                with open('./models/best_model.pkl', 'wb') as f:
+                    pickle.dump(model, f)
+                    logger.info("Best_model.pkl updated successfully.")
+        except Exception as model_error:
+            logger.error(f"Error updating model: {model_error}")
         # --- END: Retrain and save the model ---
 
-        return render_template('result.html', prediction=prediction_text, probability=probability, prediction_message=prediction_message, student=prediction_data)
+        return render_template(
+            'result.html',
+            prediction=prediction_text,
+            probability=probability,
+            prediction_message=prediction_message,
+            student=prediction_data,
+            show_report=True  # Flag to show report download button
+        )
 
     except Exception as e:
         flash(f"Prediction failed: {e}", 'danger')
         return redirect(url_for('index'))
 
-# PDF Report Generation
 @app.route('/report/<student_id>', methods=['GET'])
 @login_required
 def report(student_id):
-    student = session.get('student_data')
-    
-    if student and student['student_id'] == student_id:
+    try:
+        # Try to get student data from session first
+        student = session.get('student_data')
+        logger.debug(f"Session student data: {student}")
+        
+        # Verify we have the correct student ID
+        if not student or str(student.get('student_id')) != str(student_id):
+            logger.info(f"Student {student_id} not found in session, trying database")
+            # Try to get from database if not in session
+            student = db.predictionHistory.find_one({"student_id": student_id})
+            if not student:
+                flash("Student data not found for report generation", 'danger')
+                return redirect(url_for('prediction_history'))
+        
+        # Create temp directory if it doesn't exist
+        temp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'temp')
+        os.makedirs(temp_dir, exist_ok=True)
+        
+        # Generate PDF
+        pdf = FPDF()
+        pdf.add_page()
+        
+        # Header
+        pdf.set_font('Arial', 'B', 16)
+        pdf.cell(0, 10, 'Student Performance Report', 0, 1, 'C')
+        pdf.ln(10)
+        
+        # Student Information Section
+        pdf.set_font('Arial', 'B', 12)
+        pdf.cell(0, 10, 'Student Information:', 0, 1)
+        pdf.set_font('Arial', '', 12)
+        pdf.cell(0, 10, f'Name: {student["name"]}', 0, 1)
+        pdf.cell(0, 10, f'Student ID: {student["student_id"]}', 0, 1)
+        pdf.cell(0, 10, f'Email: {student["email"]}', 0, 1)
+        pdf.ln(5)
+        
+        # Performance Metrics Section
+        pdf.set_font('Arial', 'B', 12)
+        pdf.cell(0, 10, 'Performance Metrics:', 0, 1)
+        pdf.set_font('Arial', '', 12)
+        pdf.cell(0, 10, f'Attendance: {student["attendance"]}%', 0, 1)
+        pdf.cell(0, 10, f'Homework Completion: {student["homework_completion"]}%', 0, 1)
+        pdf.cell(0, 10, f'Test Scores: {student["test_scores"]}%', 0, 1)
+        pdf.ln(5)
+        
+        # Prediction Results Section
+        pdf.set_font('Arial', 'B', 12)
+        pdf.cell(0, 10, 'Prediction Result:', 0, 1)
+        pdf.set_font('Arial', '', 12)
+        
+        # Get prediction text and determine status
+        prediction = student.get('prediction', 'Undefined')
+        probability = student.get('probability', 0)
+        
+        if isinstance(prediction, (int, float)):
+            prediction_text = "Good" if prediction == 1 else "Needs Improvement"
+        else:
+            prediction_text = prediction
+
+        pdf.cell(0, 10, f'Performance Prediction: {prediction_text}', 0, 1)
+        pdf.cell(0, 10, f'Success Probability: {probability}%', 0, 1)
+        
+        # Recommendations Section
+        pdf.ln(5)
+        pdf.set_font('Arial', 'B', 12)
+        pdf.cell(0, 10, 'Recommendations:', 0, 1)
+        pdf.set_font('Arial', '', 12)
+        
+        # Convert probability to float for comparison
         try:
-            # Use the text-based prediction directly
-            prediction = student['prediction']
-            probability = student['probability']
-            percentage = round((student['test_scores'] * 0.5) + (student['attendance'] * 0.3) + (student['homework_completion'] * 0.2), 2)
-
-       # ... inside your report() function, replace the PDF generation section with:
-
-            pdf = FPDF()
-            pdf.set_auto_page_break(auto=True, margin=15)
-            pdf.add_page()
-
-            # Header Bar
-            pdf.set_fill_color(255, 65, 108)  # #ff416c
-            pdf.rect(0, 0, 210, 20, 'F')
-            pdf.set_text_color(255, 255, 255)
-            pdf.set_font("Arial", 'B', 16)
-            pdf.cell(0, 10, "STUDENT APPRAISAL REPORT", ln=True, align='C')
-            pdf.set_font("Arial", '', 12)
-            pdf.cell(0, 10, "MONTH OF MAY 2025", ln=True, align='C')
-            pdf.ln(5)
-
-            # Reset text color for body
-            pdf.set_text_color(40, 40, 40)
-
-            # Student Details Section
-            pdf.set_font("Arial", 'B', 13)
-            pdf.cell(0, 10, "Student Details", ln=True)
-            pdf.set_draw_color(255, 65, 108)
-            pdf.set_line_width(0.8)
-            pdf.line(10, pdf.get_y(), 200, pdf.get_y())
-            pdf.ln(2)
-            pdf.set_font("Arial", '', 12)
-            pdf.cell(50, 10, "Student Name:", ln=False)
-            pdf.set_font("Arial", 'B', 12)
-            pdf.cell(100, 10, student['name'], ln=True)
-            pdf.set_font("Arial", '', 12)
-            pdf.cell(50, 10, "Enrollment:", ln=False)
-            pdf.set_font("Arial", 'B', 12)
-            pdf.cell(100, 10, student['student_id'], ln=True)
-            pdf.set_font("Arial", '', 12)
-            pdf.cell(50, 10, "Email:", ln=False)
-            pdf.set_font("Arial", 'B', 12)
-            pdf.cell(100, 10, student['email'], ln=True)
-            pdf.set_font("Arial", '', 12)
-            pdf.cell(50, 10, "Attendance:", ln=False)
-            pdf.set_font("Arial", 'B', 12)
-            pdf.cell(100, 10, f"{student['attendance']}", ln=True)
-            pdf.set_font("Arial", '', 12)
-            pdf.cell(50, 10, "Homework Completion:", ln=False)
-            pdf.set_font("Arial", 'B', 12)
-            pdf.cell(100, 10, f"{student['homework_completion']}", ln=True)
-            pdf.set_font("Arial", '', 12)
-            pdf.cell(50, 10, "Test Scores:", ln=False)
-            pdf.set_font("Arial", 'B', 12)
-            pdf.cell(100, 10, f"{student['test_scores']}", ln=True)
-            pdf.set_font("Arial", '', 12)
-            pdf.cell(50, 10, "Overall Percentage:", ln=False)
-            pdf.set_font("Arial", 'B', 12)
-            pdf.cell(100, 10, f"{percentage}%", ln=True)
-            pdf.set_font("Arial", '', 12)
-            pdf.cell(50, 10, "Faculty:", ln=False)
-            pdf.set_font("Arial", 'B', 12)
-            pdf.cell(100, 10, "Aseef Ahmed", ln=True)
-            pdf.set_font("Arial", '', 12)
-            pdf.cell(50, 10, "Coordinator", ln=False)
-            pdf.set_font("Arial", 'B', 12)
-            pdf.cell(100, 10, "Maham Haider", ln=True)
-
-            # Prediction and Remarks Section
-            pdf.ln(5)
-            pdf.set_draw_color(255, 65, 108)
-            pdf.set_line_width(0.8)
-            pdf.line(10, pdf.get_y(), 200, pdf.get_y())
-            pdf.ln(2)
-            pdf.set_font("Arial", 'B', 13)
-            pdf.cell(0, 10, "Remarks", ln=True)
-            pdf.set_font("Arial", '', 12)
-            pdf.set_text_color(255, 65, 108)
-            pdf.cell(0, 10, f"{prediction}", ln=True)
-            pdf.set_text_color(40, 40, 40)
-            pdf.cell(0, 10, f"Confidence: {probability}%", ln=True)
-            pdf.ln(10)
-
-            # Footer Bar
-            pdf.set_y(-25)
-            pdf.set_fill_color(255, 65, 108)
-            pdf.rect(0, pdf.get_y(), 210, 20, 'F')
-            pdf.set_text_color(255, 255, 255)
-            pdf.set_font("Arial", 'I', 10)
-            pdf.cell(0, 10, "(92-21) 36630102-3 | info@aptechnn.com | NORTH NAZIMABAD KARACHI-PAKISTAN", ln=True, align='C')
-
-            # Save the PDF
-            pdf_file = f"report_{student['student_id']}_{datetime.now().strftime('%Y%m%d%H%M%S')}.pdf"
-            pdf.output(pdf_file)
-
-            # Ensure the PDF file exists before sending it
-            if os.path.exists(pdf_file):
-                return send_file(pdf_file, as_attachment=True)
-            else:
-                flash('Error generating the PDF report', 'danger')
-                return redirect(url_for('index'))
-
+            prob_value = float(probability)
+        except (ValueError, TypeError):
+            prob_value = 0
+            
+        if prob_value >= 80:
+            recommendation = 'Excellent performance! Continue with the current study habits and consider taking on additional challenging materials.'
+        elif prob_value >= 60:
+            recommendation = 'Good performance. Focus on maintaining consistency and look for areas of potential improvement.'
+        else:
+            recommendation = 'Areas need attention. Consider increasing study hours and seeking additional support in challenging subjects.'
+        
+        pdf.multi_cell(0, 10, recommendation)
+        
+        # Footer
+        pdf.ln(10)
+        pdf.set_font('Arial', 'I', 10)
+        pdf.cell(0, 10, f'Report generated on: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}', 0, 1, 'R')
+        
+        # Generate unique filename
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        pdf_filename = os.path.join(temp_dir, f'student_report_{student_id}_{timestamp}.pdf')
+        
+        try:
+            # Save and send PDF
+            pdf.output(pdf_filename)
+            
+            return_data = send_file(
+                pdf_filename,
+                mimetype='application/pdf',
+                as_attachment=True,
+                download_name=f'student_report_{student_id}.pdf'
+            )
+            
+            # Clean up file after sending
+            @after_this_request
+            def remove_file(response):
+                try:
+                    if os.path.exists(pdf_filename):
+                        os.remove(pdf_filename)
+                except Exception as e:
+                    logger.error(f"Error removing temp file: {e}")
+                return response
+            
+            return return_data
+            
         except Exception as e:
-            flash(f"Error generating PDF: {e}", 'danger')
-            return redirect(url_for('index'))
-    else:
-        flash('Student not found!', 'danger')
-        return redirect(url_for('index'))
+            if os.path.exists(pdf_filename):
+                os.remove(pdf_filename)
+            raise e
+            
+    except Exception as e:
+        logger.error(f"Failed to generate report: {e}")
+        flash(f"Failed to generate report: {e}", 'danger')
+        return redirect(url_for('prediction_history'))
 
-# Add new route for prediction history
-@app.route('/prediction-history')
+@app.route('/prediction-history', methods=['GET'])
 @login_required
 def prediction_history():
-    # Get all predictions for the current user
-    predictions = list(db.predictionHistory.find(
-        {'username': session['username']},
-        {'_id': 0}  # Exclude MongoDB _id field
-    ).sort('timestamp', -1))  # Sort by timestamp in descending order
-    
-    return render_template('prediction_history.html', predictions=predictions)
+    try:
+        username = session.get('username')
+        user_predictions = list(db.predictionHistory.find({"username": username}).sort("timestamp", -1))
+
+        for prediction in user_predictions:
+            if 'timestamp' in prediction:
+                prediction['formatted_date'] = prediction['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+
+        return render_template('prediction_history.html', predictions=user_predictions)
+    except Exception as e:
+        flash(f"Failed to retrieve prediction history: {e}", 'danger')
+        return redirect(url_for('index'))
+
+@app.route('/analytics')
+@login_required
+def analytics():
+    try:
+        # Retry logic for MongoDB connection
+        max_retries = 3
+        retry_count = 0
+        predictions = []
+        
+        while retry_count < max_retries:
+            try:
+                predictions = list(db.predictionHistory.find({}).sort("timestamp", -1))
+                logger.info(f"Retrieved {len(predictions)} predictions for analytics")
+                break
+            except Exception as mongo_error:
+                retry_count += 1
+                logger.warning(f"MongoDB connection attempt {retry_count} failed: {str(mongo_error)}")
+                if retry_count == max_retries:
+                    flash("Unable to connect to database. Please try again later.", 'danger')
+                    return redirect(url_for('index'))
+        
+        # Process predictions
+        processed_predictions = []
+        total_attendance = 0
+        total_homework = 0
+        total_tests = 0
+        
+        for pred in predictions:
+            processed_pred = pred.copy()
+            
+            # Format date
+            processed_pred['formatted_date'] = pred['timestamp'].strftime("%Y-%m-%d %H:%M:%S") if 'timestamp' in pred else "Unknown"
+            
+            # Normalize prediction status
+            pred_status = pred.get('prediction', 'Undefined')
+            if isinstance(pred_status, (int, float)):
+                processed_pred['prediction'] = "Good" if pred_status == 1 else "Needs Improvement"
+            elif isinstance(pred_status, str):
+                pred_lower = pred_status.lower()
+                processed_pred['prediction'] = "Good" if any(x in pred_lower for x in ['good', 'excellent']) else "Needs Improvement"
+            else:
+                processed_pred['prediction'] = "Needs Improvement"
+            
+            # Calculate probability if missing
+            if 'probability' not in processed_pred or not isinstance(processed_pred['probability'], (int, float)):
+                try:
+                    attendance = float(pred.get('attendance', 0))
+                    homework = float(pred.get('homework_completion', 0))
+                    tests = float(pred.get('test_scores', 0))
+                    
+                    total_attendance += attendance
+                    total_homework += homework
+                    total_tests += tests
+                    
+                    processed_pred['probability'] = round(
+                        (tests * 0.5) + (attendance * 0.3) + (homework * 0.2),
+                        2
+                    )
+                except (ValueError, TypeError) as e:
+                    logger.warning(f"Error calculating probability for student {pred.get('student_id', 'unknown')}: {e}")
+                    processed_pred['probability'] = 0.0
+            else:
+                # Add to totals if probability exists
+                try:
+                    attendance = float(pred.get('attendance', 0))
+                    homework = float(pred.get('homework_completion', 0))
+                    tests = float(pred.get('test_scores', 0))
+                    
+                    total_attendance += attendance
+                    total_homework += homework
+                    total_tests += tests
+                except (ValueError, TypeError):
+                    pass
+            
+            processed_predictions.append(processed_pred)
+        
+        # Calculate analytics
+        total_students = len(processed_predictions)
+        if total_students > 0:
+            analytics_data = {
+                'total_students': total_students,
+                'good_predictions': sum(1 for p in processed_predictions if p['prediction'] == "Good"),
+                'needs_improvement': sum(1 for p in processed_predictions if p['prediction'] == "Needs Improvement"),
+                'avg_probability': round(sum(float(p.get('probability', 0)) for p in processed_predictions) / total_students, 1),
+                'avg_attendance': round(total_attendance / total_students, 1),
+                'avg_homework': round(total_homework / total_students, 1),
+                'avg_tests': round(total_tests / total_students, 1)
+            }
+        else:
+            analytics_data = {
+                'total_students': 0,
+                'good_predictions': 0,
+                'needs_improvement': 0,
+                'avg_probability': 0,
+                'avg_attendance': 0,
+                'avg_homework': 0,
+                'avg_tests': 0
+            }
+        
+        logger.info(f"Analytics data prepared successfully: {len(processed_predictions)} records")
+        
+        return render_template(
+            'student_analytics.html',
+            predictions=processed_predictions,
+            analytics=analytics_data
+        )
+        
+    except Exception as e:
+        logger.error(f"Analytics error: {str(e)}")
+        flash(f"Failed to load analytics: {str(e)}", 'danger')
+        return redirect(url_for('index'))
+
+
 
 # Custom JSON encoder for MongoDB types
 class MongoJSONEncoder(json.JSONEncoder):
