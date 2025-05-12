@@ -6,133 +6,458 @@
     <title>Prediction Result</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #181A1B;
-            min-height: 100vh;
-            color: #F5F6FA;
+        /* Additional page-specific styles */
+        .metric-bar-container {
+            width: 100%;
+            height: 10px;
+            background: var(--input-bg);
+            border-radius: 5px;
+            margin: 8px 0 12px 0;
+            overflow: hidden;
+            box-shadow: var(--input-shadow);
         }
-        .navbar {
-            background: #23272B !important;
-            border-bottom: 2px solid #444950;
+        
+        .metric-bar {
+            height: 100%;
+            border-radius: 5px;
+            width: 0; /* Will be set by JavaScript */
+            transition: width 1.5s var(--transition-function);
         }
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.7rem;
-            letter-spacing: 1px;
-            color: #F5F6FA !important;
+        
+        .attendance-bar {
+            background: var(--needs-improvement-gradient);
         }
-        .navbar-nav .nav-link {
-            color: #F5F6FA !important;
+        
+        .homework-bar {
+            background: var(--good-gradient);
+        }
+        
+        .test-bar {
+            background: var(--excellent-gradient);
+        }
+        
+        .metric-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
             font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .metric-value {
+            font-weight: 600;
+        }
+        
+        .performance-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            margin: 25px 0;
+            box-shadow: var(--input-shadow);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
+        }
+        
+        .performance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-gradient);
+        }
+        
+        .download-btn {
+            background: var(--accent-gradient);
+            border: none;
+            border-radius: var(--border-radius-pill);
+            font-weight: bold;
+            padding: 15px 30px;
+            font-size: var(--text-size);
+            letter-spacing: 1px;
+            color: var(--text-color);
+            transition: all var(--transition-speed);
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+            transform-style: preserve-3d;
+            transform: translateZ(20px);
+            box-shadow: var(--button-shadow);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .download-btn:hover {
+            transform: translateZ(20px) translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .download-btn:active {
+            transform: translateZ(20px) translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+        }
+        
+        .download-btn .btn-icon {
+            transition: transform var(--transition-speed);
+        }
+        
+        .download-btn:hover .btn-icon {
+            transform: translateY(4px);
+        }
+        
+        .alert {
+            border-radius: var(--border-radius-md);
+            font-weight: 500;
+            margin: 25px 0;
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .alert-success {
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+        }
+        
+        .alert-danger {
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+        }
+        
+        .alert::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+            z-index: -1;
+        }
+        
+        .student-detail {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            padding: 10px 15px;
+            background: var(--input-bg);
+            border-radius: var(--border-radius-md);
+            transition: all var(--transition-speed);
+        }
+        
+        .student-detail:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--input-shadow);
+        }
+        
+        .student-detail .label {
+            font-weight: 500;
+            color: var(--text-color);
+            opacity: 0.7;
+            min-width: 100px;
+        }
+        
+        .student-detail .value {
+            font-weight: 600;
+            color: var(--text-color);
             margin-left: 10px;
         }
-        .navbar-nav .nav-link.active {
-            color: #fff !important;
-            text-decoration: underline;
+        
+        .student-detail i {
+            color: var(--accent-color);
+            margin-right: 10px;
         }
-        .main-content {
-            min-height: 80vh;
-            padding-top: 40px;
-            padding-bottom: 40px;
-        }
-        .card {
+        
+        .section-divider {
+            width: 100%;
+            height: 2px;
+            background: var(--input-border);
+            margin: 30px 0;
             position: relative;
-            border-radius: 18px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-            background: #23272B;
-            margin: 40px auto;
-            padding: 32px 28px;
-            color: #F5F6FA;
-            max-width: 600px;
         }
-        .card-title {
-            color: #F5F6FA;
-            font-weight: 700;
-            font-size: 1.5rem;
-            margin-bottom: 0;
+        
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            width: 20%;
+            height: 100%;
+            background: var(--accent-gradient);
+            left: 40%;
         }
-        .alert-success, .alert-danger {
-            border-radius: 10px;
-            font-size: 1.1rem;
-            margin: 18px 0;
-            border: none;
-            color: #fff;
+        
+        .recommendation {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            margin: 25px 0;
+            position: relative;
+            border-left: 4px solid;
+            transform: translateX(-10px);
+            opacity: 0;
+            animation: slideInFromLeft 0.6s var(--transition-function) forwards;
+            animation-delay: 0.8s;
         }
-        .alert-success {
-            background: #3CB371;
+        
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-10px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
-        .alert-danger {
-            background: #C0392B;
+        
+        .excellent-recommendation {
+            border-color: #43e97b;
         }
-        .btn-primary {
-            background: #444950;
-            border: none;
-            border-radius: 20px;
-            font-weight: bold;
-            padding: 12px 0;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            color: #F5F6FA;
-            transition: background 0.2s;
+        
+        .good-recommendation {
+            border-color: #4481eb;
         }
-        .btn-primary:hover {
-            background: #23272B;
-            color: #fff;
+        
+        .needs-improvement-recommendation {
+            border-color: #ff416c;
         }
-        .card-text strong {
-            color: #F5F6FA;
+        
+        /* Entrance animations */
+        .animated-entrance {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
         }
-        .fa-check-circle, .fa-times-circle, .fa-download {
-            margin-right: 8px;
-        }
-        footer {
-            background: #23272B;
-            color: #F5F6FA;
-            text-align: center;
-            padding: 18px 0 10px 0;
-            border-top: 2px solid #444950;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            margin-top: 62px !important;
-        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
     </style>
 </head>
 <body>
     {% include 'components/navbar.html' %}
+    
     <div class="container">
-        <div class="card text-center shadow-lg">
-            <div class="d-flex align-items-center justify-content-start mb-3" style="gap: 12px;">
-                <a href="{{ url_for('index') }}" class="btn btn-link p-0" style="font-size: 1.5rem; color: #ff416c;">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <h3 class="card-title mb-0" style="flex: 1; color: #ff416c;">Performance Prediction</h3>
+        <div class="card-container">
+            <div class="card shadow-lg">
+                <div class="card-highlight"></div>
+                
+                <!-- Header -->
+                <div class="d-flex align-items-center justify-content-start mb-3 animated-entrance">
+                    <a href="{{ url_for('index') }}" class="btn btn-link p-0" style="font-size: 1.5rem; color: var(--accent-color); z-index: 2;">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <h1 class="mb-0 text-center" style="flex: 1; transform: translateZ(20px);">Performance Prediction</h1>
+                </div>
+                
+                <!-- Performance Rating Alert -->
+                {% if prediction in ['Good', 'Excellent'] %}
+                    <div class="alert alert-success animated-entrance delay-1" role="alert">
+                        <i class="fas fa-check-circle fa-lg"></i> <strong>{{ prediction }} Result!</strong> {{ prediction_message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger animated-entrance delay-1" role="alert">
+                        <i class="fas fa-exclamation-circle fa-lg"></i> <strong>{{ prediction }}</strong> {{ prediction_message }}
+                    </div>
+                {% endif %}
+
+                <!-- Score Visualization -->
+                <div class="score-visualization animated-entrance delay-2" id="scoreVisualization" style="display: block;">
+                    <div class="score-gauge">
+                        <svg width="170" height="170" viewBox="0 0 170 170">
+                            <defs>
+                                <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#ff416c" />
+                                    <stop offset="50%" stop-color="#4481eb" />
+                                    <stop offset="100%" stop-color="#43e97b" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="gauge-background" cx="85" cy="85" r="70"></circle>
+                            <circle class="gauge-value" cx="85" cy="85" r="70" 
+                                    stroke-dasharray="0 439.6" transform="rotate(-90 85 85)" id="scoreGauge"></circle>
+                            <circle class="gauge-center" cx="85" cy="85" r="55"></circle>
+                            <text class="gauge-text" x="85" y="85" id="scoreText">{{ probability }}%</text>
+                            <text class="gauge-label" x="85" y="105">Score</text>
+                        </svg>
+                    </div>
+                    <div class="score-categories">
+                        <span class="category-indicator needs-improvement {% if prediction == 'Needs Improvement' %}active{% endif %}" id="categoryNeedsImprovement">Needs Improvement</span>
+                        <span class="category-indicator good {% if prediction == 'Good' %}active{% endif %}" id="categoryGood">Good</span>
+                        <span class="category-indicator excellent {% if prediction == 'Excellent' %}active{% endif %}" id="categoryExcellent">Excellent</span>
+                    </div>
+                </div>
+                
+                <!-- Student Details Section -->
+                <div class="section-divider animated-entrance delay-2"></div>
+                <h2 class="animated-entrance delay-2" style="color: var(--accent-color); font-size: 1.4rem; margin-bottom: 15px;">Student Details</h2>
+                <div class="student-details-container animated-entrance delay-3">
+                    <div class="student-detail">
+                        <i class="fas fa-user"></i>
+                        <span class="label">Name:</span>
+                        <span class="value">{{ student.name }}</span>
+                    </div>
+                    <div class="student-detail">
+                        <i class="fas fa-id-card"></i>
+                        <span class="label">Student ID:</span>
+                        <span class="value">{{ student.student_id }}</span>
+                    </div>
+                    <div class="student-detail">
+                        <i class="fas fa-envelope"></i>
+                        <span class="label">Email:</span>
+                        <span class="value">{{ student.email }}</span>
+                    </div>
+                </div>
+                
+                <!-- Performance Metrics Section -->
+                <div class="section-divider animated-entrance delay-3"></div>
+                <h2 class="animated-entrance delay-3" style="color: var(--accent-color); font-size: 1.4rem; margin-bottom: 15px;">Performance Metrics</h2>
+                
+                <div class="performance-card animated-entrance delay-4">
+                    <!-- Attendance Metric -->
+                    <div class="metric">
+                        <div class="metric-label">
+                            <span>Attendance (30%)</span>
+                            <span class="metric-value">{{ student.attendance }}%</span>
+                        </div>
+                        <div class="metric-bar-container">
+                            <div class="metric-bar attendance-bar" id="attendanceBar"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Homework Metric -->
+                    <div class="metric">
+                        <div class="metric-label">
+                            <span>Homework Completion (20%)</span>
+                            <span class="metric-value">{{ student.homework_completion }}%</span>
+                        </div>
+                        <div class="metric-bar-container">
+                            <div class="metric-bar homework-bar" id="homeworkBar"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Test Scores Metric -->
+                    <div class="metric">
+                        <div class="metric-label">
+                            <span>Test Scores (50%)</span>
+                            <span class="metric-value">{{ student.test_scores }}%</span>
+                        </div>
+                        <div class="metric-bar-container">
+                            <div class="metric-bar test-bar" id="testScoresBar"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recommendation Section -->
+                <div class="recommendation 
+                    {% if prediction == 'Excellent' %}excellent-recommendation
+                    {% elif prediction == 'Good' %}good-recommendation
+                    {% else %}needs-improvement-recommendation{% endif %}">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Recommendation</h3>
+                    <p>
+                        {% if prediction == 'Excellent' %}
+                            Continue with the current approach - it's working very well! The student shows excellent performance across all metrics.
+                        {% elif prediction == 'Good' %}
+                            The student is doing well. Consider focusing more on test preparation to move into the excellent category.
+                        {% else %}
+                            Create an improvement plan focusing first on attendance and test preparation. Additional support may be needed.
+                        {% endif %}
+                    </p>
+                </div>
+                
+                <!-- Download Button -->
+                <div class="text-center mt-4 animated-entrance delay-4">
+                    <a href="{{ url_for('report', student_id=student.student_id) }}" class="download-btn">
+                        <i class="fas fa-download btn-icon"></i>
+                        Download Detailed Report
+                    </a>
+                </div>
             </div>
-            {% if prediction in ['Good', 'Excellent'] %}
-                <div class="alert alert-success" role="alert">
-                    <i class="fas fa-check-circle"></i> <strong>{{ prediction }} Result!</strong> The student is likely to perform well.
-                </div>
-            {% else %}
-                <div class="alert alert-danger" role="alert">
-                    <i class="fas fa-times-circle"></i> <strong>{{ prediction }}</strong> The student may need additional support based on current indicators.
-                </div>
-            {% endif %}
-            <p class="card-text">Prediction: <strong>{{ prediction }}</strong></p>
-            <p class="card-text">Probability: <strong>{{ probability }}%</strong></p>
-            <h4 class="mt-4" style="color:#ff416c;">Student Details:</h4>
-            <p>Name: <strong>{{ student.name }}</strong></p>
-            <p>Student ID: <strong>{{ student.student_id }}</strong></p>
-            <p>Email: <strong>{{ student.email }}</strong></p>
-            <a href="{{ url_for('report', student_id=student.student_id) }}" class="btn btn-primary mt-3">
-                <i class="fas fa-download"></i>Download Report
-            </a>
         </div>
     </div>
+    
     <footer>
         <span>EduPredict &copy; 2025. All rights reserved.</span>
     </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const card = document.querySelector('.card');
+            const cardContainer = document.querySelector('.card-container');
+            const cardHighlight = document.querySelector('.card-highlight');
+            const scoreGauge = document.getElementById('scoreGauge');
+            const scoreText = document.getElementById('scoreText');
+            const attendanceBar = document.getElementById('attendanceBar');
+            const homeworkBar = document.getElementById('homeworkBar');
+            const testScoresBar = document.getElementById('testScoresBar');
+            
+            // 3D Card Effect
+            if (window.matchMedia("(min-width: 768px)").matches) {
+                cardContainer.addEventListener('mousemove', function(e) {
+                    const xVal = e.clientX - window.innerWidth/2;
+                    const yVal = e.clientY - window.innerHeight/2;
+                    
+                    // Calculate rotation based on mouse position
+                    const xRotation = 10 * yVal / (window.innerHeight/2);
+                    const yRotation = -10 * xVal / (window.innerWidth/2);
+                    
+                    // Apply the rotation transform
+                    card.style.transform = `perspective(1500px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) scale3d(1, 1, 1)`;
+                    
+                    // Add highlight effect
+                    const x = e.offsetX;
+                    const y = e.offsetY;
+                    cardHighlight.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.15), transparent 25%)`;
+                });
+                
+                cardContainer.addEventListener('mouseleave', function() {
+                    // Reset the rotation when mouse leaves
+                    card.style.transform = 'perspective(1500px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                    cardHighlight.style.background = 'none';
+                });
+                
+                cardContainer.addEventListener('mouseenter', function() {
+                    // Add a slight lift effect on hover
+                    card.style.transition = 'transform 0.2s ease-out';
+                });
+            }
+            
+            // Animate Score Gauge
+            const score = {{ probability }};
+            const gaugeCircumference = 2 * Math.PI * 70; // 2πr
+            const dashArray = (score / 100) * gaugeCircumference;
+            
+            // Animate after a short delay
+            setTimeout(function() {
+                scoreGauge.style.strokeDasharray = `${dashArray} ${gaugeCircumference}`;
+            }, 500);
+            
+            // Animate Performance Bars
+            setTimeout(function() {
+                attendanceBar.style.width = '{{ student.attendance }}%';
+                homeworkBar.style.width = '{{ student.homework_completion }}%';
+                testScoresBar.style.width = '{{ student.test_scores }}%';
+            }, 800);
+            
+            // Add initial animation to card
+            setTimeout(() => {
+                card.style.transform = 'perspective(1500px) rotateX(5deg) rotateY(0deg) translateZ(0)';
+                setTimeout(() => {
+                    card.style.transition = 'transform 0.5s ease-out';
+                    card.style.transform = 'perspective(1500px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+                }, 500);
+            }, 100);
+        });
+    </script>
 </body>
 </html>

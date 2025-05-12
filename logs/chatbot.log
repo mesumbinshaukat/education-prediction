@@ -1,0 +1,1456 @@
+2025-05-12 05:03:50,316 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:03:50,316 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:03:56,190 - huggingface_hub.file_download - WARNING - Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-05-12 05:04:32,071 - chatbot - INFO - Building knowledge base...
+2025-05-12 05:04:32,837 - chatbot - INFO - Split 31 documents into 616 chunks
+2025-05-12 05:05:00,100 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:05:00,717 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:05:00,730 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:05:00,757 - chatbot - INFO - Knowledge base built and saved to D:\education-prediction\knowledge\kb_faiss
+2025-05-12 05:05:00,757 - chatbot - INFO - Downloading model TheBloke/Mistral-7B-Instruct-v0.2-GGUF...
+2025-05-12 05:05:03,566 - chatbot - ERROR - Failed to initialize LLM: Can't load tokenizer for 'TheBloke/Mistral-7B-Instruct-v0.2-GGUF'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure 'TheBloke/Mistral-7B-Instruct-v0.2-GGUF' is the correct path to a directory containing all relevant files for a LlamaTokenizerFast tokenizer.
+2025-05-12 05:08:09,059 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:08:09,059 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:08:13,213 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:08:13,214 - chatbot - ERROR - Error loading knowledge base: The de-serialization relies loading a pickle file. Pickle files can be modified to deliver a malicious payload that results in execution of arbitrary code on your machine.You will need to set `allow_dangerous_deserialization` to `True` to enable deserialization. If you do this, make sure that you trust the source of the data. For example, if you are loading a file that you created, and know that no one else has modified the file, then this is safe to do. Do not set this to `True` if you are loading a file from an untrusted source (e.g., some random site on the internet.).
+2025-05-12 05:08:13,214 - chatbot - INFO - Building new knowledge base...
+2025-05-12 05:08:13,706 - chatbot - INFO - Split 31 documents into 616 chunks
+2025-05-12 05:08:40,970 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:08:41,221 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:08:41,230 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:08:41,260 - chatbot - INFO - Knowledge base built and saved to D:\education-prediction\knowledge\kb_faiss
+2025-05-12 05:08:41,261 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:08:41,669 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:08:41,696 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 05:08:41,696 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 05:08:50,658 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:08:50,658 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:08:55,671 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:08:55,672 - chatbot - ERROR - Error loading knowledge base: The de-serialization relies loading a pickle file. Pickle files can be modified to deliver a malicious payload that results in execution of arbitrary code on your machine.You will need to set `allow_dangerous_deserialization` to `True` to enable deserialization. If you do this, make sure that you trust the source of the data. For example, if you are loading a file that you created, and know that no one else has modified the file, then this is safe to do. Do not set this to `True` if you are loading a file from an untrusted source (e.g., some random site on the internet.).
+2025-05-12 05:08:55,673 - chatbot - INFO - Building new knowledge base...
+2025-05-12 05:08:56,180 - chatbot - INFO - Split 31 documents into 616 chunks
+2025-05-12 05:09:26,088 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:09:26,329 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:09:26,340 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:09:26,377 - chatbot - INFO - Knowledge base built and saved to D:\education-prediction\knowledge\kb_faiss
+2025-05-12 05:09:26,378 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:09:26,747 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:09:26,761 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 05:09:26,764 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 05:10:13,543 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:10:13] "GET / HTTP/1.1" 200 -
+2025-05-12 05:10:14,436 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:10:14] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 05:10:15,755 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:10:15] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 05:10:20,214 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:10:20] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 05:10:20,367 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:10:20] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 05:10:25,453 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:10:25] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 05:10:27,359 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:10:27] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-05-12 05:38:53,329 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:38:53,330 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:38:57,517 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:38:57,518 - chatbot - ERROR - Error loading knowledge base: The de-serialization relies loading a pickle file. Pickle files can be modified to deliver a malicious payload that results in execution of arbitrary code on your machine.You will need to set `allow_dangerous_deserialization` to `True` to enable deserialization. If you do this, make sure that you trust the source of the data. For example, if you are loading a file that you created, and know that no one else has modified the file, then this is safe to do. Do not set this to `True` if you are loading a file from an untrusted source (e.g., some random site on the internet.).
+2025-05-12 05:38:57,519 - chatbot - INFO - Building new knowledge base...
+2025-05-12 05:38:58,298 - chatbot - INFO - Split 31 documents into 616 chunks
+2025-05-12 05:39:47,235 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:39:47,638 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:39:47,671 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:39:47,776 - chatbot - INFO - Knowledge base built and saved to D:\education-prediction\knowledge\kb_faiss
+2025-05-12 05:39:47,777 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:39:48,327 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:39:48,415 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 05:39:48,416 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 05:40:13,513 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:40:13,514 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:40:19,292 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:40:19,293 - chatbot - ERROR - Error loading knowledge base: The de-serialization relies loading a pickle file. Pickle files can be modified to deliver a malicious payload that results in execution of arbitrary code on your machine.You will need to set `allow_dangerous_deserialization` to `True` to enable deserialization. If you do this, make sure that you trust the source of the data. For example, if you are loading a file that you created, and know that no one else has modified the file, then this is safe to do. Do not set this to `True` if you are loading a file from an untrusted source (e.g., some random site on the internet.).
+2025-05-12 05:40:19,295 - chatbot - INFO - Building new knowledge base...
+2025-05-12 05:40:19,945 - chatbot - INFO - Split 31 documents into 616 chunks
+2025-05-12 05:41:11,276 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:41:11,606 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:41:11,635 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:41:11,744 - chatbot - INFO - Knowledge base built and saved to D:\education-prediction\knowledge\kb_faiss
+2025-05-12 05:41:11,745 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:41:12,380 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:41:12,449 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 05:41:12,459 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 05:41:12,664 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:41:12] "GET / HTTP/1.1" 200 -
+2025-05-12 05:41:12,718 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:41:12] "GET / HTTP/1.1" 200 -
+2025-05-12 05:41:13,071 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:41:13] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 05:41:14,080 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:41:14] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 05:41:15,056 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:41:15] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 05:41:24,608 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:41:24] "GET /api/predictions?skip=12&limit=20 HTTP/1.1" 200 -
+2025-05-12 05:41:40,717 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:41:40] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 05:42:00,088 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:42:00] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 05:42:06,596 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:42:06] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 05:42:06,937 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:42:06] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 05:42:11,488 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:42:11] "GET / HTTP/1.1" 200 -
+2025-05-12 05:42:11,949 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:42:11] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 05:42:13,456 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:42:13] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 05:44:13,248 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:44:13,249 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:44:18,070 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:44:18,085 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:44:18,199 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:44:18,652 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:44:18,687 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 05:44:18,687 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:44:19,415 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:44:19,500 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 05:44:19,500 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 05:44:42,911 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:44:42,911 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:44:48,512 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:44:48,520 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:44:48,581 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:44:48,933 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:44:48,946 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 05:44:48,946 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:44:49,522 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:44:49,567 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 05:44:49,575 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 05:44:49,651 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:44:49] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 05:44:49,917 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:44:49] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 05:48:26,284 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:48:26,285 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:48:30,516 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:48:30,529 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:48:30,644 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:48:30,894 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:48:30,905 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 05:48:30,905 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:48:31,389 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:48:31,473 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 05:48:31,474 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 05:48:55,897 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:48:55,898 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:48:59,881 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:48:59,903 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:49:00,026 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:49:00,303 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:49:00,322 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 05:49:00,322 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:49:00,882 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:49:00,975 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 05:49:00,990 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 05:49:01,132 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:49:01] "GET / HTTP/1.1" 200 -
+2025-05-12 05:49:02,878 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:49:02] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 05:49:05,335 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:49:05] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 05:51:16,280 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:51:16] "[35m[1mGET /chat HTTP/1.1[0m" 500 -
+2025-05-12 05:51:16,715 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:51:16] "GET /chat?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-05-12 05:51:16,815 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:51:16] "GET /chat?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-05-12 05:51:17,005 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:51:17] "GET /chat?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-05-12 05:51:18,112 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:51:18] "[36mGET /chat?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-12 05:51:30,877 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:51:30] "GET / HTTP/1.1" 200 -
+2025-05-12 05:52:10,774 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:52:10] "[35m[1mGET /chat/authenticated HTTP/1.1[0m" 500 -
+2025-05-12 05:52:11,139 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:52:11] "GET /chat/authenticated?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-05-12 05:52:11,172 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:52:11] "GET /chat/authenticated?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-05-12 05:52:11,252 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:52:11] "GET /chat/authenticated?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-05-12 05:52:11,894 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:52:11] "[36mGET /chat/authenticated?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-12 05:52:15,771 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:52:15] "[33mGET /chat/authenticateds HTTP/1.1[0m" 404 -
+2025-05-12 05:52:18,685 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:52:18] "[35m[1mGET /chat/authenticated HTTP/1.1[0m" 500 -
+2025-05-12 05:52:18,842 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:52:18] "[36mGET /chat/authenticated?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-05-12 05:52:18,848 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:52:18] "[36mGET /chat/authenticated?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-05-12 05:52:18,980 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:52:18] "[36mGET /chat/authenticated?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-12 05:52:22,576 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:52:22] "[35m[1mGET /chat HTTP/1.1[0m" 500 -
+2025-05-12 05:52:55,862 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-12 05:52:57,672 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 05:53:18,836 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:53:18,837 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:53:23,101 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:53:23,112 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:53:23,211 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:53:23,459 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:53:23,496 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 05:53:23,497 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:53:24,048 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:53:24,115 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 05:53:24,130 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 05:53:33,084 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:53:33] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 05:53:34,142 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:53:34] "GET /socket.io/?EIO=4&transport=polling&t=PR1-vic HTTP/1.1" 200 -
+2025-05-12 05:53:34,569 - chatbot - ERROR - Error getting chatbot stats: hour must be in 0..23
+2025-05-12 05:53:34,578 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:53:34] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 05:53:34,833 - app - INFO - Client connected: AbRG2Wasjl2dNDc9AAAB
+2025-05-12 05:53:34,835 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:53:34] "POST /socket.io/?EIO=4&transport=polling&t=PR1-vtf&sid=ioImwXW6b9uImtWBAAAA HTTP/1.1" 200 -
+2025-05-12 05:53:34,838 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:53:34] "GET /socket.io/?EIO=4&transport=polling&t=PR1-vth&sid=ioImwXW6b9uImtWBAAAA HTTP/1.1" 200 -
+2025-05-12 05:53:35,275 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:53:35] "GET /socket.io/?EIO=4&transport=polling&t=PR1-v-T&sid=ioImwXW6b9uImtWBAAAA HTTP/1.1" 200 -
+2025-05-12 05:53:36,121 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:53:36] "GET /socket.io/?EIO=4&transport=polling&t=PR1-wBU&sid=ioImwXW6b9uImtWBAAAA HTTP/1.1" 200 -
+2025-05-12 05:53:42,022 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:53:42,023 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:53:46,298 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:53:46,317 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:53:46,435 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:53:46,919 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:53:46,942 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 05:53:46,943 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:53:47,658 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:53:47,780 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 05:53:47,780 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 05:54:01,796 - chatbot - ERROR - Error checking rate limit: second must be in 0..59
+2025-05-12 05:54:02,001 - chatbot - ERROR - Error processing query: 'InferenceClient' object has no attribute 'post'
+2025-05-12 05:56:03,870 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:56:03,870 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:56:09,587 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:56:09,612 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:56:09,717 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:56:10,043 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:56:10,061 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 05:56:10,062 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:56:10,751 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:56:10,840 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 05:56:10,842 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 05:56:36,900 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 05:56:36,901 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 05:56:41,953 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 05:56:41,973 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 05:56:42,077 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 05:56:42,315 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 05:56:42,320 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 05:56:42,320 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 05:56:42,804 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 05:56:42,869 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 05:56:42,879 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 05:56:42,914 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:42] "GET /socket.io/?EIO=4&transport=polling&t=PR1_W2q HTTP/1.1" 200 -
+2025-05-12 05:56:42,954 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:42] "GET /socket.io/?EIO=4&transport=polling&t=PR1_cLJ HTTP/1.1" 200 -
+2025-05-12 05:56:42,969 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:42] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 05:56:42,977 - app - INFO - Client connected: 1uxeVt5vzbCA64qRAAAC
+2025-05-12 05:56:42,981 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:42] "POST /socket.io/?EIO=4&transport=polling&t=PR1_dpM&sid=eufG3pmIz455XjAvAAAB HTTP/1.1" 200 -
+2025-05-12 05:56:42,982 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:42] "GET /socket.io/?EIO=4&transport=polling&t=PR1_dpN&sid=eufG3pmIz455XjAvAAAB HTTP/1.1" 200 -
+2025-05-12 05:56:42,996 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:42] "GET /socket.io/?EIO=4&transport=websocket&sid=eufG3pmIz455XjAvAAAB HTTP/1.1" 200 -
+2025-05-12 05:56:43,342 - chatbot - ERROR - Error getting chatbot stats: hour must be in 0..23
+2025-05-12 05:56:43,346 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:43] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 05:56:43,473 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:43] "GET /socket.io/?EIO=4&transport=polling&t=PR1_dww HTTP/1.1" 200 -
+2025-05-12 05:56:43,531 - chatbot - ERROR - Error getting chatbot stats: hour must be in 0..23
+2025-05-12 05:56:43,537 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:43] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 05:56:44,087 - app - INFO - Client connected: dmp_uNklpg66n7zDAAAE
+2025-05-12 05:56:44,095 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:44] "POST /socket.io/?EIO=4&transport=polling&t=PR1_e4j&sid=8AtGF_ogb4m8dHhSAAAD HTTP/1.1" 200 -
+2025-05-12 05:56:44,095 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:44] "GET /socket.io/?EIO=4&transport=polling&t=PR1_e4l&sid=8AtGF_ogb4m8dHhSAAAD HTTP/1.1" 200 -
+2025-05-12 05:56:44,335 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:56:44] "GET /socket.io/?EIO=4&transport=polling&t=PR1_e8J&sid=8AtGF_ogb4m8dHhSAAAD HTTP/1.1" 200 -
+2025-05-12 05:57:29,637 - app - INFO - Client disconnected: 1uxeVt5vzbCA64qRAAAC
+2025-05-12 05:57:43,529 - chatbot - ERROR - Error getting chatbot stats: hour must be in 0..23
+2025-05-12 05:57:43,531 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 05:57:43] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 05:58:32,842 - chatbot - ERROR - Error checking rate limit: second must be in 0..59
+2025-05-12 05:58:33,031 - chatbot - ERROR - Error processing query: 'InferenceClient' object has no attribute 'post'
+2025-05-12 06:00:35,892 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:00:35,892 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:00:41,615 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:00:41,630 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:00:41,968 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:00:41,998 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:00:42,013 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:00:42,014 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:00:42,029 - chatbot - ERROR - Failed to initialize LLM: 1 validation error for HuggingFaceEndpoint
+  Value error, Parameters {'temperature'} should be specified explicitly. Instead they were passed in as part of `model_kwargs` parameter. [type=value_error, input_value={'repo_id': 'google/flan-...0.7, 'max_length': 512}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-12 06:01:55,595 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:01:55,596 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:01:59,227 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:01:59,243 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:01:59,528 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:01:59,551 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:01:59,565 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:01:59,566 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:01:59,770 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:01:59,818 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:01:59,819 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:02:20,819 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:02:20,820 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:02:26,253 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:02:26,264 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:02:26,521 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:02:26,536 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:02:26,543 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:02:26,544 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:02:26,794 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:02:26,825 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 06:02:26,831 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 06:02:26,860 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:02:26] "GET /socket.io/?EIO=4&transport=polling&t=PR20sBI HTTP/1.1" 200 -
+2025-05-12 06:02:26,900 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:02:26] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:02:28,031 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:02:28] "GET /socket.io/?EIO=4&transport=polling&t=PR20y2P HTTP/1.1" 200 -
+2025-05-12 06:02:28,107 - app - INFO - Client connected: Sek6z-7hVfnfLZ0PAAAC
+2025-05-12 06:02:28,108 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:02:28] "POST /socket.io/?EIO=4&transport=polling&t=PR20y40&sid=3sL0na-M-F5vc_3_AAAB HTTP/1.1" 200 -
+2025-05-12 06:02:28,111 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:02:28] "GET /socket.io/?EIO=4&transport=polling&t=PR20y42&sid=3sL0na-M-F5vc_3_AAAB HTTP/1.1" 200 -
+2025-05-12 06:02:28,474 - chatbot - ERROR - Error getting chatbot stats: hour must be in 0..23
+2025-05-12 06:02:28,476 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:02:28] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:02:29,400 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:02:29] "GET /socket.io/?EIO=4&transport=polling&t=PR20yOI&sid=3sL0na-M-F5vc_3_AAAB HTTP/1.1" 200 -
+2025-05-12 06:02:30,611 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:02:30] "GET /socket.io/?EIO=4&transport=polling&t=PR20yhC&sid=3sL0na-M-F5vc_3_AAAB HTTP/1.1" 200 -
+2025-05-12 06:02:46,605 - chatbot - ERROR - Error checking rate limit: second must be in 0..59
+2025-05-12 06:02:47,063 - chatbot - ERROR - Error processing query: 
+2025-05-12 06:04:47,078 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:04:47,078 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:04:52,869 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:04:52,884 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:04:53,215 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:04:53,237 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:04:53,256 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:04:53,256 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:04:53,258 - chatbot - ERROR - Failed to initialize LLM: 1 validation error for HuggingFaceEndpoint
+  Value error, Parameters {'top_p'} should be specified explicitly. Instead they were passed in as part of `model_kwargs` parameter. [type=value_error, input_value={'repo_id': 'google/flan-...wargs': {'top_p': 0.95}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-12 06:06:46,995 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:06:46,996 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:06:51,961 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:06:51,970 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:06:52,277 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:06:52,308 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:06:52,325 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:06:52,326 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:16:52,853 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:16:52,853 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:16:57,629 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:16:57,644 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:16:57,920 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:16:57,945 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:16:57,956 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:16:57,957 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:16:58,180 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:16:58,239 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:16:58,241 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:17:23,065 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:17:23,065 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:17:27,453 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:17:27,470 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:17:27,736 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:17:27,757 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:17:27,775 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:17:27,776 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:17:28,241 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:17:28,314 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 06:17:28,326 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 06:17:28,395 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:28] "GET /socket.io/?EIO=4&transport=polling&t=PR24GS8 HTTP/1.1" 200 -
+2025-05-12 06:17:28,425 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:28] "GET /socket.io/?EIO=4&transport=polling&t=PR24MZ2 HTTP/1.1" 200 -
+2025-05-12 06:17:28,466 - app - INFO - Client connected: XSum872214zTw2SGAAAC
+2025-05-12 06:17:28,482 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:28] "POST /socket.io/?EIO=4&transport=polling&t=PR24Ntp&sid=foPghkqHUWAM5RzFAAAB HTTP/1.1" 200 -
+2025-05-12 06:17:28,483 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:28] "GET /socket.io/?EIO=4&transport=polling&t=PR24Ntv&sid=foPghkqHUWAM5RzFAAAB HTTP/1.1" 200 -
+2025-05-12 06:17:28,499 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:28] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:17:28,538 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:28] "GET /socket.io/?EIO=4&transport=websocket&sid=foPghkqHUWAM5RzFAAAB HTTP/1.1" 200 -
+2025-05-12 06:17:28,829 - chatbot - ERROR - Error getting chatbot stats: type object 'datetime.datetime' has no attribute 'timedelta'
+2025-05-12 06:17:28,831 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:28] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:17:29,711 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:29] "GET /socket.io/?EIO=4&transport=polling&t=PR24OBZ HTTP/1.1" 200 -
+2025-05-12 06:17:29,778 - chatbot - ERROR - Error getting chatbot stats: type object 'datetime.datetime' has no attribute 'timedelta'
+2025-05-12 06:17:29,780 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:29] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:17:29,838 - app - INFO - Client connected: M58z2I_FhFLeFSZqAAAE
+2025-05-12 06:17:29,847 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:29] "POST /socket.io/?EIO=4&transport=polling&t=PR24ODQ&sid=C976Zu5N_1Y518WtAAAD HTTP/1.1" 200 -
+2025-05-12 06:17:29,848 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:29] "GET /socket.io/?EIO=4&transport=polling&t=PR24ODU&sid=C976Zu5N_1Y518WtAAAD HTTP/1.1" 200 -
+2025-05-12 06:17:31,045 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:31] "GET /socket.io/?EIO=4&transport=polling&t=PR24OWV&sid=C976Zu5N_1Y518WtAAAD HTTP/1.1" 200 -
+2025-05-12 06:17:32,207 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:17:32] "GET /socket.io/?EIO=4&transport=polling&t=PR24Ooe&sid=C976Zu5N_1Y518WtAAAD HTTP/1.1" 200 -
+2025-05-12 06:17:45,307 - chatbot - ERROR - Error checking rate limit: type object 'datetime.datetime' has no attribute 'timedelta'
+2025-05-12 06:17:45,520 - langchain_core.vectorstores.base - WARNING - No relevant docs were retrieved using the relevance score threshold 0.1
+2025-05-12 06:17:45,899 - chatbot - ERROR - Error processing query: 
+2025-05-12 06:18:15,100 - app - INFO - Client disconnected: XSum872214zTw2SGAAAC
+2025-05-12 06:18:30,058 - chatbot - ERROR - Error getting chatbot stats: type object 'datetime.datetime' has no attribute 'timedelta'
+2025-05-12 06:18:30,060 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:18:30] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:19:30,067 - chatbot - ERROR - Error getting chatbot stats: type object 'datetime.datetime' has no attribute 'timedelta'
+2025-05-12 06:19:30,070 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:19:30] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:23:35,598 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:23:35,598 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:23:40,827 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:23:40,844 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:23:41,182 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:23:41,204 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:23:41,219 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:23:41,220 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:23:41,447 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:23:41,511 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:23:41,512 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:24:03,605 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:24:03,605 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:24:08,467 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:24:08,478 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:24:08,770 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:24:08,806 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:24:08,833 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:24:08,834 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:24:09,212 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:24:09,288 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 06:24:09,296 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 06:24:09,352 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:09] "GET /socket.io/?EIO=4&transport=polling&t=PR25p4X HTTP/1.1" 200 -
+2025-05-12 06:24:09,372 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:09] "GET /socket.io/?EIO=4&transport=polling&t=PR25vQx HTTP/1.1" 200 -
+2025-05-12 06:24:09,424 - app - INFO - Client connected: C6_-KxPd4BNbKKdbAAAC
+2025-05-12 06:24:09,426 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:09] "POST /socket.io/?EIO=4&transport=polling&t=PR25vmY&sid=QTe7Q1PqD92SGB5jAAAB HTTP/1.1" 200 -
+2025-05-12 06:24:09,432 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:09] "GET /socket.io/?EIO=4&transport=polling&t=PR25vmd&sid=QTe7Q1PqD92SGB5jAAAB HTTP/1.1" 200 -
+2025-05-12 06:24:09,458 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:09] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:24:09,462 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:09] "GET /socket.io/?EIO=4&transport=polling&t=PR25vna&sid=QTe7Q1PqD92SGB5jAAAB HTTP/1.1" 200 -
+2025-05-12 06:24:09,491 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:09] "GET /socket.io/?EIO=4&transport=websocket&sid=QTe7Q1PqD92SGB5jAAAB HTTP/1.1" 200 -
+2025-05-12 06:24:10,896 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:10] "GET /socket.io/?EIO=4&transport=polling&t=PR25w7e HTTP/1.1" 200 -
+2025-05-12 06:24:11,012 - app - INFO - Client connected: uT_y7UaGi8WLlPlaAAAE
+2025-05-12 06:24:11,016 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:11] "POST /socket.io/?EIO=4&transport=polling&t=PR25w9X&sid=xRtCn-bOLd_-yJ71AAAD HTTP/1.1" 200 -
+2025-05-12 06:24:11,016 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:11] "GET /socket.io/?EIO=4&transport=polling&t=PR25w9Z&sid=xRtCn-bOLd_-yJ71AAAD HTTP/1.1" 200 -
+2025-05-12 06:24:11,295 - chatbot - ERROR - Error getting chatbot stats: type object 'datetime.datetime' has no attribute 'timedelta'
+2025-05-12 06:24:11,296 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:11] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:24:12,257 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:12] "GET /socket.io/?EIO=4&transport=polling&t=PR25wTS&sid=xRtCn-bOLd_-yJ71AAAD HTTP/1.1" 200 -
+2025-05-12 06:24:13,366 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:24:13] "GET /socket.io/?EIO=4&transport=polling&t=PR25wkm&sid=xRtCn-bOLd_-yJ71AAAD HTTP/1.1" 200 -
+2025-05-12 06:24:29,125 - chatbot - ERROR - Error checking rate limit: type object 'datetime.datetime' has no attribute 'timedelta'
+2025-05-12 06:24:29,238 - langchain_core.vectorstores.base - WARNING - No relevant docs were retrieved using the relevance score threshold 0.1
+2025-05-12 06:24:29,724 - chatbot - ERROR - Error processing query: 
+2025-05-12 06:26:15,648 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:26:15,648 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:26:19,000 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:26:19,018 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:26:19,332 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:26:19,356 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:26:19,370 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:26:19,371 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:26:19,587 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:26:19,647 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:26:19,648 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:26:42,960 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:26:42,961 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:26:47,275 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:26:47,294 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:26:47,576 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:26:47,608 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:26:47,629 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:26:47,630 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:26:48,013 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:26:48,082 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 06:26:48,089 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 06:26:48,136 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:48] "GET /socket.io/?EIO=4&transport=polling&t=PR26PPi HTTP/1.1" 200 -
+2025-05-12 06:26:48,168 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:48] "GET /socket.io/?EIO=4&transport=polling&t=PR26V_W HTTP/1.1" 200 -
+2025-05-12 06:26:48,218 - app - INFO - Client connected: tedLw-vIlsmPNIveAAAC
+2025-05-12 06:26:48,231 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:48] "POST /socket.io/?EIO=4&transport=polling&t=PR26WXs&sid=63fznJzqotWHLiLMAAAB HTTP/1.1" 200 -
+2025-05-12 06:26:48,234 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:48] "GET /socket.io/?EIO=4&transport=polling&t=PR26WXx&sid=63fznJzqotWHLiLMAAAB HTTP/1.1" 200 -
+2025-05-12 06:26:48,261 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:48] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:26:48,301 - app - INFO - Client disconnected: tedLw-vIlsmPNIveAAAC
+2025-05-12 06:26:48,302 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:48] "GET /socket.io/?EIO=4&transport=websocket&sid=63fznJzqotWHLiLMAAAB HTTP/1.1" 200 -
+2025-05-12 06:26:49,679 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:49] "GET /socket.io/?EIO=4&transport=polling&t=PR26WuD HTTP/1.1" 200 -
+2025-05-12 06:26:50,295 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:50] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:26:50,496 - app - INFO - Client connected: yT0GdNxOAAO-vCinAAAE
+2025-05-12 06:26:50,497 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:50] "POST /socket.io/?EIO=4&transport=polling&t=PR26X5u&sid=Xx0qKtwAlHgFpDDvAAAD HTTP/1.1" 200 -
+2025-05-12 06:26:50,498 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:50] "GET /socket.io/?EIO=4&transport=polling&t=PR26X5v&sid=Xx0qKtwAlHgFpDDvAAAD HTTP/1.1" 200 -
+2025-05-12 06:26:51,067 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:51] "GET /socket.io/?EIO=4&transport=polling&t=PR26XEo&sid=Xx0qKtwAlHgFpDDvAAAD HTTP/1.1" 200 -
+2025-05-12 06:26:52,160 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:26:52] "GET /socket.io/?EIO=4&transport=polling&t=PR26XVj&sid=Xx0qKtwAlHgFpDDvAAAD HTTP/1.1" 200 -
+2025-05-12 06:27:00,603 - langchain_core.vectorstores.base - WARNING - No relevant docs were retrieved using the relevance score threshold 0.1
+2025-05-12 06:27:00,919 - chatbot - ERROR - Error processing query: 
+2025-05-12 06:29:27,280 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:29:27,281 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:29:33,362 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:29:33,382 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:29:33,860 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:29:33,888 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:29:33,912 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:29:33,913 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:29:34,201 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:29:34,298 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:29:34,299 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:30:54,526 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:30:54,526 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:30:58,650 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:30:58,668 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:30:59,098 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:30:59,133 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:30:59,154 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:30:59,155 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:32:50,535 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:32:50,536 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:32:55,981 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:32:55,998 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:32:56,339 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:32:56,371 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:32:56,393 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:32:56,394 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:32:56,685 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:32:56,755 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:32:56,756 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:33:16,419 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:33:16,420 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:33:20,696 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:33:20,714 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:33:21,219 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:33:21,242 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:33:21,262 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:33:21,271 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:33:21,574 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:33:21,632 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 06:33:21,646 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 06:33:21,708 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:33:21] "GET /socket.io/?EIO=4&transport=polling&t=PR27waa HTTP/1.1" 200 -
+2025-05-12 06:33:21,794 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:33:21] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:33:23,116 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:33:23] "GET /socket.io/?EIO=4&transport=polling&t=PR280xm HTTP/1.1" 200 -
+2025-05-12 06:33:23,887 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:33:23] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:33:23,991 - app - INFO - Client connected: HOI9Ai6PPDB7IHegAAAC
+2025-05-12 06:33:23,993 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:33:23] "POST /socket.io/?EIO=4&transport=polling&t=PR281AD&sid=s-vWO9MFCfC5XHPnAAAB HTTP/1.1" 200 -
+2025-05-12 06:33:23,993 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:33:23] "GET /socket.io/?EIO=4&transport=polling&t=PR281AF&sid=s-vWO9MFCfC5XHPnAAAB HTTP/1.1" 200 -
+2025-05-12 06:33:24,598 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:33:24] "GET /socket.io/?EIO=4&transport=polling&t=PR281Jk&sid=s-vWO9MFCfC5XHPnAAAB HTTP/1.1" 200 -
+2025-05-12 06:33:25,608 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:33:25] "GET /socket.io/?EIO=4&transport=polling&t=PR281ZK&sid=s-vWO9MFCfC5XHPnAAAB HTTP/1.1" 200 -
+2025-05-12 06:33:41,271 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:33:41,272 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:33:41,275 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:33:41,275 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:33:41,311 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:33:41,313 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:33:41,345 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:33:41,347 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:33:41,857 - chatbot - ERROR - Error in chain invocation: 
+2025-05-12 06:33:49,089 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:33:49,089 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:33:49,091 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:33:49,091 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:33:49,106 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:33:49,107 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:33:49,125 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:33:49,126 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:33:49,203 - chatbot - ERROR - Error in chain invocation: 
+2025-05-12 06:34:12,981 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:34:12,982 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:34:12,984 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:34:12,985 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:34:12,999 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:34:13,000 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:34:13,015 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:34:13,016 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:34:13,063 - chatbot - ERROR - Error in chain invocation: 
+2025-05-12 06:34:23,328 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:34:23] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:35:23,317 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:35:23] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:35:32,613 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:35:32,614 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:35:32,618 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:35:32,619 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:35:32,640 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:35:32,641 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:35:32,662 - root - ERROR - Error in retriever: maximum recursion depth exceeded
+2025-05-12 06:35:32,663 - root - INFO - No relevant documents found with threshold, trying without threshold
+2025-05-12 06:35:32,728 - chatbot - ERROR - Error in chain invocation: 
+2025-05-12 06:35:36,702 - app - INFO - Client disconnected: HOI9Ai6PPDB7IHegAAAC
+2025-05-12 06:35:36,704 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:35:36] "GET /socket.io/?EIO=4&transport=websocket&sid=s-vWO9MFCfC5XHPnAAAB HTTP/1.1" 200 -
+2025-05-12 06:35:37,313 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:35:37] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 06:35:49,050 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:35:49] "GET / HTTP/1.1" 200 -
+2025-05-12 06:35:50,122 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:35:50] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 06:35:51,005 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:35:51] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:35:51,376 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:35:51] "GET /socket.io/?EIO=4&transport=polling&t=PR28b8z HTTP/1.1" 200 -
+2025-05-12 06:35:51,637 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:35:51] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:35:51,711 - app - INFO - Client connected: F713PeuCHIM0vfNaAAAE
+2025-05-12 06:35:51,713 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:35:51] "POST /socket.io/?EIO=4&transport=polling&t=PR28bDV&sid=qj9rTMhvBiWHSp6HAAAD HTTP/1.1" 200 -
+2025-05-12 06:35:51,765 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:35:51] "GET /socket.io/?EIO=4&transport=polling&t=PR28bDY&sid=qj9rTMhvBiWHSp6HAAAD HTTP/1.1" 200 -
+2025-05-12 06:35:51,928 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:35:51] "GET /socket.io/?EIO=4&transport=polling&t=PR28bHd&sid=qj9rTMhvBiWHSp6HAAAD HTTP/1.1" 200 -
+2025-05-12 06:38:38,735 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:38:38,735 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:38:42,421 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:38:42,438 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:38:42,802 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:38:42,825 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:38:42,841 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:38:42,842 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:38:43,168 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:38:43,233 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:38:43,234 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:38:58,877 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:38:58,877 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:39:03,356 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:39:03,379 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:39:03,760 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:39:03,799 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:39:03,826 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:39:03,827 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:39:04,292 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:39:04,382 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 06:39:04,388 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 06:39:04,457 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:39:04] "GET /socket.io/?EIO=4&transport=polling&t=PR29F2q HTTP/1.1" 200 -
+2025-05-12 06:39:04,545 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:39:04] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:39:05,180 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:39:05] "GET /socket.io/?EIO=4&transport=polling&t=PR29KTD HTTP/1.1" 200 -
+2025-05-12 06:39:05,442 - app - INFO - Client connected: Fkg1FP4yHTMM-dqAAAAC
+2025-05-12 06:39:05,444 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:39:05] "POST /socket.io/?EIO=4&transport=polling&t=PR29KXO&sid=pd99V_bfLqk6WpnGAAAB HTTP/1.1" 200 -
+2025-05-12 06:39:05,456 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:39:05] "GET /socket.io/?EIO=4&transport=polling&t=PR29KXP&sid=pd99V_bfLqk6WpnGAAAB HTTP/1.1" 200 -
+2025-05-12 06:39:05,600 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:39:05] "GET /socket.io/?EIO=4&transport=polling&t=PR29KZn&sid=pd99V_bfLqk6WpnGAAAB HTTP/1.1" 200 -
+2025-05-12 06:39:05,717 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:39:05] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:39:05,816 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:39:05] "GET /socket.io/?EIO=4&transport=polling&t=PR29KdB&sid=pd99V_bfLqk6WpnGAAAB HTTP/1.1" 200 -
+2025-05-12 06:39:06,164 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:39:06] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:39:18,407 - chatbot - ERROR - Error in chain invocation: 
+2025-05-12 06:41:02,635 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:41:02,636 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:41:07,954 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:41:07,975 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:41:08,079 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:41:08,310 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:41:08,324 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:41:08,325 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:41:08,687 - chatbot - INFO - Chain created successfully with RetrievalQA
+2025-05-12 06:41:08,688 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:41:08,791 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:41:08,793 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:41:27,565 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:41:27,565 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:41:32,753 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:41:32,775 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:41:32,875 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:41:33,115 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:41:33,127 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:41:33,127 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:41:33,708 - chatbot - INFO - Chain created successfully with RetrievalQA
+2025-05-12 06:41:33,709 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:41:33,795 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 06:41:33,809 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 06:41:33,908 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:41:33] "GET /socket.io/?EIO=4&transport=polling&t=PR29phb HTTP/1.1" 200 -
+2025-05-12 06:41:33,978 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:41:33] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:41:34,326 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:41:34] "GET /socket.io/?EIO=4&transport=polling&t=PR29utT HTTP/1.1" 200 -
+2025-05-12 06:41:34,777 - app - INFO - Client connected: mFNrzl6_JjUuC3k7AAAC
+2025-05-12 06:41:34,778 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:41:34] "POST /socket.io/?EIO=4&transport=polling&t=PR29u-h&sid=k_76If62NVWj8hKnAAAB HTTP/1.1" 200 -
+2025-05-12 06:41:34,783 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:41:34] "GET /socket.io/?EIO=4&transport=polling&t=PR29u-j&sid=k_76If62NVWj8hKnAAAB HTTP/1.1" 200 -
+2025-05-12 06:41:34,922 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:41:34] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:41:34,938 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:41:34] "GET /socket.io/?EIO=4&transport=polling&t=PR29v19&sid=k_76If62NVWj8hKnAAAB HTTP/1.1" 200 -
+2025-05-12 06:41:35,195 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:41:35] "GET /socket.io/?EIO=4&transport=polling&t=PR29v4x&sid=k_76If62NVWj8hKnAAAB HTTP/1.1" 200 -
+2025-05-12 06:41:44,583 - chatbot - ERROR - Error in chain invocation: Missing some input keys: {'query'}
+2025-05-12 06:41:52,541 - chatbot - ERROR - Error in chain invocation: Missing some input keys: {'query'}
+2025-05-12 06:42:13,217 - chatbot - ERROR - Error in chain invocation: Missing some input keys: {'query'}
+2025-05-12 06:44:15,306 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:44:15,307 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:44:21,388 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:44:21,405 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:44:21,523 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:44:21,812 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:44:21,822 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:44:21,823 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:44:22,159 - chatbot - INFO - Chain created successfully with direct retrieval chain
+2025-05-12 06:44:22,160 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:44:22,244 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:44:22,245 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:44:47,506 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:44:47,506 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:44:51,995 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:44:52,013 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:44:52,109 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:44:52,375 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:44:52,393 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:44:52,394 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:44:52,669 - chatbot - INFO - Chain created successfully with direct retrieval chain
+2025-05-12 06:44:52,671 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:44:52,746 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 06:44:52,759 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 06:44:52,828 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:52] "GET /socket.io/?EIO=4&transport=polling&t=PR2AY3J HTTP/1.1" 200 -
+2025-05-12 06:44:52,860 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:52] "GET /socket.io/?EIO=4&transport=polling&t=PR2AefB HTTP/1.1" 200 -
+2025-05-12 06:44:52,933 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:52] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:44:52,941 - app - INFO - Client connected: mDz22jOz2h9CVsqXAAAC
+2025-05-12 06:44:52,944 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:52] "POST /socket.io/?EIO=4&transport=polling&t=PR2AfMk&sid=hquQLvy0PxLvD2vAAAAB HTTP/1.1" 200 -
+2025-05-12 06:44:52,945 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:52] "GET /socket.io/?EIO=4&transport=polling&t=PR2AfMn&sid=hquQLvy0PxLvD2vAAAAB HTTP/1.1" 200 -
+2025-05-12 06:44:52,975 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:52] "GET /socket.io/?EIO=4&transport=websocket&sid=hquQLvy0PxLvD2vAAAAB HTTP/1.1" 200 -
+2025-05-12 06:44:53,499 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:53] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:44:54,315 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:54] "GET /socket.io/?EIO=4&transport=polling&t=PR2Afhh HTTP/1.1" 200 -
+2025-05-12 06:44:54,566 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:54] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:44:55,052 - app - INFO - Client connected: og2G4wwVLCvticjCAAAE
+2025-05-12 06:44:55,055 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:55] "POST /socket.io/?EIO=4&transport=polling&t=PR2Afu4&sid=IvlTvRQpDGikuP3pAAAD HTTP/1.1" 200 -
+2025-05-12 06:44:55,056 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:55] "GET /socket.io/?EIO=4&transport=polling&t=PR2Afu5&sid=IvlTvRQpDGikuP3pAAAD HTTP/1.1" 200 -
+2025-05-12 06:44:55,734 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:55] "GET /socket.io/?EIO=4&transport=polling&t=PR2Ag2h&sid=IvlTvRQpDGikuP3pAAAD HTTP/1.1" 200 -
+2025-05-12 06:44:56,810 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:44:56] "GET /socket.io/?EIO=4&transport=polling&t=PR2AgJa&sid=IvlTvRQpDGikuP3pAAAD HTTP/1.1" 200 -
+2025-05-12 06:45:08,501 - chatbot - ERROR - Error in chain invocation: 
+2025-05-12 06:45:20,804 - chatbot - ERROR - Error in chain invocation: 
+2025-05-12 06:45:23,767 - chatbot - ERROR - Error in chain invocation: 
+2025-05-12 06:48:25,399 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:48:25,399 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:48:29,189 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:48:29,205 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:48:29,479 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:48:29,504 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:48:29,519 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:48:29,520 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:48:29,750 - chatbot - INFO - Chain created successfully with LCEL retrieval chain
+2025-05-12 06:48:29,750 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:48:29,815 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:48:29,816 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:48:46,339 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:48:46,340 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:48:54,170 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:48:54,182 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:48:54,323 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:48:54,624 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:48:54,647 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:48:54,648 - chatbot - INFO - Using Hugging Face Hub API
+2025-05-12 06:48:55,168 - chatbot - INFO - Chain created successfully with LCEL retrieval chain
+2025-05-12 06:48:55,168 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:48:55,245 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 06:48:55,263 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 06:48:55,335 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:55] "GET /socket.io/?EIO=4&transport=polling&t=PR2BUMd HTTP/1.1" 200 -
+2025-05-12 06:48:55,377 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:55] "GET /socket.io/?EIO=4&transport=polling&t=PR2BaTb HTTP/1.1" 200 -
+2025-05-12 06:48:55,430 - app - INFO - Client connected: TN_6nOTz8L8PBPUCAAAC
+2025-05-12 06:48:55,433 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:55] "POST /socket.io/?EIO=4&transport=polling&t=PR2BaZR&sid=ijPzcdrQTgKkyTQPAAAB HTTP/1.1" 200 -
+2025-05-12 06:48:55,434 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:55] "GET /socket.io/?EIO=4&transport=polling&t=PR2BaZV&sid=ijPzcdrQTgKkyTQPAAAB HTTP/1.1" 200 -
+2025-05-12 06:48:55,455 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:55] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:48:55,458 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:55] "GET /socket.io/?EIO=4&transport=polling&t=PR2BaaP&sid=ijPzcdrQTgKkyTQPAAAB HTTP/1.1" 200 -
+2025-05-12 06:48:55,486 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:55] "GET /socket.io/?EIO=4&transport=websocket&sid=ijPzcdrQTgKkyTQPAAAB HTTP/1.1" 200 -
+2025-05-12 06:48:55,950 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:55] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:48:56,654 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:56] "GET /socket.io/?EIO=4&transport=polling&t=PR2BasA HTTP/1.1" 200 -
+2025-05-12 06:48:56,900 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:56] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:48:57,722 - app - INFO - Client connected: tsjPjyPyRcHmTnqMAAAE
+2025-05-12 06:48:57,730 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:57] "POST /socket.io/?EIO=4&transport=polling&t=PR2Bb7h&sid=nzEfamxG_eVs-IJ7AAAD HTTP/1.1" 200 -
+2025-05-12 06:48:57,731 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:57] "GET /socket.io/?EIO=4&transport=polling&t=PR2Bb7i&sid=nzEfamxG_eVs-IJ7AAAD HTTP/1.1" 200 -
+2025-05-12 06:48:58,703 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:58] "GET /socket.io/?EIO=4&transport=polling&t=PR2BbMy&sid=nzEfamxG_eVs-IJ7AAAD HTTP/1.1" 200 -
+2025-05-12 06:48:58,774 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:48:58] "GET /socket.io/?EIO=4&transport=polling&t=PR2BbNv&sid=nzEfamxG_eVs-IJ7AAAD HTTP/1.1" 200 -
+2025-05-12 06:49:03,328 - chatbot - INFO - Invoking retrieval chain
+2025-05-12 06:49:04,335 - chatbot - ERROR - Error in chain execution: 
+Traceback (most recent call last):
+  File "D:\education-prediction\utils\chatbot.py", line 901, in process_query
+    chain_response = self.chain(processed_query)
+  File "D:\education-prediction\utils\chatbot.py", line 224, in get_sources
+    "result": retrieval_chain.invoke(query),
+              ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\runnables\base.py", line 3034, in invoke
+    input = context.run(step.invoke, input, config)
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 387, in invoke
+    self.generate_prompt(
+    ~~~~~~~~~~~~~~~~~~~~^
+        [self._convert_input(input)],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 764, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 971, in generate
+    return self._generate_helper(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        prompts,
+        ^^^^^^^^
+    ...<3 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 790, in _generate_helper
+    self._generate(
+    ~~~~~~~~~~~~~~^
+        prompts,
+        ^^^^^^^^
+    ...<3 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 1545, in _generate
+    self._call(prompt, stop=stop, run_manager=run_manager, **kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_huggingface\llms\huggingface_endpoint.py", line 312, in _call
+    response_text = self.client.text_generation(
+        prompt=prompt,
+        model=self.model,
+        **invocation_params,
+    )
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\huggingface_hub\inference\_client.py", line 2297, in text_generation
+    provider_helper = get_provider_helper(self.provider, task="text-generation", model=model_id)
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\huggingface_hub\inference\_providers\__init__.py", line 165, in get_provider_helper
+    provider = next(iter(provider_mapping))
+StopIteration
+2025-05-12 06:49:04,696 - chatbot - INFO - Generated response of length: 128
+2025-05-12 06:49:09,362 - chatbot - INFO - Invoking retrieval chain
+2025-05-12 06:49:09,467 - chatbot - ERROR - Error in chain execution: 
+Traceback (most recent call last):
+  File "D:\education-prediction\utils\chatbot.py", line 901, in process_query
+    chain_response = self.chain(processed_query)
+  File "D:\education-prediction\utils\chatbot.py", line 224, in get_sources
+    "result": retrieval_chain.invoke(query),
+              ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\runnables\base.py", line 3034, in invoke
+    input = context.run(step.invoke, input, config)
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 387, in invoke
+    self.generate_prompt(
+    ~~~~~~~~~~~~~~~~~~~~^
+        [self._convert_input(input)],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 764, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 971, in generate
+    return self._generate_helper(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        prompts,
+        ^^^^^^^^
+    ...<3 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 790, in _generate_helper
+    self._generate(
+    ~~~~~~~~~~~~~~^
+        prompts,
+        ^^^^^^^^
+    ...<3 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 1545, in _generate
+    self._call(prompt, stop=stop, run_manager=run_manager, **kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_huggingface\llms\huggingface_endpoint.py", line 312, in _call
+    response_text = self.client.text_generation(
+        prompt=prompt,
+        model=self.model,
+        **invocation_params,
+    )
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\huggingface_hub\inference\_client.py", line 2297, in text_generation
+    provider_helper = get_provider_helper(self.provider, task="text-generation", model=model_id)
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\huggingface_hub\inference\_providers\__init__.py", line 165, in get_provider_helper
+    provider = next(iter(provider_mapping))
+StopIteration
+2025-05-12 06:49:09,478 - chatbot - INFO - Generated response of length: 128
+2025-05-12 06:49:11,340 - chatbot - INFO - Invoking retrieval chain
+2025-05-12 06:49:11,432 - chatbot - ERROR - Error in chain execution: 
+Traceback (most recent call last):
+  File "D:\education-prediction\utils\chatbot.py", line 901, in process_query
+    chain_response = self.chain(processed_query)
+  File "D:\education-prediction\utils\chatbot.py", line 224, in get_sources
+    "result": retrieval_chain.invoke(query),
+              ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\runnables\base.py", line 3034, in invoke
+    input = context.run(step.invoke, input, config)
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 387, in invoke
+    self.generate_prompt(
+    ~~~~~~~~~~~~~~~~~~~~^
+        [self._convert_input(input)],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 764, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 971, in generate
+    return self._generate_helper(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        prompts,
+        ^^^^^^^^
+    ...<3 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 790, in _generate_helper
+    self._generate(
+    ~~~~~~~~~~~~~~^
+        prompts,
+        ^^^^^^^^
+    ...<3 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 1545, in _generate
+    self._call(prompt, stop=stop, run_manager=run_manager, **kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_huggingface\llms\huggingface_endpoint.py", line 312, in _call
+    response_text = self.client.text_generation(
+        prompt=prompt,
+        model=self.model,
+        **invocation_params,
+    )
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\huggingface_hub\inference\_client.py", line 2297, in text_generation
+    provider_helper = get_provider_helper(self.provider, task="text-generation", model=model_id)
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\huggingface_hub\inference\_providers\__init__.py", line 165, in get_provider_helper
+    provider = next(iter(provider_mapping))
+StopIteration
+2025-05-12 06:49:11,441 - chatbot - INFO - Generated response of length: 128
+2025-05-12 06:49:19,455 - chatbot - INFO - Invoking retrieval chain
+2025-05-12 06:49:19,549 - chatbot - ERROR - Error in chain execution: 
+Traceback (most recent call last):
+  File "D:\education-prediction\utils\chatbot.py", line 901, in process_query
+    chain_response = self.chain(processed_query)
+  File "D:\education-prediction\utils\chatbot.py", line 224, in get_sources
+    "result": retrieval_chain.invoke(query),
+              ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\runnables\base.py", line 3034, in invoke
+    input = context.run(step.invoke, input, config)
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 387, in invoke
+    self.generate_prompt(
+    ~~~~~~~~~~~~~~~~~~~~^
+        [self._convert_input(input)],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 764, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 971, in generate
+    return self._generate_helper(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        prompts,
+        ^^^^^^^^
+    ...<3 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 790, in _generate_helper
+    self._generate(
+    ~~~~~~~~~~~~~~^
+        prompts,
+        ^^^^^^^^
+    ...<3 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_core\language_models\llms.py", line 1545, in _generate
+    self._call(prompt, stop=stop, run_manager=run_manager, **kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\langchain_huggingface\llms\huggingface_endpoint.py", line 312, in _call
+    response_text = self.client.text_generation(
+        prompt=prompt,
+        model=self.model,
+        **invocation_params,
+    )
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\huggingface_hub\inference\_client.py", line 2297, in text_generation
+    provider_helper = get_provider_helper(self.provider, task="text-generation", model=model_id)
+  File "C:\Users\TECH TRENDS\AppData\Local\Programs\Python\Python313\Lib\site-packages\huggingface_hub\inference\_providers\__init__.py", line 165, in get_provider_helper
+    provider = next(iter(provider_mapping))
+StopIteration
+2025-05-12 06:49:19,558 - chatbot - INFO - Generated response of length: 128
+2025-05-12 06:52:57,978 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:52:57,979 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:53:04,150 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:53:04,165 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:53:04,285 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:53:04,616 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:53:04,626 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:53:04,626 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 06:53:04,628 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 06:53:04,628 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:53:04,717 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:53:04,719 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:53:28,224 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:53:28,225 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:53:34,661 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:53:34,682 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:53:34,769 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:53:35,012 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:53:35,024 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:53:35,025 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 06:53:35,027 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 06:53:35,027 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:53:35,108 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 06:53:35,123 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 06:53:35,192 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:35] "GET /socket.io/?EIO=4&transport=polling&t=PR2CXVQ HTTP/1.1" 200 -
+2025-05-12 06:53:35,198 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:35] "GET /socket.io/?EIO=4&transport=polling&t=PR2CdcK HTTP/1.1" 200 -
+2025-05-12 06:53:35,287 - app - INFO - Client connected: KTvPijlvvGn4OX49AAAC
+2025-05-12 06:53:35,289 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:35] "POST /socket.io/?EIO=4&transport=polling&t=PR2Cetu&sid=fg5jFJM0FaP7IQP3AAAB HTTP/1.1" 200 -
+2025-05-12 06:53:35,290 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:35] "GET /socket.io/?EIO=4&transport=polling&t=PR2Cetx&sid=fg5jFJM0FaP7IQP3AAAB HTTP/1.1" 200 -
+2025-05-12 06:53:35,317 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:35] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:53:35,360 - app - INFO - Client disconnected: KTvPijlvvGn4OX49AAAC
+2025-05-12 06:53:35,361 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:35] "GET /socket.io/?EIO=4&transport=websocket&sid=fg5jFJM0FaP7IQP3AAAB HTTP/1.1" 200 -
+2025-05-12 06:53:35,759 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:35] "GET /socket.io/?EIO=4&transport=polling&t=PR2Ce_c HTTP/1.1" 200 -
+2025-05-12 06:53:35,903 - app - INFO - Client connected: EtS0cImRN5Hq7o06AAAE
+2025-05-12 06:53:35,904 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:35] "POST /socket.io/?EIO=4&transport=polling&t=PR2Cf2B&sid=fpLfwzRjMhzgRUxpAAAD HTTP/1.1" 200 -
+2025-05-12 06:53:35,932 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:35] "GET /socket.io/?EIO=4&transport=polling&t=PR2Cf2C&sid=fpLfwzRjMhzgRUxpAAAD HTTP/1.1" 200 -
+2025-05-12 06:53:36,221 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:36] "GET /socket.io/?EIO=4&transport=polling&t=PR2Cf7P&sid=fpLfwzRjMhzgRUxpAAAD HTTP/1.1" 200 -
+2025-05-12 06:53:36,404 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:36] "GET /socket.io/?EIO=4&transport=polling&t=PR2CfA2&sid=fpLfwzRjMhzgRUxpAAAD HTTP/1.1" 200 -
+2025-05-12 06:53:36,430 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:53:36] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:53:45,524 - chatbot - INFO - Invoking retrieval chain
+2025-05-12 06:53:45,700 - chatbot - INFO - Generated response of length: 166
+2025-05-12 06:54:35,972 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:54:35] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:55:13,882 - chatbot - WARNING - Potentially unsafe query detected: Student name: Mesum, Attendance Percentage: 90, Homework completion rate: 70, Test Scores: 88
+2025-05-12 06:56:53,182 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:56:53,183 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:56:59,491 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:56:59,507 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:56:59,638 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:56:59,926 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:56:59,936 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:56:59,937 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 06:56:59,939 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 06:56:59,939 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:57:00,051 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 06:57:00,052 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 06:57:17,283 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 06:57:17,284 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 06:57:21,656 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 06:57:21,672 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 06:57:21,754 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 06:57:21,986 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 06:57:21,997 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 06:57:21,997 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 06:57:21,999 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 06:57:22,000 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 06:57:22,077 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 06:57:22,091 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 06:57:22,146 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:57:22] "GET /socket.io/?EIO=4&transport=polling&t=PR2DRcL HTTP/1.1" 200 -
+2025-05-12 06:57:22,180 - app - INFO - Client connected: E3civZwZIIKV9LDqAAAB
+2025-05-12 06:57:22,185 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:57:22] "POST /socket.io/?EIO=4&transport=polling&t=PR2DWHe&sid=7e0JbB7D08sxZZOCAAAA HTTP/1.1" 200 -
+2025-05-12 06:57:22,199 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:57:22] "GET /socket.io/?EIO=4&transport=polling&t=PR2DWHk&sid=7e0JbB7D08sxZZOCAAAA HTTP/1.1" 200 -
+2025-05-12 06:57:36,418 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:57:36] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:57:39,501 - app - INFO - Client disconnected: E3civZwZIIKV9LDqAAAB
+2025-05-12 06:57:39,502 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:57:39] "GET /socket.io/?EIO=4&transport=websocket&sid=7e0JbB7D08sxZZOCAAAA HTTP/1.1" 200 -
+2025-05-12 06:57:39,667 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:57:39] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 06:57:40,879 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:57:40] "GET /socket.io/?EIO=4&transport=polling&t=PR2Daq_ HTTP/1.1" 200 -
+2025-05-12 06:57:41,155 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:57:41] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 06:57:42,341 - app - INFO - Client connected: vt6T7GjmO8ESEKFfAAAD
+2025-05-12 06:57:42,343 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:57:42] "POST /socket.io/?EIO=4&transport=polling&t=PR2DbCb&sid=OnXJZERmbOaSofMfAAAC HTTP/1.1" 200 -
+2025-05-12 06:57:42,346 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:57:42] "GET /socket.io/?EIO=4&transport=polling&t=PR2DbCd&sid=OnXJZERmbOaSofMfAAAC HTTP/1.1" 200 -
+2025-05-12 06:57:43,717 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 06:57:43] "GET /socket.io/?EIO=4&transport=polling&t=PR2DbYE&sid=OnXJZERmbOaSofMfAAAC HTTP/1.1" 200 -
+2025-05-12 06:57:48,599 - chatbot - INFO - Invoking retrieval chain
+2025-05-12 06:57:48,826 - chatbot - INFO - Generated response of length: 166
+2025-05-12 06:57:53,594 - chatbot - INFO - Invoking retrieval chain
+2025-05-12 06:57:53,653 - chatbot - INFO - Generated response of length: 166
+2025-05-12 06:58:10,132 - chatbot - INFO - Invoking retrieval chain
+2025-05-12 06:58:10,192 - chatbot - INFO - Generated response of length: 166
+2025-05-12 07:03:53,244 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 07:03:53,245 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 07:03:57,913 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 07:03:57,929 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 07:03:58,239 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 07:03:58,265 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 07:03:58,283 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 07:03:58,283 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 07:03:58,285 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 07:03:58,285 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 07:03:58,347 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 07:03:58,348 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 07:04:24,980 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 07:04:24,980 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 07:04:29,742 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 07:04:29,752 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 07:04:29,866 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 07:04:30,100 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 07:04:30,108 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 07:04:30,109 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 07:04:30,110 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 07:04:30,110 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 07:04:30,178 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 07:04:30,195 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 07:04:30,265 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:30] "GET /socket.io/?EIO=4&transport=polling&t=PR2F1Qq HTTP/1.1" 200 -
+2025-05-12 07:04:30,272 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:30] "GET /socket.io/?EIO=4&transport=polling&t=PR2F7m6 HTTP/1.1" 200 -
+2025-05-12 07:04:30,348 - app - INFO - Client connected: TqaYaObSVVvVHj_pAAAC
+2025-05-12 07:04:30,350 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:30] "POST /socket.io/?EIO=4&transport=polling&t=PR2F8pW&sid=IhTQusFmG3puYjDgAAAB HTTP/1.1" 200 -
+2025-05-12 07:04:30,350 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:30] "GET /socket.io/?EIO=4&transport=polling&t=PR2F8pc&sid=IhTQusFmG3puYjDgAAAB HTTP/1.1" 200 -
+2025-05-12 07:04:30,373 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:30] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 07:04:30,410 - app - INFO - Client disconnected: TqaYaObSVVvVHj_pAAAC
+2025-05-12 07:04:30,411 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:30] "GET /socket.io/?EIO=4&transport=websocket&sid=IhTQusFmG3puYjDgAAAB HTTP/1.1" 200 -
+2025-05-12 07:04:31,920 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:31] "GET /socket.io/?EIO=4&transport=polling&t=PR2F9Bn HTTP/1.1" 200 -
+2025-05-12 07:04:32,950 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:32] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 07:04:34,278 - app - INFO - Client connected: p4HvddaZ2S4--DmkAAAE
+2025-05-12 07:04:34,281 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:34] "POST /socket.io/?EIO=4&transport=polling&t=PR2F9nO&sid=i9r7Wi5dZTySCtDaAAAD HTTP/1.1" 200 -
+2025-05-12 07:04:34,282 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:34] "GET /socket.io/?EIO=4&transport=polling&t=PR2F9nQ&sid=i9r7Wi5dZTySCtDaAAAD HTTP/1.1" 200 -
+2025-05-12 07:04:34,352 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:34] "GET /socket.io/?EIO=4&transport=polling&t=PR2F9oV&sid=i9r7Wi5dZTySCtDaAAAD HTTP/1.1" 200 -
+2025-05-12 07:04:35,544 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:04:35] "GET /socket.io/?EIO=4&transport=polling&t=PR2FA5H&sid=i9r7Wi5dZTySCtDaAAAD HTTP/1.1" 200 -
+2025-05-12 07:05:19,070 - chatbot - INFO - Invoking retrieval chain
+2025-05-12 07:05:19,197 - chatbot - INFO - Generated response of length: 322
+2025-05-12 07:05:32,291 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:05:32] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 07:10:39,700 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 07:10:39,700 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 07:10:44,239 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 07:10:44,248 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 07:10:44,445 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 07:10:44,459 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 07:10:44,465 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 07:10:44,466 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 07:10:44,466 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 07:10:44,466 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 07:10:44,495 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 07:10:44,495 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 07:10:54,667 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 07:10:54,668 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 07:10:59,112 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 07:10:59,121 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 07:10:59,163 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 07:10:59,348 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 07:10:59,355 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 07:10:59,356 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 07:10:59,356 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 07:10:59,357 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 07:10:59,374 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 07:10:59,376 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 07:10:59,392 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:10:59] "GET /socket.io/?EIO=4&transport=polling&t=PR2Gb0m HTTP/1.1" 200 -
+2025-05-12 07:10:59,410 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:10:59] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 07:10:59,941 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:10:59] "GET /socket.io/?EIO=4&transport=polling&t=PR2GdxW HTTP/1.1" 200 -
+2025-05-12 07:11:00,679 - app - INFO - Client connected: iBNY8NxKXUyZVaZQAAAC
+2025-05-12 07:11:00,680 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:11:00] "POST /socket.io/?EIO=4&transport=polling&t=PR2Ge6-&sid=gM-XJLbupl3paf0OAAAB HTTP/1.1" 200 -
+2025-05-12 07:11:00,681 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:11:00] "GET /socket.io/?EIO=4&transport=polling&t=PR2Ge6_&sid=gM-XJLbupl3paf0OAAAB HTTP/1.1" 200 -
+2025-05-12 07:11:00,864 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:11:00] "GET /socket.io/?EIO=4&transport=polling&t=PR2Ge9t&sid=gM-XJLbupl3paf0OAAAB HTTP/1.1" 200 -
+2025-05-12 07:11:00,881 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:11:00] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 07:11:01,279 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:11:01] "GET /socket.io/?EIO=4&transport=polling&t=PR2GeGM&sid=gM-XJLbupl3paf0OAAAB HTTP/1.1" 200 -
+2025-05-12 07:15:16,702 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 07:15:16,703 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 07:15:21,102 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 07:15:21,113 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 07:15:21,338 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 07:15:21,349 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 07:15:21,355 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 07:15:21,356 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 07:15:21,356 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 07:15:21,356 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 07:15:21,377 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 07:15:21,377 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 07:15:31,594 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 07:15:31,595 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 07:15:36,714 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 07:15:36,724 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 07:15:36,765 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 07:15:36,931 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 07:15:36,937 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 07:15:36,937 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 07:15:36,938 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 07:15:36,938 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 07:15:36,953 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 07:15:36,956 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 07:15:36,972 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:15:36] "GET /socket.io/?EIO=4&transport=polling&t=PR2He9h HTTP/1.1" 200 -
+2025-05-12 07:15:36,983 - app - INFO - Client connected: xr8jJSISM_NEd61oAAAB
+2025-05-12 07:15:36,984 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:15:36] "POST /socket.io/?EIO=4&transport=polling&t=PR2HhaH&sid=VjsgORvKO5rCA_yTAAAA HTTP/1.1" 200 -
+2025-05-12 07:15:36,988 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:15:36] "GET /socket.io/?EIO=4&transport=polling&t=PR2HhaI&sid=VjsgORvKO5rCA_yTAAAA HTTP/1.1" 200 -
+2025-05-12 07:15:41,652 - app - INFO - Client disconnected: xr8jJSISM_NEd61oAAAB
+2025-05-12 07:15:41,652 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:15:41] "GET /socket.io/?EIO=4&transport=websocket&sid=VjsgORvKO5rCA_yTAAAA HTTP/1.1" 200 -
+2025-05-12 07:15:41,718 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:15:41] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 07:15:42,316 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:15:42] "GET /socket.io/?EIO=4&transport=polling&t=PR2Hit0 HTTP/1.1" 200 -
+2025-05-12 07:15:42,635 - app - INFO - Client connected: vped2Uvtpsopj99tAAAD
+2025-05-12 07:15:42,637 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:15:42] "POST /socket.io/?EIO=4&transport=polling&t=PR2Hiya&sid=ENnpajqpLwshu_PkAAAC HTTP/1.1" 200 -
+2025-05-12 07:15:42,638 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:15:42] "GET /socket.io/?EIO=4&transport=polling&t=PR2Hiyb&sid=ENnpajqpLwshu_PkAAAC HTTP/1.1" 200 -
+2025-05-12 07:15:43,041 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:15:43] "GET /socket.io/?EIO=4&transport=polling&t=PR2Hj2u&sid=ENnpajqpLwshu_PkAAAC HTTP/1.1" 200 -
+2025-05-12 07:15:43,302 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:15:43] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 07:15:44,618 - chatbot - INFO - Invoking retrieval chain
+2025-05-12 07:15:44,677 - chatbot - INFO - Generated response of length: 322
+2025-05-12 07:15:53,586 - chatbot - INFO - Invoking retrieval chain
+2025-05-12 07:15:53,599 - chatbot - INFO - Generated response of length: 322
+2025-05-12 07:30:47,165 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 07:30:47,165 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 07:30:51,783 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 07:30:51,799 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 07:30:51,997 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 07:30:52,008 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 07:30:52,015 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 07:30:52,015 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 07:30:52,016 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 07:30:52,016 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 07:30:52,036 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 07:30:52,036 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 07:31:01,581 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 07:31:01,581 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 07:31:05,329 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 07:31:05,344 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 07:31:05,385 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 07:31:05,567 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 07:31:05,571 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 07:31:05,572 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 07:31:05,572 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 07:31:05,572 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 07:31:05,590 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 07:31:05,592 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 07:31:05,619 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:05] "GET / HTTP/1.1" 200 -
+2025-05-12 07:31:06,702 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:06] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 07:31:08,269 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:08] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 07:31:11,844 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:11] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 07:31:12,078 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:12] "GET /socket.io/?EIO=4&transport=polling&t=PR2LFt8 HTTP/1.1" 200 -
+2025-05-12 07:31:12,249 - app - INFO - Client connected: kfXe4R9U1geqreP-AAAB
+2025-05-12 07:31:12,251 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:12] "POST /socket.io/?EIO=4&transport=polling&t=PR2LFvj&sid=Uq7gBTzcpzLn7EKeAAAA HTTP/1.1" 200 -
+2025-05-12 07:31:12,256 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:12] "GET /socket.io/?EIO=4&transport=polling&t=PR2LFvk&sid=Uq7gBTzcpzLn7EKeAAAA HTTP/1.1" 200 -
+2025-05-12 07:31:12,386 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:12] "GET /socket.io/?EIO=4&transport=polling&t=PR2LFxg&sid=Uq7gBTzcpzLn7EKeAAAA HTTP/1.1" 200 -
+2025-05-12 07:31:12,666 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:12] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 07:31:16,498 - chatbot - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-12 07:31:19,740 - chatbot - INFO - Checking for prediction parameters in query: 1 parameters found
+2025-05-12 07:31:40,356 - app - INFO - Client disconnected: kfXe4R9U1geqreP-AAAB
+2025-05-12 07:31:40,357 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:40] "GET /socket.io/?EIO=4&transport=websocket&sid=Uq7gBTzcpzLn7EKeAAAA HTTP/1.1" 200 -
+2025-05-12 07:31:40,453 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:40] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 07:31:45,346 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:45] "GET / HTTP/1.1" 200 -
+2025-05-12 07:31:45,585 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:45] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 07:31:46,343 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:46] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 07:31:51,525 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:51] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 07:31:58,568 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:58] "GET / HTTP/1.1" 200 -
+2025-05-12 07:31:58,775 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:58] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 07:31:59,174 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:59] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 07:31:59,507 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:31:59] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 07:46:54,019 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 07:46:54,019 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 07:46:58,377 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 07:46:58,389 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 07:46:58,437 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 07:46:58,630 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 07:46:58,637 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 07:46:58,637 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 07:46:58,638 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 07:46:58,638 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 07:46:58,662 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 07:46:58,662 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 07:47:09,426 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 07:47:09,426 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 07:47:14,075 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 07:47:14,082 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 07:47:14,117 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 07:47:14,340 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 07:47:14,347 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 07:47:14,348 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 07:47:14,348 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 07:47:14,349 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 07:47:14,377 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 07:47:14,382 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 07:47:14,417 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:47:14] "GET / HTTP/1.1" 200 -
+2025-05-12 07:47:15,269 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:47:15] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 07:47:17,458 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:47:17] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 07:48:07,794 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:48:07] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 07:48:08,077 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:48:08] "GET /socket.io/?EIO=4&transport=polling&t=PR2P7v- HTTP/1.1" 200 -
+2025-05-12 07:48:08,397 - app - INFO - Client connected: nm6tT0G3pDquZz-FAAAB
+2025-05-12 07:48:08,401 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:48:08] "POST /socket.io/?EIO=4&transport=polling&t=PR2P7-r&sid=OP93zrQxsJ19ROY6AAAA HTTP/1.1" 200 -
+2025-05-12 07:48:08,423 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:48:08] "GET /socket.io/?EIO=4&transport=polling&t=PR2P7-s&sid=OP93zrQxsJ19ROY6AAAA HTTP/1.1" 200 -
+2025-05-12 07:48:08,574 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:48:08] "GET /socket.io/?EIO=4&transport=polling&t=PR2P81D&sid=OP93zrQxsJ19ROY6AAAA HTTP/1.1" 200 -
+2025-05-12 07:48:08,761 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:48:08] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 07:48:13,232 - app - INFO - Client disconnected: nm6tT0G3pDquZz-FAAAB
+2025-05-12 07:48:13,235 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:48:13] "GET /socket.io/?EIO=4&transport=websocket&sid=OP93zrQxsJ19ROY6AAAA HTTP/1.1" 200 -
+2025-05-12 07:48:13,271 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:48:13] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 07:48:13,438 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:48:13] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 07:48:15,060 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:48:15] "GET / HTTP/1.1" 200 -
+2025-05-12 07:48:15,278 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:48:15] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 07:56:04,658 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:56:04] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 07:57:52,516 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:57:52] "GET / HTTP/1.1" 200 -
+2025-05-12 07:57:52,893 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:57:52] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 07:57:56,198 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:57:56] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 07:58:00,834 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:00] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 07:58:01,005 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:01] "GET /static/style.css HTTP/1.1" 200 -
+2025-05-12 07:58:13,178 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:13] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 07:58:17,402 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:17] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 07:58:17,604 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 07:58:18,798 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:18] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-12 07:58:19,171 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:19] "GET /socket.io/?EIO=4&transport=polling&t=PR2RT6R HTTP/1.1" 200 -
+2025-05-12 07:58:19,401 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:19] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 07:58:19,414 - app - INFO - Client connected: tCjD-YFweXG047uWAAAD
+2025-05-12 07:58:19,415 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:19] "POST /socket.io/?EIO=4&transport=polling&t=PR2RTA9&sid=dLwj71VXKPbQi8IYAAAC HTTP/1.1" 200 -
+2025-05-12 07:58:19,419 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:19] "GET /socket.io/?EIO=4&transport=polling&t=PR2RTAB&sid=dLwj71VXKPbQi8IYAAAC HTTP/1.1" 200 -
+2025-05-12 07:58:19,497 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:19] "GET /socket.io/?EIO=4&transport=polling&t=PR2RTBM&sid=dLwj71VXKPbQi8IYAAAC HTTP/1.1" 200 -
+2025-05-12 07:58:19,750 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 07:58:19] "GET /socket.io/?EIO=4&transport=polling&t=PR2RTEF&sid=dLwj71VXKPbQi8IYAAAC HTTP/1.1" 200 -
+2025-05-12 08:05:42,185 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 08:05:42,185 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 08:05:48,032 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 08:05:48,050 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 08:05:48,157 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 08:05:48,572 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 08:05:48,590 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 08:05:48,591 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 08:05:48,592 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 08:05:48,592 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 08:05:48,680 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 08:05:48,680 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 08:06:23,078 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 08:06:23,079 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 08:06:28,297 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 08:06:28,321 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 08:06:28,417 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 08:06:28,776 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 08:06:28,791 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 08:06:28,792 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 08:06:28,793 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 08:06:28,794 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 08:06:28,860 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 08:06:28,880 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 08:06:28,972 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:06:28] "GET /socket.io/?EIO=4&transport=polling&t=PR2TBfp HTTP/1.1" 200 -
+2025-05-12 08:06:29,000 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:06:29] "GET /socket.io/?EIO=4&transport=polling&t=PR2THmd HTTP/1.1" 200 -
+2025-05-12 08:06:29,064 - app - INFO - Client connected: ugK2vwrXJdS_G1FoAAAC
+2025-05-12 08:06:29,067 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:06:29] "POST /socket.io/?EIO=4&transport=polling&t=PR2TKiJ&sid=sJA0LZ1h6Hh5Q94eAAAB HTTP/1.1" 200 -
+2025-05-12 08:06:29,074 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:06:29] "GET /socket.io/?EIO=4&transport=polling&t=PR2TKiM&sid=sJA0LZ1h6Hh5Q94eAAAB HTTP/1.1" 200 -
+2025-05-12 08:06:29,129 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:06:29] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 08:06:29,189 - app - INFO - Client disconnected: ugK2vwrXJdS_G1FoAAAC
+2025-05-12 08:06:29,191 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:06:29] "GET /socket.io/?EIO=4&transport=websocket&sid=sJA0LZ1h6Hh5Q94eAAAB HTTP/1.1" 200 -
+2025-05-12 08:06:29,690 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:06:29] "GET /api/chat/stats HTTP/1.1" 200 -
+2025-05-12 08:06:29,698 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:06:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:07:10,828 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:07:10] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 08:07:11,060 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:07:11] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:07:20,604 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:07:20] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 08:07:21,047 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:07:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:07:22,699 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:07:22] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 08:07:23,172 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:07:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:07:48,669 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:07:48] "GET / HTTP/1.1" 200 -
+2025-05-12 08:07:49,487 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:07:49] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 08:07:51,383 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:07:51] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 08:13:55,261 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:13:55] "[35m[1mGET /prediction-history HTTP/1.1[0m" 500 -
+2025-05-12 08:13:55,537 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:13:55] "GET /prediction-history?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-05-12 08:13:55,586 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:13:55] "GET /prediction-history?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-05-12 08:13:55,910 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:13:55] "GET /prediction-history?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-05-12 08:13:56,783 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:13:56] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-12 08:14:10,011 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:14:10] "[35m[1mGET /prediction-history HTTP/1.1[0m" 500 -
+2025-05-12 08:14:10,145 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:14:10] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:14:10,153 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:14:10] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-05-12 08:14:10,241 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:14:10] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-12 08:14:10,973 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:14:10] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-12 08:14:26,117 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:14:26] "GET / HTTP/1.1" 200 -
+2025-05-12 08:14:27,303 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:14:27] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 08:14:27,496 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:14:27] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 08:14:27,755 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:14:27] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:16:55,554 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\setup.py', reloading
+2025-05-12 08:16:57,821 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 08:17:26,453 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 08:17:26,454 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 08:17:31,488 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 08:17:31,498 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 08:17:31,574 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 08:17:31,825 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 08:17:31,847 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 08:17:31,848 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 08:17:31,849 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 08:17:31,850 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 08:17:31,929 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 08:17:31,934 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 08:18:06,718 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:18:06] "[35m[1mGET /prediction-history HTTP/1.1[0m" 500 -
+2025-05-12 08:18:07,249 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:18:07] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:18:07,269 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:18:07] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-05-12 08:18:07,417 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:18:07] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-12 08:18:12,670 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:18:12] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 08:18:12,822 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:18:12] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:19:17,631 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:19:17] "GET / HTTP/1.1" 200 -
+2025-05-12 08:19:18,488 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:19:18] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 08:19:20,523 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:19:20] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 08:19:33,068 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:19:33] "[35m[1mGET /prediction-history HTTP/1.1[0m" 500 -
+2025-05-12 08:19:33,195 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:19:33] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:19:33,215 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:19:33] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-05-12 08:19:33,340 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:19:33] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-12 08:19:38,278 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:19:38] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 08:19:38,439 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:19:38] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:19:44,616 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\setup.py', reloading
+2025-05-12 08:19:46,789 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 08:20:08,314 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 08:20:08,315 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 08:20:13,437 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 08:20:13,454 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 08:20:13,556 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 08:20:13,873 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 08:20:13,898 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 08:20:13,899 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 08:20:13,901 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 08:20:13,902 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 08:20:13,977 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 08:20:13,993 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 08:24:48,511 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:24:48] "[35m[1mGET /prediction-history HTTP/1.1[0m" 500 -
+2025-05-12 08:24:49,146 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:24:49] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:24:49,182 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:24:49] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-05-12 08:24:49,441 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:24:49] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-12 08:29:24,687 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 08:29:24,688 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 08:29:30,738 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 08:29:30,756 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 08:29:30,843 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 08:29:31,102 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 08:29:31,112 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 08:29:31,112 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 08:29:31,113 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 08:29:31,113 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 08:29:31,151 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 08:29:31,152 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 08:29:53,585 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 08:29:53,585 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 08:29:58,916 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 08:29:58,936 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 08:29:59,034 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 08:29:59,520 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 08:29:59,532 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 08:29:59,533 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 08:29:59,534 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 08:29:59,535 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 08:29:59,600 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 08:29:59,605 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 08:29:59,746 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:29:59] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 08:30:00,102 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:30:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:31:17,122 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:31:17] "[35m[1mGET /prediction-history HTTP/1.1[0m" 500 -
+2025-05-12 08:31:17,382 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:31:17] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:31:17,448 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:31:17] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-05-12 08:31:18,073 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:31:18] "[36mGET /prediction-history?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-12 08:55:52,709 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:55:52] "[32mGET /prediction-history HTTP/1.1[0m" 302 -
+2025-05-12 08:55:52,747 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:55:52] "GET /login?next=http%3A%2F%2Flocalhost%3A5000%2Fprediction-history HTTP/1.1" 200 -
+2025-05-12 08:56:10,181 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:56:10] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 08:56:10,351 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:56:10] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 08:56:47,452 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:56:47] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 08:56:47,713 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 08:56:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 09:00:10,204 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:00:10] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 09:00:10,480 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:00:10] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 09:01:31,210 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:01:31] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 09:01:31,468 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:01:31] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 09:01:33,507 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:01:33] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 09:01:33,672 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:01:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 09:04:54,950 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:04:54] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 09:04:55,140 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:04:55] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 09:05:21,310 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:05:21] "GET / HTTP/1.1" 200 -
+2025-05-12 09:05:21,704 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:05:21] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 09:05:22,632 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:05:22] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 09:16:20,396 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:16:20] "GET / HTTP/1.1" 200 -
+2025-05-12 09:16:34,563 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:16:34] "GET / HTTP/1.1" 200 -
+2025-05-12 09:16:38,388 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:16:38] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 09:16:38,624 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:16:38] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 09:16:40,762 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:16:40] "GET / HTTP/1.1" 200 -
+2025-05-12 09:18:30,035 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:18:30] "GET / HTTP/1.1" 200 -
+2025-05-12 09:18:30,654 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:18:30] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 09:18:33,923 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:18:33] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 09:19:38,489 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:19:38] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 09:19:39,112 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:19:39] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 09:21:35,878 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:21:35] "GET / HTTP/1.1" 200 -
+2025-05-12 09:21:37,012 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:21:37] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 09:28:13,135 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:13] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 09:28:13,770 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:13] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 09:28:20,453 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:20] "GET /api/predictions?id= HTTP/1.1" 200 -
+2025-05-12 09:28:34,147 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:34] "[32mGET /report/1391522 HTTP/1.1[0m" 302 -
+2025-05-12 09:28:34,236 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:34] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 09:28:34,485 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:34] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 09:28:38,803 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:38] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 09:28:42,782 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:42] "[32mGET /report/1391522 HTTP/1.1[0m" 302 -
+2025-05-12 09:28:42,850 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:42] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 09:28:43,137 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:43] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 09:28:45,812 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:28:45] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 09:29:11,666 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:29:11] "GET /api/predictions?id= HTTP/1.1" 200 -
+2025-05-12 09:29:11,887 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:29:11] "GET /api/predictions?id= HTTP/1.1" 200 -
+2025-05-12 09:29:29,090 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:29:29] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 09:29:29,372 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:29:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 09:29:32,378 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:29:32] "GET /api/predictions?id= HTTP/1.1" 200 -
+2025-05-12 09:46:47,149 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 09:46:47,149 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 09:46:51,791 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 09:46:51,795 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 09:46:51,826 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 09:46:51,997 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 09:46:52,003 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 09:46:52,004 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 09:46:52,004 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 09:46:52,004 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 09:46:52,027 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 09:46:52,028 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 09:47:01,494 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 09:47:01,494 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 09:47:04,644 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 09:47:04,651 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 09:47:04,682 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 09:47:04,846 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 09:47:04,853 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 09:47:04,854 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 09:47:04,855 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 09:47:04,855 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 09:47:04,873 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 09:47:04,876 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 09:47:05,410 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:47:05] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 09:47:05,629 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 09:47:05] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 10:04:16,984 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:04:16] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 10:04:17,124 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:04:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 10:07:53,090 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:07:53] "GET / HTTP/1.1" 200 -
+2025-05-12 10:07:53,581 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:07:53] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 10:08:07,329 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:08:07] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-12 10:28:39,511 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 10:28:39,512 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 10:28:42,432 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 10:28:42,442 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 10:28:42,474 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 10:28:42,648 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 10:28:42,655 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 10:28:42,655 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 10:28:42,656 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 10:28:42,656 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 10:28:42,676 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-12 10:28:42,677 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 10:28:52,438 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-12 10:28:52,439 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-12 10:28:57,598 - chatbot - INFO - Loading existing knowledge base...
+2025-05-12 10:28:57,618 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-12 10:28:57,656 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-12 10:28:57,818 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-12 10:28:57,826 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-12 10:28:57,826 - chatbot - INFO - Using Simple Text Generation
+2025-05-12 10:28:57,827 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-12 10:28:57,827 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-12 10:28:57,844 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 10:28:57,847 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-12 10:28:57,880 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:28:57] "GET / HTTP/1.1" 200 -
+2025-05-12 10:28:59,536 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:28:59] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-12 10:29:15,925 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:29:15] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 10:29:16,126 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:29:16] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 10:29:21,613 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:29:21] "GET /api/predictions?id= HTTP/1.1" 200 -
+2025-05-12 10:30:08,533 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:30:08] "[32mGET /report/69 HTTP/1.1[0m" 302 -
+2025-05-12 10:30:08,568 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:30:08] "GET /dashboard HTTP/1.1" 200 -
+2025-05-12 10:30:08,747 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:30:08] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-12 10:35:36,304 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:35:36] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-12 10:35:36,383 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 10:35:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -

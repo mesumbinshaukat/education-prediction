@@ -18,6 +18,9 @@
                         <a class="nav-link {{ 'active' if request.endpoint == 'prediction_history' }}" href="{{ url_for('prediction_history') }}">History</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'authenticated_chat' }}" href="{{ url_for('authenticated_chat') }}">Chatbot</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
                     </li>
                 {% else %}
@@ -26,6 +29,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ 'active' if request.endpoint == 'login' }}" href="{{ url_for('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'chat' }}" href="{{ url_for('chat') }}">Chatbot</a>
                     </li>
                 {% endif %}
             </ul>

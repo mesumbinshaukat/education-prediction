@@ -1,6 +1,8 @@
 import os
 import json
+import uuid
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file, jsonify, Response
+from flask_socketio import SocketIO, emit
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
@@ -12,12 +14,17 @@ import pickle
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from bson import ObjectId, json_util
+from utils.chatbot import get_chatbot
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Connect to MongoDB
 db = get_db()
+
+# Initialize chatbot
+chatbot = get_chatbot()
 
 # Login required decorator
 def login_required(f):
@@ -553,5 +560,185 @@ def api_predictions():
         app.logger.error(f"API Error: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
+# Chat endpoints
+@app.route('/chat')
+def chat():
+    """Public chat endpoint accessible without login"""
+    # Generate a unique session ID for this chat session if not already present
+    if 'chat_session_id' not in session:
+        session['chat_session_id'] = str(uuid.uuid4())
+    
+    return render_template('chat.html', 
+                           is_authenticated=False,
+                           session_id=session['chat_session_id'],
+                           now=datetime.now())
+
+@app.route('/chat/authenticated')
+@login_required
+def authenticated_chat():
+    """Authenticated chat endpoint with enhanced capabilities"""
+    # Generate a unique session ID for this chat session if not already present
+    if 'chat_session_id' not in session:
+        session['chat_session_id'] = str(uuid.uuid4())
+    
+    return render_template('chat.html', 
+                           is_authenticated=True,
+                           username=session.get('username'),
+                           session_id=session['chat_session_id'],
+                           now=datetime.now())
+
+@app.route('/api/chat', methods=['POST'])
+def api_chat():
+    """API endpoint for chat requests (REST fallback if WebSockets not available)"""
+    try:
+        data = request.json
+        query = data.get('query', '')
+        session_id = data.get('session_id', str(uuid.uuid4()))
+        
+        is_authenticated = 'username' in session
+        username = session.get('username') if is_authenticated else None
+        
+        # Process query through chatbot
+        response = chatbot.process_query(
+            query=query,
+            session_id=session_id,
+            is_authenticated=is_authenticated,
+            username=username
+        )
+        
+        return jsonify(response)
+    
+    except Exception as e:
+        app.logger.error(f"Chat API Error: {str(e)}")
+        return jsonify({
+            'response': "I encountered an error while processing your request.",
+            'type': 'error',
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/chat/reset', methods=['POST'])
+def reset_chat():
+    """Reset the chat conversation history"""
+    try:
+        data = request.json
+        session_id = data.get('session_id')
+        
+        if not session_id:
+            return jsonify({
+                'response': "Missing session_id parameter",
+                'type': 'error',
+                'success': False
+            }), 400
+            
+        response = chatbot.reset_conversation(session_id)
+        return jsonify(response)
+            
+    except Exception as e:
+        app.logger.error(f"Chat Reset Error: {str(e)}")
+        return jsonify({
+            'response': "Error resetting conversation",
+            'type': 'error',
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/chat/feedback', methods=['POST'])
+def chat_feedback():
+    """Submit feedback for a chat message"""
+    try:
+        data = request.json
+        session_id = data.get('session_id')
+        message_id = data.get('message_id')
+        feedback = data.get('feedback')
+        
+        if not all([session_id, message_id, feedback]):
+            return jsonify({
+                'response': "Missing required parameters",
+                'type': 'error',
+                'success': False
+            }), 400
+            
+        is_authenticated = 'username' in session
+        
+        response = chatbot.provide_feedback(
+            session_id=session_id,
+            message_id=message_id,
+            feedback=feedback,
+            is_authenticated=is_authenticated
+        )
+        
+        return jsonify(response)
+            
+    except Exception as e:
+        app.logger.error(f"Chat Feedback Error: {str(e)}")
+        return jsonify({
+            'response': "Error submitting feedback",
+            'type': 'error',
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/chat/stats')
+@login_required
+def chat_stats():
+    """Get chatbot usage statistics (authenticated users only)"""
+    try:
+        stats = chatbot.get_chatbot_stats()
+        return jsonify(stats)
+    
+    except Exception as e:
+        app.logger.error(f"Chat Stats Error: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+# WebSocket endpoints for real-time chat
+@socketio.on('connect')
+def handle_connect():
+    """Handle WebSocket connection"""
+    app.logger.info(f"Client connected: {request.sid}")
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    """Handle WebSocket disconnection"""
+    app.logger.info(f"Client disconnected: {request.sid}")
+
+@socketio.on('chat_message')
+def handle_chat_message(data):
+    """Handle incoming chat messages via WebSocket"""
+    query = data.get('query', '')
+    session_id = data.get('session_id', str(uuid.uuid4()))
+    request_id = data.get('request_id', '')
+    
+    is_authenticated = 'username' in session
+    username = session.get('username') if is_authenticated else None
+    
+    try:
+        # Process query through chatbot
+        response = chatbot.process_query(
+            query=query,
+            session_id=session_id,
+            is_authenticated=is_authenticated,
+            username=username
+        )
+        
+        # Add request_id to response for client-side message matching
+        response['request_id'] = request_id
+        
+        # Emit response back to the client
+        emit('chat_response', response)
+    
+    except Exception as e:
+        app.logger.error(f"WebSocket Chat Error: {str(e)}")
+        emit('chat_response', {
+            'response': "I encountered an error while processing your request.",
+            'type': 'error',
+            'success': False,
+            'error': str(e),
+            'request_id': request_id
+        })
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True)
