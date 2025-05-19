@@ -1,0 +1,101 @@
+@app.route('/analytics')
+@login_required
+def analytics():
+    try:
+        # Get predictions for the current user
+        username = session.get('username')
+        if not username:
+            flash("Please login to view analytics", 'danger')
+            return redirect(url_for('login'))
+
+        # Get all predictions for current user
+        all_predictions = list(db.predictionHistory.find({
+            "username": username
+        }).sort("created_at", -1))
+        
+        # Initialize counters
+        total_students = len(all_predictions)
+        total_attendance = 0
+        total_homework = 0
+        total_test_scores = 0
+        prediction_counts = {
+            'Excellent': 0,
+            'Good': 0,
+            'Needs Improvement': 0
+        }
+        
+        # Process predictions
+        processed_predictions = []
+        for pred in all_predictions:
+            try:
+                # Get numeric values with validation
+                attendance = min(max(float(pred.get('attendance', 0)), 0), 100)
+                homework = min(max(float(pred.get('homework_completion', 0)), 0), 100)
+                test_scores = min(max(float(pred.get('test_scores', 0)), 0), 100)
+                
+                # Update totals
+                total_attendance += attendance
+                total_homework += homework
+                total_test_scores += test_scores
+                
+                # Process prediction status
+                prediction = pred.get('prediction', '')
+                if isinstance(prediction, str):
+                    pred_lower = prediction.lower()
+                    if 'excellent' in pred_lower:
+                        prediction_text = 'Excellent'
+                    elif 'good' in pred_lower:
+                        prediction_text = 'Good'
+                    else:
+                        prediction_text = 'Needs Improvement'
+                else:
+                    # Use score to determine prediction
+                    score = (test_scores * 0.5) + (attendance * 0.3) + (homework * 0.2)
+                    if score >= 80:
+                        prediction_text = 'Excellent'
+                    elif score >= 60:
+                        prediction_text = 'Good'
+                    else:
+                        prediction_text = 'Needs Improvement'
+                
+                # Update prediction counts
+                prediction_counts[prediction_text] += 1
+                
+                # Create processed prediction object
+                processed_pred = {
+                    'name': pred.get('name', 'N/A'),
+                    'student_id': pred.get('student_id', 'N/A'),
+                    'attendance': round(attendance, 1),
+                    'homework_completion': round(homework, 1),
+                    'test_scores': round(test_scores, 1),
+                    'prediction': prediction_text,
+                    'formatted_date': pred.get('created_at', datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
+                }
+                
+                processed_predictions.append(processed_pred)
+                
+            except Exception as e:
+                print(f"Error processing prediction: {str(e)}")
+                continue
+        
+        # Calculate analytics data
+        analytics_data = {
+            'total_students': total_students,
+            'good_predictions': prediction_counts['Excellent'] + prediction_counts['Good'],
+            'needs_improvement': prediction_counts['Needs Improvement'],
+            'avg_attendance': round(total_attendance / total_students if total_students > 0 else 0, 1),
+            'avg_homework': round(total_homework / total_students if total_students > 0 else 0, 1),
+            'avg_test_scores': round(total_test_scores / total_students if total_students > 0 else 0, 1),
+            'prediction_counts': prediction_counts
+        }
+        
+        return render_template(
+            'student_analytics.html',
+            analytics=analytics_data,
+            predictions=processed_predictions,
+            active_page='analytics'  # Add this for navbar highlighting
+        )
+        
+    except Exception as e:
+        flash(f"Failed to load analytics: {str(e)}", 'danger')
+        return render_template('student_analytics.html', error=str(e))

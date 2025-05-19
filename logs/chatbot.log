@@ -1731,3 +1731,275 @@ StopIteration
 2025-05-19 13:17:19,895 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 13:17:19] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
 2025-05-19 13:19:29,706 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
 2025-05-19 13:19:33,610 - werkzeug - INFO -  * Restarting with stat
+2025-05-19 14:05:18,171 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-19 14:05:18,173 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-19 14:05:25,054 - chatbot - INFO - Loading existing knowledge base...
+2025-05-19 14:05:25,079 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-19 14:05:25,806 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-19 14:05:26,153 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-19 14:05:26,197 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-19 14:05:26,199 - chatbot - INFO - Using Simple Text Generation
+2025-05-19 14:05:26,201 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-19 14:05:26,202 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-19 14:05:26,458 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-19 14:05:26,459 - werkzeug - INFO -  * Restarting with stat
+2025-05-19 14:05:56,302 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-19 14:05:56,302 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-19 14:06:02,910 - chatbot - INFO - Loading existing knowledge base...
+2025-05-19 14:06:02,929 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-19 14:06:03,066 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-19 14:06:03,451 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-19 14:06:03,474 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-19 14:06:03,474 - chatbot - INFO - Using Simple Text Generation
+2025-05-19 14:06:03,476 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-19 14:06:03,477 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-19 14:06:03,693 - werkzeug - WARNING -  * Debugger is active!
+2025-05-19 14:06:03,712 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-19 14:07:29,537 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:07:29] "[32mGET /chat/authenticated HTTP/1.1[0m" 302 -
+2025-05-19 14:07:29,723 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:07:29] "[35m[1mGET /login?next=http%3A%2F%2F127.0.0.1%3A5000%2Fchat%2Fauthenticated HTTP/1.1[0m" 500 -
+2025-05-19 14:07:30,105 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:07:30] "[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-05-19 14:07:30,145 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:07:30] "[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-05-19 14:07:30,986 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:07:30] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-19 14:07:35,784 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:07:35] "[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-19 14:09:26,632 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-19 14:09:29,193 - werkzeug - INFO -  * Restarting with stat
+2025-05-19 14:10:06,281 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-19 14:10:06,282 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-19 14:10:13,792 - chatbot - INFO - Loading existing knowledge base...
+2025-05-19 14:10:13,812 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-19 14:10:13,868 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-19 14:10:14,121 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-19 14:10:14,142 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-19 14:10:14,142 - chatbot - INFO - Using Simple Text Generation
+2025-05-19 14:10:14,143 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-19 14:10:14,143 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-19 14:10:14,237 - werkzeug - WARNING -  * Debugger is active!
+2025-05-19 14:10:14,247 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-19 14:10:16,361 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:10:16] "GET / HTTP/1.1" 200 -
+2025-05-19 14:10:17,959 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:10:17] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-19 14:10:21,109 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:10:21] "GET /login HTTP/1.1" 200 -
+2025-05-19 14:10:21,478 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:10:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 14:10:28,915 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:10:28] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-19 14:10:28,939 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:10:28] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-05-19 14:10:29,029 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:10:29] "[32mGET /login?next=http%3A%2F%2F127.0.0.1%3A5000%2Fdashboard HTTP/1.1[0m" 302 -
+2025-05-19 14:10:29,106 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:10:29] "GET / HTTP/1.1" 200 -
+2025-05-19 14:10:29,557 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:10:29] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-19 14:14:57,383 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:14:57] "GET / HTTP/1.1" 200 -
+2025-05-19 14:14:58,539 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:14:58] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-19 14:15:01,243 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:15:01] "[32mGET /login HTTP/1.1[0m" 302 -
+2025-05-19 14:15:01,315 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:15:01] "GET / HTTP/1.1" 200 -
+2025-05-19 14:15:01,676 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:15:01] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-19 14:15:04,192 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:15:04] "[32mGET /login HTTP/1.1[0m" 302 -
+2025-05-19 14:15:04,392 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:15:04] "GET / HTTP/1.1" 200 -
+2025-05-19 14:15:05,249 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:15:05] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-19 14:16:32,973 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:16:32] "[32mGET /login HTTP/1.1[0m" 302 -
+2025-05-19 14:16:33,061 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:16:33] "GET / HTTP/1.1" 200 -
+2025-05-19 14:16:33,453 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:16:33] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-19 14:17:02,192 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-19 14:17:08,069 - werkzeug - INFO -  * Restarting with stat
+2025-05-19 14:17:37,401 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-19 14:17:37,402 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-19 14:17:43,719 - chatbot - INFO - Loading existing knowledge base...
+2025-05-19 14:17:43,743 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-19 14:17:43,854 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-19 14:17:44,382 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-19 14:17:44,398 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-19 14:17:44,409 - chatbot - INFO - Using Simple Text Generation
+2025-05-19 14:17:44,422 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-19 14:17:44,438 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-19 14:17:44,622 - werkzeug - WARNING -  * Debugger is active!
+2025-05-19 14:17:44,633 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-19 14:40:14,149 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:40:14] "[32mGET /login HTTP/1.1[0m" 302 -
+2025-05-19 14:40:14,246 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:40:14] "GET /dashboard HTTP/1.1" 200 -
+2025-05-19 14:40:14,498 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:40:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 14:40:32,016 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:40:32] "[32mGET /login HTTP/1.1[0m" 302 -
+2025-05-19 14:40:32,076 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:40:32] "GET /dashboard HTTP/1.1" 200 -
+2025-05-19 14:40:32,127 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:40:32] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 14:44:41,400 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:44:41] "GET /dashboard HTTP/1.1" 200 -
+2025-05-19 14:44:41,502 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:44:41] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 14:44:44,354 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:44:44] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-19 14:44:44,402 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:44:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 14:44:46,713 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:44:46] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-19 14:44:46,761 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:44:46] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 14:44:46,971 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:44:46] "GET /socket.io/?EIO=4&transport=polling&t=PRdxdPt HTTP/1.1" 200 -
+2025-05-19 14:44:47,170 - app - INFO - Client connected: AHf8oPmUnnTMLHWFAAAB
+2025-05-19 14:44:47,171 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:44:47] "POST /socket.io/?EIO=4&transport=polling&t=PRdxdSz&sid=essQ8C6wOGz-CzJKAAAA HTTP/1.1" 200 -
+2025-05-19 14:44:47,183 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:44:47] "GET /socket.io/?EIO=4&transport=polling&t=PRdxdS_&sid=essQ8C6wOGz-CzJKAAAA HTTP/1.1" 200 -
+2025-05-19 14:44:47,302 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 14:44:47] "GET /socket.io/?EIO=4&transport=polling&t=PRdxdUy&sid=essQ8C6wOGz-CzJKAAAA HTTP/1.1" 200 -
+2025-05-19 14:44:52,696 - chatbot - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-19 15:00:55,644 - app - INFO - Client disconnected: AHf8oPmUnnTMLHWFAAAB
+2025-05-19 15:00:55,645 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:00:55] "GET /socket.io/?EIO=4&transport=websocket&sid=essQ8C6wOGz-CzJKAAAA HTTP/1.1" 200 -
+2025-05-19 15:00:55,800 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:00:55] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-19 15:00:55,860 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:00:55] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:02:25,719 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:25] "GET /dashboard HTTP/1.1" 200 -
+2025-05-19 15:02:25,770 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:25] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:02:26,940 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:26] "GET / HTTP/1.1" 200 -
+2025-05-19 15:02:27,146 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:02:27,147 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:27] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:02:28,426 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:02:28,428 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:28] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:02:28,518 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:02:28,520 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:28] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:02:28,675 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:02:28,676 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:28] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:02:28,825 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:02:28,826 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:28] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:02:28,916 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:02:28,919 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:28] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:02:29,345 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:02:29,347 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:29] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:02:30,394 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:02:30,396 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:30] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:02:57,904 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:02:57] "[33mGET /student_analytics HTTP/1.1[0m" 404 -
+2025-05-19 15:03:14,378 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:03:14] "[33mGET /student_analytics HTTP/1.1[0m" 404 -
+2025-05-19 15:09:59,157 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:09:59] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-05-19 15:09:59,258 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:09:59] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-05-19 15:09:59,315 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:09:59] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-05-19 15:09:59,331 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:09:59] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-05-19 15:09:59,642 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:09:59] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-05-19 15:10:00,904 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:10:00] "[36mGET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-19 15:12:53,798 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-19 15:12:55,558 - werkzeug - INFO -  * Restarting with stat
+2025-05-19 15:13:09,240 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-19 15:13:09,240 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-19 15:13:13,866 - chatbot - INFO - Loading existing knowledge base...
+2025-05-19 15:13:13,873 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-19 15:13:13,903 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-19 15:13:14,068 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-19 15:13:14,075 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-19 15:13:14,075 - chatbot - INFO - Using Simple Text Generation
+2025-05-19 15:13:14,076 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-19 15:13:14,076 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-19 15:13:14,140 - werkzeug - WARNING -  * Debugger is active!
+2025-05-19 15:13:14,144 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-19 15:13:52,765 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-19 15:13:54,359 - werkzeug - INFO -  * Restarting with stat
+2025-05-19 15:14:04,290 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-19 15:14:04,290 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-19 15:14:08,071 - chatbot - INFO - Loading existing knowledge base...
+2025-05-19 15:14:08,079 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-19 15:14:08,108 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-19 15:14:08,281 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-19 15:14:08,287 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-19 15:14:08,288 - chatbot - INFO - Using Simple Text Generation
+2025-05-19 15:14:08,288 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-19 15:14:08,288 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-19 15:14:08,363 - werkzeug - WARNING -  * Debugger is active!
+2025-05-19 15:14:08,366 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-19 15:14:08,949 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:08] "GET / HTTP/1.1" 200 -
+2025-05-19 15:14:09,136 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:14:09,136 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:09] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:14:12,538 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:12] "GET /analytics HTTP/1.1" 200 -
+2025-05-19 15:14:30,776 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:30] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-19 15:14:30,875 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:14:30,933 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:30] "GET /socket.io/?EIO=4&transport=polling&t=PRe2Qx- HTTP/1.1" 200 -
+2025-05-19 15:14:31,085 - app - INFO - Client connected: oUdeQiFbPQUC2R5cAAAB
+2025-05-19 15:14:31,086 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:31] "POST /socket.io/?EIO=4&transport=polling&t=PRe2Q-f&sid=NBEZh3AEYIyGcJMtAAAA HTTP/1.1" 200 -
+2025-05-19 15:14:31,089 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:31] "GET /socket.io/?EIO=4&transport=polling&t=PRe2Q-g&sid=NBEZh3AEYIyGcJMtAAAA HTTP/1.1" 200 -
+2025-05-19 15:14:31,104 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:31] "GET /socket.io/?EIO=4&transport=polling&t=PRe2Q-x&sid=NBEZh3AEYIyGcJMtAAAA HTTP/1.1" 200 -
+2025-05-19 15:14:31,194 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:31] "GET /socket.io/?EIO=4&transport=polling&t=PRe2R0K&sid=NBEZh3AEYIyGcJMtAAAA HTTP/1.1" 200 -
+2025-05-19 15:14:32,105 - app - INFO - Client disconnected: oUdeQiFbPQUC2R5cAAAB
+2025-05-19 15:14:32,105 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:32] "GET /socket.io/?EIO=4&transport=websocket&sid=NBEZh3AEYIyGcJMtAAAA HTTP/1.1" 200 -
+2025-05-19 15:14:32,184 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:32] "GET /dashboard HTTP/1.1" 200 -
+2025-05-19 15:14:32,228 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:32] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:14:33,264 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:33] "GET / HTTP/1.1" 200 -
+2025-05-19 15:14:33,440 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:14:33,441 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:33] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:14:34,969 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:14:34,970 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:34] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:14:35,129 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:14:35,130 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:35] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:14:35,828 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:14:35,828 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:35] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:14:35,898 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:14:35,898 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:35] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:14:36,038 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:14:36,039 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:36] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:14:36,127 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:14:36,128 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:36] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:14:36,199 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:14:36,201 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:36] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:14:36,328 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:14:36,329 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:36] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:14:36,418 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:14:36,419 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:14:36] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:15:08,286 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:15:08,288 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:15:08] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:15:08,656 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:15:08,657 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:15:08] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:15:11,225 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:15:11,227 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:15:11] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:15:54,414 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:15:54,415 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:15:54] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:15:56,567 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:15:56] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-19 15:15:56,750 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:15:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:16:31,930 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:16:31] "GET / HTTP/1.1" 200 -
+2025-05-19 15:16:32,299 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:16:32,301 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:16:32] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:16:32,928 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:16:32,929 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:16:32] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:16:36,475 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:16:36,476 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:16:36] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:16:36,961 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:16:36,962 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:16:36] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:16:37,185 - app - ERROR - API Error: name 'sort_order' is not defined
+2025-05-19 15:16:37,186 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:16:37] "[35m[1mGET /api/predictions?skip=0&limit=20 HTTP/1.1[0m" 500 -
+2025-05-19 15:17:17,403 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-19 15:17:18,963 - werkzeug - INFO -  * Restarting with stat
+2025-05-19 15:17:28,601 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-19 15:17:28,602 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-19 15:17:32,408 - chatbot - INFO - Loading existing knowledge base...
+2025-05-19 15:17:32,429 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-19 15:17:32,485 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-19 15:17:32,658 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-19 15:17:32,664 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-19 15:17:32,665 - chatbot - INFO - Using Simple Text Generation
+2025-05-19 15:17:32,665 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-19 15:17:32,666 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-19 15:17:32,756 - werkzeug - WARNING -  * Debugger is active!
+2025-05-19 15:17:32,760 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-19 15:18:23,816 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:18:23] "GET / HTTP/1.1" 200 -
+2025-05-19 15:18:24,114 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:18:24] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-19 15:18:25,900 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:18:25] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-19 15:19:34,808 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\setup.py', reloading
+2025-05-19 15:19:36,281 - werkzeug - INFO -  * Restarting with stat
+2025-05-19 15:19:45,799 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-19 15:19:45,800 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-19 15:19:48,897 - chatbot - INFO - Loading existing knowledge base...
+2025-05-19 15:19:48,901 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-19 15:19:48,924 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-19 15:19:49,088 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-19 15:19:49,094 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-19 15:19:49,094 - chatbot - INFO - Using Simple Text Generation
+2025-05-19 15:19:49,095 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-19 15:19:49,095 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-19 15:19:49,154 - werkzeug - WARNING -  * Debugger is active!
+2025-05-19 15:19:49,158 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-19 15:22:07,438 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\setup.py', reloading
+2025-05-19 15:22:09,234 - werkzeug - INFO -  * Restarting with stat
+2025-05-19 15:22:20,855 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-19 15:22:20,855 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-19 15:22:26,017 - chatbot - INFO - Loading existing knowledge base...
+2025-05-19 15:22:26,028 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-19 15:22:26,071 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-19 15:22:26,254 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-19 15:22:26,262 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-19 15:22:26,262 - chatbot - INFO - Using Simple Text Generation
+2025-05-19 15:22:26,262 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-19 15:22:26,263 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-19 15:22:26,390 - werkzeug - WARNING -  * Debugger is active!
+2025-05-19 15:22:26,403 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-19 15:22:54,871 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-19 15:22:56,426 - werkzeug - INFO -  * Restarting with stat
+2025-05-19 15:23:06,169 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-19 15:23:06,169 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-19 15:23:10,245 - chatbot - INFO - Loading existing knowledge base...
+2025-05-19 15:23:10,257 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-19 15:23:10,290 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-19 15:23:10,471 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-19 15:23:10,478 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-19 15:23:10,479 - chatbot - INFO - Using Simple Text Generation
+2025-05-19 15:23:10,479 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-19 15:23:10,480 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-19 15:23:10,556 - werkzeug - WARNING -  * Debugger is active!
+2025-05-19 15:23:10,561 - werkzeug - INFO -  * Debugger PIN: 123-685-370

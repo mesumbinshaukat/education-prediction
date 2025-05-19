@@ -15,7 +15,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from bson import ObjectId, json_util
 from utils.chatbot import get_chatbot
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 import logging
 
 # Initialize Flask app
@@ -23,10 +23,29 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-here')
 socketio = SocketIO(app)
 
+# User class for Flask-Login
+class User(UserMixin):
+    def __init__(self, user_data):
+        self.id = str(user_data['_id'])
+        self.username = user_data['username']
+        self.email = user_data.get('email', '')
+
 # Initialize login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+login_manager.login_message = 'Please log in to access this page.'
+login_manager.login_message_category = 'info'
+
+@login_manager.user_loader
+def load_user(user_id):
+    try:
+        user_data = db.users.find_one({'_id': ObjectId(user_id)})
+        if user_data:
+            return User(user_data)
+    except Exception as e:
+        app.logger.error(f"Error loading user: {e}")
+    return None
 
 # Initialize chatbot
 chatbot = get_chatbot(rebuild_kb=False)
@@ -37,15 +56,6 @@ logger = logging.getLogger(__name__)
 
 # Connect to MongoDB
 db = get_db()
-
-# Login required decorator
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'username' not in session:
-            return redirect(url_for('login', next=request.url))
-        return f(*args, **kwargs)
-    return decorated_function
 
 @app.route('/')
 def home():
@@ -81,8 +91,11 @@ def register():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     # Redirect if user is already logged in
-    if 'username' in session:
-        return redirect(url_for('home'))
+    if current_user.is_authenticated:
+        next_page = request.args.get('next')
+        if not next_page or not next_page.startswith('/'):
+            next_page = url_for('index')
+        return redirect(next_page)
         
     if request.method == 'POST':
         users = db.users
@@ -90,47 +103,25 @@ def login():
         password = request.form.get('password')
 
         if username and password:
-            user = users.find_one({"username": username})
-            if user:
-                # Create a temporary hash for verification during migration
-                temp_hash = generate_password_hash(password, method='pbkdf2:sha256')
+            user_data = users.find_one({"username": username})
+            if user_data and check_password_hash(user_data['password'], password):
+                user = User(user_data)
+                login_user(user, remember=True)  # Enable remember me functionality
                 
-                try:
-                    # Try normal password verification first
-                    if check_password_hash(user['password'], password):
-                        # If using old hash method, update to new one
-                        if not user['password'].startswith('pbkdf2:sha256:'):
-                            users.update_one(
-                                {"_id": user["_id"]},
-                                {"$set": {"password": temp_hash}}
-                            )
-                        session['username'] = username
-                        session['email'] = user['email']
-                        flash('Login successful!', 'success')
-                        return redirect(url_for('index'))
-                except ValueError:
-                    # Special handling for old scrypt hashes
-                    if user['password'].startswith('scrypt:'):
-                        # Since we can't verify the old hash in Python 3.13,
-                        # we'll update to the new hash and let them proceed.
-                        # This is a one-time automatic migration.
-                        users.update_one(
-                            {"_id": user["_id"]},
-                            {"$set": {"password": temp_hash}}
-                        )
-                        session['username'] = username
-                        session['email'] = user['email']
-                        flash('Login successful! Your account has been updated for better security.', 'success')
-                        return redirect(url_for('index'))
-                
+                # Get the next page from the request args
+                next_page = request.args.get('next')
+                if not next_page or not next_page.startswith('/'):
+                    next_page = url_for('index')
+                    
+                flash('Login successful!', 'success')
+                return redirect(next_page)
             flash('Invalid credentials, please try again.', 'danger')
     return render_template('login.html')
 
 @app.route('/logout')
 @login_required
 def logout():
-    session.pop('username', None)
-    session.pop('email', None)
+    logout_user()
     flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
 
@@ -141,7 +132,7 @@ def predict():
     try:
         # Debug logging
         print(f"Form data received: {request.form}")
-        print(f"Session data: {session}")
+        print(f"Current user: {current_user.username}")
 
         if 'username' not in session:
             flash("Please login to make predictions", 'danger')
@@ -194,7 +185,7 @@ def predict():
             'probability': percentage,  # Always store as percentage (0-100) for template display
             
             # Metadata
-            'username': session.get('username', 'public'),
+            'username': current_user.username,
             'created_at': datetime.now(),
         }
         
@@ -366,7 +357,7 @@ def report(student_id):
 def prediction_history():
     # Get all predictions for the current user with required fields
     query = {
-        'username': session['username'],
+        'username': current_user.username,
         "student_id": {"$exists": True, "$ne": ""},
         "name": {"$exists": True, "$ne": ""},
         "email": {"$exists": True, "$ne": ""}
@@ -476,6 +467,106 @@ def prediction_history():
     
     return render_template('prediction_history.html', predictions=processed_predictions)
 
+@app.route('/analytics')
+@login_required
+def analytics():
+    try:
+        # Get predictions for the current user
+        username = current_user.username  # Use current_user instead of session
+        
+        # Get all predictions for current user
+        all_predictions = list(db.predictionHistory.find({
+            "username": username
+        }).sort("created_at", -1))
+        
+        # Initialize counters
+        total_students = len(all_predictions)
+        total_attendance = 0
+        total_homework = 0
+        total_test_scores = 0
+        prediction_counts = {
+            'Excellent': 0,
+            'Good': 0,
+            'Needs Improvement': 0
+        }
+        
+        # Process predictions
+        processed_predictions = []
+        for pred in all_predictions:
+            try:
+                # Get numeric values with validation
+                attendance = min(max(float(pred.get('attendance', 0)), 0), 100)
+                homework = min(max(float(pred.get('homework_completion', 0)), 0), 100)
+                test_scores = min(max(float(pred.get('test_scores', 0)), 0), 100)
+                
+                # Update totals
+                total_attendance += attendance
+                total_homework += homework
+                total_test_scores += test_scores
+                
+                # Process prediction status
+                prediction = pred.get('prediction', '')
+                if isinstance(prediction, str):
+                    pred_lower = prediction.lower()
+                    if 'excellent' in pred_lower:
+                        prediction_text = 'Excellent'
+                    elif 'good' in pred_lower:
+                        prediction_text = 'Good'
+                    else:
+                        prediction_text = 'Needs Improvement'
+                else:
+                    # Use score to determine prediction
+                    score = (test_scores * 0.5) + (attendance * 0.3) + (homework * 0.2)
+                    if score >= 80:
+                        prediction_text = 'Excellent'
+                    elif score >= 60:
+                        prediction_text = 'Good'
+                    else:
+                        prediction_text = 'Needs Improvement'
+                
+                # Update prediction counts
+                prediction_counts[prediction_text] += 1
+                
+                # Create processed prediction object
+                processed_pred = {
+                    'name': pred.get('name', 'N/A'),
+                    'student_id': pred.get('student_id', 'N/A'),
+                    'attendance': round(attendance, 1),
+                    'homework_completion': round(homework, 1),
+                    'test_scores': round(test_scores, 1),
+                    'prediction': prediction_text,
+                    'formatted_date': pred.get('created_at', datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
+                }
+                
+                processed_predictions.append(processed_pred)
+                
+            except Exception as e:
+                app.logger.error(f"Error processing prediction: {str(e)}")
+                continue
+        
+        # Calculate analytics data
+        analytics_data = {
+            'total_students': total_students,
+            'good_predictions': prediction_counts['Excellent'] + prediction_counts['Good'],
+            'needs_improvement': prediction_counts['Needs Improvement'],
+            'avg_attendance': round(total_attendance / total_students if total_students > 0 else 0, 1),
+            'avg_homework': round(total_homework / total_students if total_students > 0 else 0, 1),
+            'avg_test_scores': round(total_test_scores / total_students if total_students > 0 else 0, 1),
+            'prediction_counts': prediction_counts
+        }
+        
+        return render_template(
+            'student_analytics.html',
+            analytics=analytics_data,
+            predictions=processed_predictions,
+            active_page='analytics'  # Add this for navbar highlighting
+        )
+        
+    except Exception as e:
+        app.logger.error(f"Failed to load analytics: {str(e)}")
+        flash(f"Failed to load analytics: {str(e)}", 'danger')
+        return render_template('student_analytics.html', error=str(e))
+
 # Custom JSON encoder for MongoDB types
 class MongoJSONEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -487,6 +578,7 @@ class MongoJSONEncoder(json.JSONEncoder):
 
 # API endpoint for prediction history data
 @app.route('/api/predictions')
+@login_required
 def api_predictions():
     """
     API endpoint to fetch paginated prediction history
@@ -506,15 +598,12 @@ def api_predictions():
             "attendance": {"$exists": True, "$ne": None, "$type": ["number", "double"]},
             "homework_completion": {"$exists": True, "$ne": None, "$type": ["number", "double"]},
             "test_scores": {"$exists": True, "$ne": None, "$type": ["number", "double"]},
-            "prediction": {"$exists": True, "$ne": ""}
+            "prediction": {"$exists": True, "$ne": ""},
+            "username": current_user.username
         }
         
-        # Add username filter if logged in
-        if 'username' in session:
-            query['username'] = session['username']
-        
         # Sort by most recent first
-        sort_order = [('created_at', -1)]
+        sort_order = [("created_at", -1)]
         
         # Fetch predictions from MongoDB
         predictions = list(db.predictionHistory.find(query).sort(sort_order).skip(skip).limit(limit))
@@ -539,58 +628,52 @@ def api_predictions():
                 # Process numeric fields with validation
                 try:
                     # Cap all numeric values at 100
-                    processed_pred['attendance'] = min(max(float(pred['attendance']), 0), 100)
-                    processed_pred['homework_completion'] = min(max(float(pred['homework_completion']), 0), 100)
-                    processed_pred['test_scores'] = min(max(float(pred['test_scores']), 0), 100)
+                    attendance = min(max(float(pred['attendance']), 0), 100)
+                    homework = min(max(float(pred['homework_completion']), 0), 100)
+                    test_scores = min(max(float(pred['test_scores']), 0), 100)
                     
-                    # Calculate prediction score if not already present
-                    if 'prediction_score' not in pred or pred['prediction_score'] is None:
-                        processed_pred['prediction_score'] = round((
-                            (processed_pred['test_scores'] * 0.5) + 
-                            (processed_pred['attendance'] * 0.3) + 
-                            (processed_pred['homework_completion'] * 0.2)
-                        ), 2)
-                    else:
-                        processed_pred['prediction_score'] = float(pred['prediction_score'])
-                        
+                    processed_pred['attendance'] = round(attendance, 1)
+                    processed_pred['homework_completion'] = round(homework, 1)
+                    processed_pred['test_scores'] = round(test_scores, 1)
+                    
+                    # Calculate prediction score using weighted formula
+                    prediction_score = round(
+                        (test_scores * 0.5) +  # Test scores weight: 50%
+                        (attendance * 0.3) +   # Attendance weight: 30%
+                        (homework * 0.2),      # Homework weight: 20%
+                        1
+                    )
+                    
                     # Ensure prediction_score never exceeds 100
-                    processed_pred['prediction_score'] = min(processed_pred['prediction_score'], 100)
+                    prediction_score = min(prediction_score, 100)
+                    processed_pred['prediction_score'] = prediction_score
                     
-                    # Ensure confidence is in 0-1 range
-                    if 'confidence' in pred and pred['confidence'] is not None:
-                        confidence = float(pred['confidence'])
-                        # Normalize to 0-1 range if it's a percentage
-                        processed_pred['confidence'] = confidence if 0 <= confidence <= 1 else confidence / 100
+                    # Calculate confidence (normalized to 0-1 range)
+                    processed_pred['confidence'] = round(prediction_score / 100, 2)
+                    
+                    # Get probability value (as percentage)
+                    processed_pred['probability'] = prediction_score
+                    
+                    # Determine prediction text based on score
+                    if prediction_score >= 80:
+                        processed_pred['prediction'] = 'Excellent'
+                        processed_pred['grade'] = 'A'
+                    elif prediction_score >= 70:
+                        processed_pred['prediction'] = 'Good'
+                        processed_pred['grade'] = 'B'
+                    elif prediction_score >= 60:
+                        processed_pred['prediction'] = 'Good'
+                        processed_pred['grade'] = 'C'
                     else:
-                        processed_pred['confidence'] = processed_pred['prediction_score'] / 100
+                        processed_pred['prediction'] = 'Needs Improvement'
+                        processed_pred['grade'] = 'D'
                     
-                    # Get probability value directly from prediction_score
-                    processed_pred['probability'] = processed_pred['prediction_score']
-                    
-                    # Standardize prediction text based on score
-                    score = processed_pred['prediction_score']
-                    if 'prediction' in pred and pred['prediction']:
-                        pred_text = str(pred['prediction']).lower()
-                        
-                        # Use standard categories based on the prediction text or score
-                        if pred_text in ['excellent', 'good', 'needs improvement']:
-                            processed_pred['prediction'] = pred_text.title()
-                        else:
-                            # Determine prediction based on score
-                            if score >= 80:
-                                processed_pred['prediction'] = 'Excellent'
-                            elif score >= 60:
-                                processed_pred['prediction'] = 'Good'
-                            else:
-                                processed_pred['prediction'] = 'Needs Improvement'
-                    else:
-                        # If prediction is missing, use score
-                        if score >= 80:
-                            processed_pred['prediction'] = 'Excellent'
-                        elif score >= 60:
-                            processed_pred['prediction'] = 'Good'
-                        else:
-                            processed_pred['prediction'] = 'Needs Improvement'
+                    # Add detailed performance indicators
+                    processed_pred['performance_indicators'] = {
+                        'attendance_status': 'Good' if attendance >= 75 else 'Needs Improvement',
+                        'homework_status': 'Good' if homework >= 70 else 'Needs Improvement',
+                        'test_status': 'Good' if test_scores >= 60 else 'Needs Improvement'
+                    }
                     
                     processed_predictions.append(processed_pred)
                     
@@ -634,7 +717,7 @@ def authenticated_chat():
     
     return render_template('chat.html', 
                            is_authenticated=True,
-                           username=session.get('username'),
+                           username=current_user.username,
                            session_id=session['chat_session_id'],
                            now=datetime.now())
 
@@ -643,7 +726,6 @@ def api_chat():
     """API endpoint for chat requests (REST fallback if WebSockets not available)"""
     try:
         data = request.json
-        # Handle both message and query parameters for backward compatibility
         query = data.get('message') or data.get('query', '')
         session_id = data.get('session_id', str(uuid.uuid4()))
         
@@ -654,8 +736,8 @@ def api_chat():
                 'success': False
             }), 400
         
-        is_authenticated = 'username' in session
-        username = session.get('username') if is_authenticated else None
+        is_authenticated = current_user.is_authenticated
+        username = current_user.username if is_authenticated else None
         
         # Process query through chatbot
         response = chatbot.process_query(
@@ -718,7 +800,7 @@ def chat_feedback():
                 'success': False
             }), 400
             
-        is_authenticated = 'username' in session
+        is_authenticated = current_user.is_authenticated
         
         response = chatbot.provide_feedback(
             session_id=session_id,
@@ -771,8 +853,8 @@ def handle_chat_message(data):
     session_id = data.get('session_id', str(uuid.uuid4()))
     request_id = data.get('request_id', '')
     
-    is_authenticated = 'username' in session
-    username = session.get('username') if is_authenticated else None
+    is_authenticated = current_user.is_authenticated
+    username = current_user.username if is_authenticated else None
     
     try:
         # Process query through chatbot
