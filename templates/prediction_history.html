@@ -1,0 +1,533 @@
+<!-- templates/prediction_history.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History | EduPredict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/apexcharts@3.35.3/dist/apexcharts.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.35.3/dist/apexcharts.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #181A1B;
+            --card-bg: #23272B;
+            --text-color: #F5F6FA;
+            --accent-color: #ff416c;
+            --accent-gradient: linear-gradient(135deg, #ff416c, #ff4b2b);
+            --input-bg: #1E2023;
+            --input-border: #444950;
+            --box-shadow: 0 10px 50px rgba(0, 0, 0, 0.25);
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            background-color: var(--primary-bg) !important;
+            color: var(--text-color) !important;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Timeline Layout */
+        .history-container {
+            padding: 2rem;
+            min-height: calc(100vh - 70px);
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            width: 4px;
+            background: var(--accent-gradient);
+            height: 100%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(255, 65, 108, 0.2);
+        }
+
+        /* History Cards */
+        .history-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            transition: all var(--transition-speed);
+            border: 1px solid var(--input-border);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .history-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(255, 65, 108, 0.1) 0%, 
+                rgba(255, 75, 43, 0.05) 100%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity var(--transition-speed);
+        }
+
+        .history-card:hover::before {
+            opacity: 1;
+        }
+
+        .history-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow);
+            border-color: var(--accent-color);
+        }
+
+        .history-card::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 65, 108, 0.4);
+        }
+
+        /* Prediction Badges */
+        .prediction-badge {
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0 20px 0 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: white !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .needs-improvement-badge { background: linear-gradient(135deg, #ff4b2b, #ff416c) }
+        .good-badge { background: linear-gradient(135deg, #4481eb, #04befe) }
+        .excellent-badge { background: linear-gradient(135deg, #43e97b, #38f9d7) }
+
+        /* Statistics Cards */
+        .stats-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--input-border);
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, 
+                rgba(255, 65, 108, 0.1), 
+                transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Filter & Search */
+        .search-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            background: var(--input-bg);
+            border: 2px solid var(--input-border);
+            color: var(--text-color);
+            border-radius: 15px;
+            padding: 1rem 1.5rem;
+            width: 100%;
+            transition: all var(--transition-speed);
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(255, 65, 108, 0.3);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-color);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            transition: all var(--transition-speed);
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background: var(--accent-gradient);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
+        }
+
+        /* Modal Styling */
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--input-border);
+        }
+
+        .modal-header, .modal-footer {
+            border-color: var(--input-border);
+        }
+
+        .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+
+        /* ApexCharts Overrides */
+        .apexcharts-tooltip {
+            background: var(--card-bg) !important;
+            color: var(--text-color) !important;
+            border: 1px solid var(--input-border) !important;
+        }
+
+        .apexcharts-tooltip-title {
+            background: var(--input-bg) !important;
+            border-bottom: 1px solid var(--input-border) !important;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track { background: var(--primary-bg) }
+        ::-webkit-scrollbar-thumb { background: var(--input-border) }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-color) }
+    </style>
+</head>
+<body style="background-color: var(--primary-bg) !important; color: var(--text-color) !important; min-height: 100vh;">
+    {% include 'components/navbar.html' %}
+    
+    <div class="history-container">
+        <div class="container">
+            <h1 class="mb-4" data-aos="fade-right">Prediction History</h1>
+            
+            <div class="row">
+                <!-- Statistics Column -->
+                <div class="col-lg-4" data-aos="fade-up">
+                    <div class="stats-card">
+                        <h4 class="mb-3">📊 Overview</h4>
+                        <div class="mb-3">
+                            <span class="text-muted">Total Predictions:</span>
+                            <h2 id="totalPredictions">0</h2>
+                        </div>
+                        <div class="mb-3">
+                            <span class="text-muted">Average Score:</span>
+                            <h2 id="averageScore">0%</h2>
+                        </div>
+                        <div class="mb-3">
+                            <span class="text-muted">Performance Distribution:</span>
+                            <div id="performanceChart" class="mt-3"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <h4 class="mb-3">🔍 Quick Filters</h4>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="excellent">Excellent</button>
+                            <button class="filter-btn" data-filter="good">Good</button>
+                            <button class="filter-btn" data-filter="needs-improvement">Needs Improvement</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main History Column -->
+                <div class="col-lg-8">
+                    <div class="search-container" data-aos="fade-left">
+                        <input type="text" class="search-input" placeholder="Search students..." id="searchInput">
+                        <i class="fas fa-search position-absolute" style="right: 1.5rem; top: 1rem; opacity: 0.6;"></i>
+                    </div>
+
+                    <div class="timeline-container">
+                        <div class="timeline-line"></div>
+                        
+                        {% if predictions %}
+                            <div id="predictionsContainer">
+                                {% for prediction in predictions %}
+                                <div class="history-card" 
+                                    data-aos="zoom-in"
+                                    data-score="{{ prediction.prediction_score }}"
+                                    data-category="{{ prediction.prediction.lower().replace(' ', '-') }}"
+                                    data-student="{{ prediction.name.lower() }}"
+                                    data-date="{{ prediction.timestamp.strftime('%Y-%m-%d') }}">
+                                    <div class="d-flex align-items-center">
+                                        <div class="student-avatar">
+                                            {{ prediction.name[0]|upper }}
+                                        </div>
+                                        <div class="flex-grow-1 student-details">
+                                            <h5 class="mb-1" style="color: var(--text-color);">{{ prediction.name }}</h5>
+                                            <small class="text-muted">ID: {{ prediction.student_id }}</small>
+                                        </div>
+                                        <span class="prediction-badge {{ prediction.prediction.lower().replace(' ', '-') }}-badge">
+                                            {{ prediction.prediction }}
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="row mt-3 score-details">
+                                        <div class="col">
+                                            <small>Attendance</small>
+                                            <h4 style="color: var(--text-color);">{{ prediction.attendance }}%</h4>
+                                        </div>
+                                        <div class="col">
+                                            <small>Homework</small>
+                                            <h4 style="color: var(--text-color);">{{ prediction.homework_completion }}%</h4>
+                                        </div>
+                                        <div class="col">
+                                            <small>Tests</small>
+                                            <h4 style="color: var(--text-color);">{{ prediction.test_scores }}%</h4>
+                                        </div>
+                                        <div class="col">
+                                            <small>Overall</small>
+                                            <h4 class="text-accent" style="color: var(--accent-color);">{{ prediction.prediction_score }}%</h4>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-2 text-end">
+                                        <small class="text-muted">
+                                            {{ prediction.timestamp.strftime('%b %d, %Y %I:%M %p') }}
+                                        </small>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="empty-state" data-aos="fade-up">
+                                <i class="fas fa-inbox fa-4x mb-3"></i>
+                                <h4>No predictions found</h4>
+                                <p>Your prediction history will appear here once you make some predictions.</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="predictionModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Prediction Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="modalChart" class="chart-container"></div>
+                    <div class="row" id="modalDetails"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        // Initialize animations
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize charts
+        let performanceChart = null;
+        
+        function initializeCharts() {
+            // Performance distribution chart
+            const categories = ['Excellent', 'Good', 'Needs Improvement'];
+            const series = [
+                document.querySelectorAll('[data-category="excellent"]').length,
+                document.querySelectorAll('[data-category="good"]').length,
+                document.querySelectorAll('[data-category="needs-improvement"]').length
+            ];
+
+            if (performanceChart) performanceChart.destroy();
+            
+                performanceChart = new ApexCharts(document.querySelector("#performanceChart"), {
+                    series: series,
+                    chart: {
+                        type: 'donut',
+                        height: 200,
+                        background: 'transparent',
+                        foreColor: '#F5F6FA'
+                    },
+                    theme: { mode: 'dark' },
+                    labels: categories,
+                    colors: ['#43e97b', '#4481eb', '#ff4b2b'],
+                    plotOptions: {
+                        pie: {
+                            donut: {
+                                size: '70%',
+                                labels: {
+                                    show: true,
+                                    name: { 
+                                        color: '#F5F6FA',
+                                        fontSize: '14px'
+                                    },
+                                    value: {
+                                        color: '#F5F6FA',
+                                        fontSize: '20px',
+                                        fontWeight: 600
+                                    },
+                                    total: {
+                                        show: true,
+                                        color: '#F5F6FA',
+                                        formatter: w => w.globals.seriesTotals.reduce((a, b) => a + b, 0)
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        style: { colors: ['#fff'] },
+                        background: {
+                            enabled: true,
+                            foreColor: '#000',
+                            opacity: 0.9
+                        }
+                    },
+                    tooltip: {
+                        theme: 'dark'
+                    }
+                }).render();
+
+            // Update stats
+            const total = series.reduce((a, b) => a + b, 0);
+            const average = Array.from(document.querySelectorAll('[data-score]'))
+                            .reduce((acc, el) => acc + parseFloat(el.dataset.score), 0) / total || 0;
+            
+            document.getElementById('totalPredictions').textContent = total;
+            document.getElementById('averageScore').textContent = `${average.toFixed(1)}%`;
+        }
+
+        // Filter and search functionality
+        function filterPredictions() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filter = document.querySelector('.filter-btn.active').dataset.filter;
+            
+            document.querySelectorAll('.history-card').forEach(card => {
+                const matchesSearch = card.dataset.student.includes(searchTerm);
+                const matchesFilter = filter === 'all' || card.dataset.category === filter;
+                
+                card.style.display = (matchesSearch && matchesFilter) ? 'block' : 'none';
+            });
+        }
+
+        // Event listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                filterPredictions();
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', filterPredictions);
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCharts();
+            
+            // Add click handlers for history cards
+            document.querySelectorAll('.history-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const score = parseFloat(this.dataset.score);
+                    const details = {
+                        name: this.querySelector('h5').textContent,
+                        id: this.querySelector('small').textContent.split(': ')[1],
+                        date: this.querySelector('.text-muted').textContent,
+                        attendance: this.querySelectorAll('h4')[0].textContent,
+                        homework: this.querySelectorAll('h4')[1].textContent,
+                        tests: this.querySelectorAll('h4')[2].textContent,
+                        overall: this.querySelectorAll('h4')[3].textContent
+                    };
+
+                    // Update modal content
+                    const modalDetails = document.getElementById('modalDetails');
+                    modalDetails.innerHTML = `
+                        <div class="col-md-6">
+                            <div class="stats-card mb-3">
+                                <h6 style="color: var(--accent-color) !important;">Student Information</h6>
+                                <p class="mb-1" style="color: var(--text-color) !important;">Name: ${details.name}</p>
+                                <p class="mb-1" style="color: var(--text-color) !important;">Student ID: ${details.id}</p>
+                                <p style="color: var(--text-color) !important;">Date: ${details.date}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stats-card mb-3">
+                                <h6 style="color: var(--accent-color) !important;">Performance Metrics</h6>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <small style="color: #8a8d91 !important;">Attendance</small>
+                                        <h4 style="color: var(--text-color) !important;">${details.attendance}</h4>
+                                    </div>
+                                    <div class="col-6">
+                                        <small style="color: #8a8d91 !important;">Homework</small>
+                                        <h4 style="color: var(--text-color) !important;">${details.homework}</h4>
+                                    </div>
+                                    <div class="col-6">
+                                        <small style="color: #8a8d91 !important;">Tests</small>
+                                        <h4 style="color: var(--text-color) !important;">${details.tests}</h4>
+                                    </div>
+                                    <div class="col-6">
+                                        <small style="color: #8a8d91 !important;">Overall</small>
+                                        <h4 style="color: var(--accent-color) !important;">${details.overall}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Show modal
+                    const modal = new bootstrap.Modal(document.getElementById('predictionModal'));
+                    modal.show();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

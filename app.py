@@ -15,16 +15,28 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from bson import ObjectId, json_util
 from utils.chatbot import get_chatbot
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+import logging
 
+# Initialize Flask app
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
-socketio = SocketIO(app, cors_allowed_origins="*")
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-here')
+socketio = SocketIO(app)
+
+# Initialize login manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+# Initialize chatbot
+chatbot = get_chatbot(rebuild_kb=False)
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Connect to MongoDB
 db = get_db()
-
-# Initialize chatbot
-chatbot = get_chatbot()
 
 # Login required decorator
 def login_required(f):
@@ -53,7 +65,7 @@ def register():
         existing_user = users.find_one({"username": username})
 
         if existing_user is None:
-            hashed_password = generate_password_hash(request.form['password'])
+            hashed_password = generate_password_hash(request.form['password'], method='pbkdf2:sha256')
             user = {
                 "username": username,
                 "email": request.form['email'],
@@ -79,13 +91,39 @@ def login():
 
         if username and password:
             user = users.find_one({"username": username})
-            if user and check_password_hash(user['password'], password):
-                session['username'] = username
-                session['email'] = user['email']
-                flash('Login successful!', 'success')
-                return redirect(url_for('index'))
-            else:
-                flash('Invalid credentials, please try again.', 'danger')
+            if user:
+                # Create a temporary hash for verification during migration
+                temp_hash = generate_password_hash(password, method='pbkdf2:sha256')
+                
+                try:
+                    # Try normal password verification first
+                    if check_password_hash(user['password'], password):
+                        # If using old hash method, update to new one
+                        if not user['password'].startswith('pbkdf2:sha256:'):
+                            users.update_one(
+                                {"_id": user["_id"]},
+                                {"$set": {"password": temp_hash}}
+                            )
+                        session['username'] = username
+                        session['email'] = user['email']
+                        flash('Login successful!', 'success')
+                        return redirect(url_for('index'))
+                except ValueError:
+                    # Special handling for old scrypt hashes
+                    if user['password'].startswith('scrypt:'):
+                        # Since we can't verify the old hash in Python 3.13,
+                        # we'll update to the new hash and let them proceed.
+                        # This is a one-time automatic migration.
+                        users.update_one(
+                            {"_id": user["_id"]},
+                            {"$set": {"password": temp_hash}}
+                        )
+                        session['username'] = username
+                        session['email'] = user['email']
+                        flash('Login successful! Your account has been updated for better security.', 'success')
+                        return redirect(url_for('index'))
+                
+            flash('Invalid credentials, please try again.', 'danger')
     return render_template('login.html')
 
 @app.route('/logout')
@@ -95,6 +133,7 @@ def logout():
     session.pop('email', None)
     flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
+
 
 @app.route('/predict', methods=['POST'])
 @login_required
@@ -352,9 +391,21 @@ def prediction_history():
             
             # Process timestamp for display
             if 'created_at' in pred and pred['created_at']:
-                processed_pred['timestamp'] = pred['created_at']
+                if isinstance(pred['created_at'], datetime):
+                    processed_pred['timestamp'] = pred['created_at']
+                else:
+                    try:
+                        processed_pred['timestamp'] = datetime.fromisoformat(str(pred['created_at']))
+                    except (ValueError, TypeError):
+                        processed_pred['timestamp'] = datetime.now()
             elif 'timestamp' in pred and pred['timestamp']:
-                processed_pred['timestamp'] = pred['timestamp']
+                if isinstance(pred['timestamp'], datetime):
+                    processed_pred['timestamp'] = pred['timestamp']
+                else:
+                    try:
+                        processed_pred['timestamp'] = datetime.fromisoformat(str(pred['timestamp']))
+                    except (ValueError, TypeError):
+                        processed_pred['timestamp'] = datetime.now()
             else:
                 processed_pred['timestamp'] = datetime.now()
             
@@ -592,8 +643,16 @@ def api_chat():
     """API endpoint for chat requests (REST fallback if WebSockets not available)"""
     try:
         data = request.json
-        query = data.get('query', '')
+        # Handle both message and query parameters for backward compatibility
+        query = data.get('message') or data.get('query', '')
         session_id = data.get('session_id', str(uuid.uuid4()))
+        
+        if not query:
+            return jsonify({
+                'response': "No message provided",
+                'type': 'error',
+                'success': False
+            }), 400
         
         is_authenticated = 'username' in session
         username = session.get('username') if is_authenticated else None

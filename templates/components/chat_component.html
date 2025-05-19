@@ -12,17 +12,6 @@
 
 <!-- Chat Component Styles -->
 <style>
-    :root {
-        --chat-bg-dark: #23272B;
-        --chat-border-color: #444950;
-        --chat-text-color: #F5F6FA;
-        --chat-hover-color: #2C3238;
-        --chat-primary-color: #4CAF50;
-        --chat-secondary-color: #2196F3;
-        --chat-danger-color: #F44336;
-        --chat-warning-color: #FF9800;
-    }
-    
     .chat-component {
         font-family: 'Montserrat', sans-serif;
         position: {{ 'fixed' if position == 'fixed' else 'relative' }};
@@ -33,20 +22,21 @@
         {% endif %}
         width: {{ width }};
         max-width: {{ '400px' if position == 'fixed' else '100%' }};
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        border-radius: 15px;
+        box-shadow: var(--box-shadow);
+        border-radius: var(--border-radius-lg);
         overflow: hidden;
     }
     
     .chat-component.light {
-        --chat-bg-dark: #f8f9fa;
-        --chat-border-color: #dee2e6;
-        --chat-text-color: #343a40;
-        --chat-hover-color: #e9ecef;
+        --primary-bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-color: #343a40;
+        --input-bg: #e9ecef;
+        --input-border: #dee2e6;
     }
     
     .chat-container-embedded {
-        background-color: var(--chat-bg-dark);
+        background-color: var(--card-bg);
         display: flex;
         flex-direction: column;
         height: {{ height }};
@@ -54,8 +44,8 @@
     }
     
     .chat-header-embedded {
-        background-color: var(--chat-bg-dark);
-        border-bottom: 2px solid var(--chat-border-color);
+        background-color: var(--card-bg);
+        border-bottom: 2px solid var(--input-border);
         padding: 12px 15px;
         display: flex;
         justify-content: space-between;
@@ -65,7 +55,7 @@
     .chat-header-embedded h4 {
         margin: 0;
         font-weight: 600;
-        color: var(--chat-text-color);
+        color: var(--text-color);
         display: flex;
         align-items: center;
         font-size: 1rem;
@@ -74,7 +64,7 @@
     .chat-header-embedded .status-dot {
         width: 10px;
         height: 10px;
-        background-color: var(--chat-primary-color);
+        background-color: var(--accent-color);
         border-radius: 50%;
         margin-right: 8px;
         position: relative;
@@ -86,7 +76,7 @@
         width: 14px;
         height: 14px;
         border-radius: 50%;
-        border: 2px solid var(--chat-primary-color);
+        border: 2px solid var(--accent-color);
         left: -4px;
         top: -4px;
         animation: pulse 1.5s infinite;
@@ -95,15 +85,15 @@
     .chat-header-embedded .actions button {
         background-color: transparent;
         border: none;
-        color: var(--chat-text-color);
+        color: var(--text-color);
         font-size: 1rem;
         cursor: pointer;
         margin-left: 10px;
-        transition: all 0.2s ease;
+        transition: all var(--transition-speed);
     }
     
     .chat-header-embedded .actions button:hover {
-        color: var(--chat-primary-color);
+        color: var(--accent-color);
         transform: translateY(-2px);
     }
     
@@ -114,6 +104,7 @@
         display: flex;
         flex-direction: column;
         gap: 12px;
+        background-color: var(--primary-bg);
     }
     
     .chat-body-embedded::-webkit-scrollbar {
@@ -121,12 +112,12 @@
     }
     
     .chat-body-embedded::-webkit-scrollbar-track {
-        background-color: var(--chat-bg-dark);
+        background-color: var(--primary-bg);
         border-radius: 10px;
     }
     
     .chat-body-embedded::-webkit-scrollbar-thumb {
-        background-color: var(--chat-border-color);
+        background-color: var(--input-border);
         border-radius: 10px;
     }
     
@@ -148,7 +139,7 @@
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background-color: var(--chat-hover-color);
+        background-color: var(--input-bg);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -157,33 +148,34 @@
     }
     
     .message-embedded.user .avatar {
-        background-color: var(--chat-secondary-color);
+        background: var(--accent-gradient);
         order: 2;
         margin-right: 0;
         margin-left: 8px;
     }
     
     .message-embedded.bot .avatar {
-        background-color: var(--chat-primary-color);
+        background: var(--accent-gradient);
     }
     
     .message-embedded .content {
-        background-color: var(--chat-hover-color);
+        background-color: var(--input-bg);
         padding: 10px 12px;
-        border-radius: 12px;
+        border-radius: var(--border-radius-md);
         position: relative;
-        color: var(--chat-text-color);
+        color: var(--text-color);
         word-break: break-word;
         font-size: 0.9rem;
     }
     
     .message-embedded.user .content {
-        background-color: rgba(33, 150, 243, 0.2);
+        background: var(--accent-gradient);
+        color: white;
         border-top-right-radius: 0;
     }
     
     .message-embedded.bot .content {
-        background-color: rgba(76, 175, 80, 0.2);
+        background-color: var(--input-bg);
         border-top-left-radius: 0;
     }
     
@@ -197,11 +189,11 @@
     .message-embedded .feedback button {
         background-color: transparent;
         border: none;
-        color: var(--chat-text-color);
+        color: var(--text-color);
         font-size: 0.8rem;
         cursor: pointer;
         opacity: 0.6;
-        transition: all 0.2s ease;
+        transition: all var(--transition-speed);
         padding: 0;
     }
     
@@ -211,11 +203,11 @@
     
     .message-embedded .feedback button.active {
         opacity: 1;
-        color: var(--chat-primary-color);
+        color: var(--accent-color);
     }
     
     .message-embedded .feedback button.active.negative {
-        color: var(--chat-danger-color);
+        color: var(--danger-color);
     }
     
     .message-embedded .timestamp {
@@ -236,7 +228,7 @@
     .typing-indicator-embedded .dot {
         width: 6px;
         height: 6px;
-        background-color: var(--chat-text-color);
+        background-color: var(--text-color);
         border-radius: 50%;
         margin: 0 2px;
         animation: typing-animation 1.4s infinite ease-in-out;
@@ -255,619 +247,322 @@
     }
     
     @keyframes typing-animation {
-        0%, 60%, 100% {
-            transform: translateY(0);
-        }
-        30% {
-            transform: translateY(-4px);
-        }
-    }
-    
-    .chat-footer-embedded {
-        padding: 10px 15px;
-        border-top: 2px solid var(--chat-border-color);
-    }
-    
-    .chat-input-container-embedded {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .chat-input-embedded {
-        flex: 1;
-        background-color: var(--chat-hover-color);
-        border: 1px solid var(--chat-border-color);
-        border-radius: 10px;
-        padding: 10px 12px;
-        color: var(--chat-text-color);
-        font-size: 0.9rem;
-        font-family: 'Montserrat', sans-serif;
-        outline: none;
-        resize: none;
-        overflow: hidden;
-        height: 40px;
-        max-height: 100px;
-        transition: all 0.3s ease;
-    }
-    
-    .chat-input-embedded:focus {
-        border-color: var(--chat-primary-color);
-    }
-    
-    .send-button-embedded {
-        background-color: var(--chat-primary-color);
-        border: none;
-        border-radius: 10px;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        padding: 0;
-    }
-    
-    .send-button-embedded:hover {
-        background-color: #43a047;
-        transform: translateY(-2px);
-    }
-    
-    .send-button-embedded:active {
-        transform: translateY(0);
-    }
-    
-    .send-button-embedded i {
-        color: white;
-        font-size: 1rem;
-    }
-    
-    .welcome-message-embedded {
-        text-align: center;
-        margin: 15px auto;
-        max-width: 90%;
-        font-size: 0.9rem;
-    }
-    
-    .source-info-embedded {
-        font-size: 0.7rem;
-        margin-top: 6px;
-        color: rgba(255, 255, 255, 0.6);
-    }
-    
-    .examples-container-embedded {
-        padding: 10px 15px;
-        border-top: 1px solid var(--chat-border-color);
-    }
-    
-    .examples-container-embedded .example-question-embedded {
-        margin: 5px 0;
-        padding: 8px 12px;
-        background-color: var(--chat-hover-color);
-        border: 1px solid var(--chat-border-color);
-        border-radius: 8px;
-        color: var(--chat-text-color);
-        font-size: 0.85rem;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: block;
-        width: 100%;
-        text-align: left;
-    }
-    
-    .examples-container-embedded .example-question-embedded:hover {
-        background-color: rgba(33, 150, 243, 0.2);
-    }
-    
-    /* Light theme adjustments */
-    .chat-component.light .message-embedded.user .content {
-        background-color: rgba(33, 150, 243, 0.1);
-    }
-    
-    .chat-component.light .message-embedded.bot .content {
-        background-color: rgba(76, 175, 80, 0.1);
-    }
-    
-    .chat-component.light .message-embedded .timestamp {
-        color: rgba(0, 0, 0, 0.5);
+        0%, 60%, 100% { transform: translateY(0); }
+        30% { transform: translateY(-4px); }
     }
     
     @keyframes pulse {
-        0% {
-            transform: scale(0.95);
-            opacity: 1;
-        }
-        70% {
-            transform: scale(1.1);
-            opacity: 0;
-        }
-        100% {
-            transform: scale(0.95);
-            opacity: 0;
-        }
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.2); opacity: 0.5; }
+        100% { transform: scale(1); opacity: 1; }
     }
     
-    {% if position == 'fixed' %}
-    .chat-toggle-btn {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background-color: var(--chat-primary-color);
-        color: white;
+    .chat-input-embedded {
+        background-color: var(--card-bg);
+        border-top: 2px solid var(--input-border);
+        padding: 15px;
+    }
+    
+    .chat-input-embedded form {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        gap: 10px;
+    }
+    
+    .chat-input-embedded input {
+        flex: 1;
+        background-color: var(--input-bg);
+        border: 1px solid var(--input-border);
+        color: var(--text-color);
+        padding: 10px 15px;
+        border-radius: var(--border-radius-pill);
+        transition: all var(--transition-speed);
+    }
+    
+    .chat-input-embedded input:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 2px rgba(255, 65, 108, 0.2);
+    }
+    
+    .chat-input-embedded button {
+        background: var(--accent-gradient);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: var(--border-radius-pill);
         cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        z-index: 1001;
-        transition: all 0.3s ease;
+        transition: all var(--transition-speed);
     }
     
-    .chat-toggle-btn:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    .chat-input-embedded button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
     }
     
-    .chat-toggle-btn i {
-        font-size: 1.5rem;
+    .chat-input-embedded button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
     }
     
-    .chat-component.hidden {
-        display: none;
+    .examples-container {
+        padding: 15px;
+        background-color: var(--card-bg);
+        border-top: 2px solid var(--input-border);
     }
-    {% endif %}
     
-    @media (max-width: 768px) {
-        .chat-component {
-            {% if position == 'fixed' %}
-            bottom: 10px;
-            right: 10px;
-            width: calc(100% - 20px);
-            max-width: 100%;
-            {% endif %}
-        }
+    .examples-container h5 {
+        color: var(--text-color);
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .examples-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .example-chip {
+        background-color: var(--input-bg);
+        color: var(--text-color);
+        padding: 6px 12px;
+        border-radius: var(--border-radius-pill);
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all var(--transition-speed);
+    }
+    
+    .example-chip:hover {
+        background-color: var(--accent-color);
+        color: white;
+        transform: translateY(-2px);
     }
 </style>
 
 <!-- Chat Component HTML -->
-<div class="chat-component {{ theme }} {{ 'hidden' if position == 'fixed' else '' }}" id="chatComponent{{ session_id|default('default') }}">
+<div class="chat-component {{ theme }}" id="chat-component">
     <div class="chat-container-embedded">
         {% if show_header %}
         <div class="chat-header-embedded">
-            <h4><span class="status-dot"></span>{{ title }}</h4>
+            <h4>
+                <span class="status-dot"></span>
+                {{ title }}
+            </h4>
             <div class="actions">
-                <button class="refresh-btn-embedded" title="Reset conversation">
-                    <i class="fas fa-sync-alt"></i>
+                <button type="button" class="minimize-btn" title="Minimize">
+                    <i class="fas fa-minus"></i>
                 </button>
-                {% if position == 'fixed' %}
-                <button class="close-btn-embedded" title="Close chat">
+                <button type="button" class="close-btn" title="Close">
                     <i class="fas fa-times"></i>
                 </button>
-                {% endif %}
             </div>
         </div>
         {% endif %}
         
-        <div class="chat-body-embedded" id="chatMessages{{ session_id|default('default') }}">
-            <div class="welcome-message-embedded">
-                <p>I can help you with questions about the education prediction system{% if is_authenticated %} and help with predictions and reports{% endif %}.</p>
-            </div>
-            
-            <!-- Initial bot message -->
+        <div class="chat-body-embedded" id="chat-messages">
             <div class="message-embedded bot">
                 <div class="avatar">
                     <i class="fas fa-robot"></i>
                 </div>
                 <div class="content">
                     {{ initial_message }}
-                    <div class="timestamp">
-                        {{ now.strftime('%H:%M')|default('now') }}
-                    </div>
                 </div>
-            </div>
-            
-            <!-- Typing indicator -->
-            <div class="typing-indicator-embedded" id="typingIndicator{{ session_id|default('default') }}">
-                <div class="avatar">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <div class="content">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="chat-footer-embedded">
-            <div class="chat-input-container-embedded">
-                <textarea id="chatInput{{ session_id|default('default') }}" class="chat-input-embedded" placeholder="Type your message here..." rows="1"></textarea>
-                <button id="sendButton{{ session_id|default('default') }}" class="send-button-embedded">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
             </div>
         </div>
         
         {% if show_examples %}
-        <div class="examples-container-embedded">
-            <div class="d-grid gap-2">
-                <button class="example-question-embedded">
-                    How does the prediction system work?
-                </button>
-                <button class="example-question-embedded">
-                    What factors affect student performance?
-                </button>
-                {% if is_authenticated %}
-                <button class="example-question-embedded">
-                    Make a prediction for a student with 85% attendance
-                </button>
-                {% endif %}
+        <div class="examples-container">
+            <h5>Try asking about:</h5>
+            <div class="examples-list">
+                <div class="example-chip">How can I improve my grades?</div>
+                <div class="example-chip">What study techniques work best?</div>
+                <div class="example-chip">How to manage time effectively?</div>
             </div>
         </div>
         {% endif %}
+        
+        <div class="chat-input-embedded">
+            <form id="chat-form" onsubmit="return false;">
+                <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+                <button type="submit" id="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 
-{% if position == 'fixed' %}
-<div class="chat-toggle-btn" id="chatToggleBtn{{ session_id|default('default') }}">
-    <i class="fas fa-comments"></i>
-</div>
-{% endif %}
-
 <!-- Chat Component JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
-(function() {
-    // Create unique namespace for this component instance to avoid conflicts
-    const componentId = "{{ session_id|default('default') }}";
-    const uniqueNamespace = 'chatComponent_' + componentId;
-    
-    // Initialize only once
-    if (window[uniqueNamespace]) return;
-    window[uniqueNamespace] = true;
-    
-    // Wait for DOM to be fully loaded
     document.addEventListener('DOMContentLoaded', function() {
-        // Elements
-        const componentContainer = document.getElementById('chatComponent' + componentId);
-        const chatMessages = document.getElementById('chatMessages' + componentId);
-        const chatInput = document.getElementById('chatInput' + componentId);
-        const sendButton = document.getElementById('sendButton' + componentId);
-        const typingIndicator = document.getElementById('typingIndicator' + componentId);
-        const refreshButton = componentContainer.querySelector('.refresh-btn-embedded');
-        const exampleQuestions = componentContainer.querySelectorAll('.example-question-embedded');
+        const chatComponent = document.getElementById('chat-component');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const minimizeBtn = chatComponent.querySelector('.minimize-btn');
+        const closeBtn = chatComponent.querySelector('.close-btn');
         
-        {% if position == 'fixed' %}
-        const chatToggleBtn = document.getElementById('chatToggleBtn' + componentId);
-        const closeButton = componentContainer.querySelector('.close-btn-embedded');
-        {% endif %}
+        let isMinimized = false;
+        let socket = null;
+        let useWebSocket = true;
         
-        // Chat session info
-        const sessionId = "{{ session_id|default(none) }}" || ('comp_' + Math.random().toString(36).substring(2, 9));
-        const isAuthenticated = {{ 'true' if is_authenticated else 'false' }};
-        const username = "{{ username|default('') }}";
-        
-        // Function to format current time
-        function getCurrentTime() {
-            const now = new Date();
-            return now.getHours().toString().padStart(2, '0') + ':' + 
-                  now.getMinutes().toString().padStart(2, '0');
+        // Initialize WebSocket connection
+        try {
+            socket = io();
+            
+            socket.on('connect', () => {
+                console.log('WebSocket connected');
+                useWebSocket = true;
+            });
+            
+            socket.on('disconnect', () => {
+                console.log('WebSocket disconnected');
+                useWebSocket = false;
+            });
+            
+            socket.on('chat_response', (data) => {
+                hideTypingIndicator();
+                if (data.success) {
+                    addMessage(data.response, 'bot');
+                } else {
+                    addMessage('Sorry, I encountered an error: ' + (data.error || 'Unknown error'), 'bot');
+                }
+            });
+            
+        } catch (e) {
+            console.warn('WebSocket not available, falling back to REST API');
+            useWebSocket = false;
         }
         
-        // Function to add a user message to the chat
-        function addUserMessage(message, timestamp = getCurrentTime()) {
-            const userMessageDiv = document.createElement('div');
-            userMessageDiv.className = 'message-embedded user';
-            userMessageDiv.innerHTML = `
-                <div class="content">
-                    ${message}
-                    <div class="timestamp">${timestamp}</div>
-                </div>
-                <div class="avatar">
-                    <i class="fas fa-user"></i>
-                </div>
-            `;
+        // Handle form submission
+        chatForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const message = userInput.value.trim();
+            if (!message) return;
             
-            // Insert before typing indicator
-            chatMessages.insertBefore(userMessageDiv, typingIndicator);
-            
-            // Scroll to bottom
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            return userMessageDiv;
-        }
-        
-        // Function to add a bot message to the chat
-        function addBotMessage(message, sources = [], messageId = null, timestamp = getCurrentTime()) {
-            // Show sources if available
-            let sourceHtml = '';
-            if (sources && sources.length > 0) {
-                sourceHtml = '<div class="source-info-embedded">Sources: ';
-                sourceHtml += sources.map(s => `<span>${s}</span>`).join(', ');
-                sourceHtml += '</div>';
-            }
-            
-            // Create feedback buttons for bot messages
-            const feedbackHtml = messageId ? `
-                <div class="feedback" data-message-id="${messageId}">
-                    <button class="feedback-btn positive" title="This was helpful">
-                        <i class="fas fa-thumbs-up"></i>
-                    </button>
-                    <button class="feedback-btn negative" title="This wasn't helpful">
-                        <i class="fas fa-thumbs-down"></i>
-                    </button>
-                </div>
-            ` : '';
-            
-            const botMessageDiv = document.createElement('div');
-            botMessageDiv.className = 'message-embedded bot';
-            botMessageDiv.innerHTML = `
-                <div class="avatar">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <div class="content">
-                    ${message}
-                    ${sourceHtml}
-                    <div class="timestamp">${timestamp}</div>
-                    ${feedbackHtml}
-                </div>
-            `;
-            
-            // Insert before typing indicator
-            chatMessages.insertBefore(botMessageDiv, typingIndicator);
-            
-            // Scroll to bottom
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            // Add event listeners for feedback buttons
-            if (messageId) {
-                const feedbackBtns = botMessageDiv.querySelectorAll('.feedback-btn');
-                feedbackBtns.forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const isPositive = this.classList.contains('positive');
-                        provideFeedback(messageId, isPositive ? 'positive' : 'negative');
-                        
-                        // Update UI
-                        feedbackBtns.forEach(b => b.classList.remove('active'));
-                        this.classList.add('active');
-                        
-                        // Also add negative class if it's negative feedback
-                        if (!isPositive) {
-                            this.classList.add('negative');
-                        }
-                    });
-                });
-            }
-            
-            return botMessageDiv;
-        }
-        
-        // Function to show typing indicator
-        function showTypingIndicator() {
-            typingIndicator.style.display = 'flex';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-        
-        // Function to hide typing indicator
-        function hideTypingIndicator() {
-            typingIndicator.style.display = 'none';
-        }
-        
-        // Function to process user message
-        function processUserMessage(message) {
-            // Add user message to UI
-            addUserMessage(message);
+            // Add user message
+            addMessage(message, 'user');
+            userInput.value = '';
             
             // Show typing indicator
             showTypingIndicator();
             
-            // Generate a request ID for this message
-            const requestId = 'req_' + Date.now();
-            
-            // WebSocket is preferred if available
-            if (window.socket && window.socket.connected) {
-                window.socket.emit('chat_message', {
-                    query: message,
-                    session_id: sessionId,
-                    request_id: requestId
-                });
-            } else {
-                // Fallback to REST API
-                fetch('/api/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        query: message,
-                        session_id: sessionId
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Hide typing indicator
-                    hideTypingIndicator();
-                    
-                    // Process the response
-                    processBotResponse(data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    hideTypingIndicator();
-                    addBotMessage("I'm sorry, I encountered an error while processing your request.");
-                });
-            }
-        }
-        
-        // Function to process bot response
-        function processBotResponse(data) {
-            // Extract the message ID if available (for feedback)
-            const messageId = data._id || null;
-            
-            // Add bot message to UI
-            addBotMessage(data.response, data.sources || [], messageId);
-        }
-        
-        // Function to provide feedback on bot messages
-        function provideFeedback(messageId, feedback) {
-            fetch('/api/chat/feedback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    session_id: sessionId,
-                    message_id: messageId,
-                    feedback: feedback
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Feedback submitted:', data);
-            })
-            .catch(error => {
-                console.error('Error submitting feedback:', error);
-            });
-        }
-        
-        // Function to reset the conversation
-        function resetConversation() {
-            fetch('/api/chat/reset', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    session_id: sessionId
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Clear all messages except the first welcome and bot message
-                while (chatMessages.childNodes.length > 3) {
-                    // Skip welcome message and initial bot message
-                    if (chatMessages.lastChild !== typingIndicator) {
-                        chatMessages.removeChild(chatMessages.lastChild);
-                    } else {
-                        break;
-                    }
-                }
-                
-                // Add reset confirmation message
-                addBotMessage("Conversation has been reset. How can I help you today?");
-            })
-            .catch(error => {
-                console.error('Error resetting conversation:', error);
-                addBotMessage("I'm sorry, I encountered an error while trying to reset our conversation.");
-            });
-        }
-        
-        // Function to auto-resize textarea
-        function autoResizeTextarea(textarea) {
-            textarea.style.height = 'auto';
-            textarea.style.height = Math.min(textarea.scrollHeight, 100) + 'px';
-        }
-        
-        // Initialize WebSocket connection
-        if (!window.socket) {
             try {
-                // Only initialize socket once globally
-                window.socket = io();
-                
-                // Socket connection event
-                window.socket.on('connect', () => {
-                    console.log('WebSocket connected');
-                });
-                
-                // Socket disconnection event
-                window.socket.on('disconnect', () => {
-                    console.log('WebSocket disconnected');
-                });
-                
-                // Handle chat response via WebSocket
-                window.socket.on('chat_response', (data) => {
-                    // Find all chat components
-                    document.querySelectorAll('[id^=typingIndicator]').forEach(indicator => {
-                        indicator.style.display = 'none';
+                if (useWebSocket && socket && socket.connected) {
+                    // Use WebSocket
+                    const requestId = Date.now().toString();
+                    socket.emit('chat_message', {
+                        query: message,
+                        session_id: '{{ session_id }}',
+                        request_id: requestId
                     });
-                    
-                    // If this response is for this component's session
-                    if (data.session_id === sessionId || !data.session_id) {
-                        processBotResponse(data);
+                } else {
+                    // Fallback to REST API
+                    const response = await sendMessage(message);
+                    hideTypingIndicator();
+                    if (response.success) {
+                        addMessage(response.response, 'bot');
+                    } else {
+                        addMessage('Sorry, I encountered an error: ' + (response.error || 'Unknown error'), 'bot');
                     }
-                });
-                
-                // Socket error event
-                window.socket.on('error', (error) => {
-                    console.error('WebSocket error:', error);
-                });
+                }
             } catch (error) {
-                console.error('Error initializing WebSocket:', error);
+                hideTypingIndicator();
+                addMessage('Sorry, I encountered an error. Please try again.', 'bot');
+                console.error('Error:', error);
             }
-        }
+        });
         
-        // Event listeners
-        if (sendButton) {
-            sendButton.addEventListener('click', () => {
-                const message = chatInput.value.trim();
-                if (message) {
-                    processUserMessage(message);
-                    chatInput.value = '';
-                    chatInput.style.height = '40px'; // Reset height
-                    chatInput.focus();
-                }
+        // Handle minimize button
+        if (minimizeBtn) {
+            minimizeBtn.addEventListener('click', function() {
+                isMinimized = !isMinimized;
+                chatComponent.style.height = isMinimized ? '60px' : '{{ height }}';
+                minimizeBtn.querySelector('i').className = isMinimized ? 'fas fa-expand' : 'fas fa-minus';
             });
         }
         
-        if (chatInput) {
-            chatInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendButton.click();
-                }
-            });
-            
-            chatInput.addEventListener('input', () => {
-                autoResizeTextarea(chatInput);
+        // Handle close button
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function() {
+                chatComponent.style.display = 'none';
             });
         }
         
-        if (refreshButton) {
-            refreshButton.addEventListener('click', resetConversation);
-        }
-        
-        // Example questions functionality
-        exampleQuestions.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const question = this.textContent.trim();
-                chatInput.value = question;
-                autoResizeTextarea(chatInput);
-                sendButton.click();
+        // Handle example chips
+        const exampleChips = chatComponent.querySelectorAll('.example-chip');
+        exampleChips.forEach(chip => {
+            chip.addEventListener('click', function() {
+                userInput.value = this.textContent;
+                chatForm.dispatchEvent(new Event('submit'));
             });
         });
         
-        {% if position == 'fixed' %}
-        // Toggle chat visibility
-        if (chatToggleBtn) {
-            chatToggleBtn.addEventListener('click', function() {
-                componentContainer.classList.toggle('hidden');
-                // When opening chat, focus the input
-                if (!componentContainer.classList.contains('hidden')) {
-                    chatInput.focus();
-                }
-            });
+        // Helper functions
+        function addMessage(content, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message-embedded ${type}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'avatar';
+            avatar.innerHTML = `<i class="fas fa-${type === 'user' ? 'user' : 'robot'}"></i>`;
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'content';
+            messageContent.textContent = content;
+            
+            const timestamp = document.createElement('div');
+            timestamp.className = 'timestamp';
+            timestamp.textContent = new Date().toLocaleTimeString();
+            
+            messageContent.appendChild(timestamp);
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
-        // Close button
-        if (closeButton) {
-            closeButton.addEventListener('click', function() {
-                componentContainer.classList.add('hidden');
-            });
+        function showTypingIndicator() {
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator-embedded';
+            indicator.style.display = 'flex';
+            indicator.innerHTML = `
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            `;
+            chatMessages.appendChild(indicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
-        {% endif %}
+        
+        function hideTypingIndicator() {
+            const indicator = chatMessages.querySelector('.typing-indicator-embedded');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+        
+        async function sendMessage(message) {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: message,
+                    session_id: '{{ session_id }}'
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            
+            return await response.json();
+        }
     });
-})();
 </script>
