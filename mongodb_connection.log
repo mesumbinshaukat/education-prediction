@@ -252,3 +252,416 @@
 2025-05-20 20:22:55,126 - INFO - 127.0.0.1 - - [20/May/2025 20:22:55] "GET /analytics HTTP/1.1" 200 -
 2025-05-20 20:22:57,907 - INFO - 127.0.0.1 - - [20/May/2025 20:22:57] "GET / HTTP/1.1" 200 -
 2025-05-20 20:22:58,149 - INFO - 127.0.0.1 - - [20/May/2025 20:22:58] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-21 03:05:37,015 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:05:37,803 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:05:37,996 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:05:37,997 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:05:42,283 - INFO - Loading existing knowledge base...
+2025-05-21 03:05:42,291 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:05:42,482 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:05:42,493 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:05:42,499 - INFO - Knowledge base loaded successfully
+2025-05-21 03:05:42,500 - INFO - Using Simple Text Generation
+2025-05-21 03:05:42,501 - INFO - Chain created successfully with simple processing
+2025-05-21 03:05:42,501 - INFO - ChatbotAgent initialized successfully
+2025-05-21 03:05:42,524 - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-21 03:05:42,524 - INFO -  * Restarting with stat
+2025-05-21 03:05:53,217 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:05:53,917 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:05:54,120 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:05:54,121 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:05:58,210 - INFO - Loading existing knowledge base...
+2025-05-21 03:05:58,224 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:05:58,284 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:05:58,472 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:05:58,478 - INFO - Knowledge base loaded successfully
+2025-05-21 03:05:58,478 - INFO - Using Simple Text Generation
+2025-05-21 03:05:58,479 - INFO - Chain created successfully with simple processing
+2025-05-21 03:05:58,479 - INFO - ChatbotAgent initialized successfully
+2025-05-21 03:05:58,499 - WARNING -  * Debugger is active!
+2025-05-21 03:05:58,502 - INFO -  * Debugger PIN: 123-685-370
+2025-05-21 03:05:58,516 - INFO - 127.0.0.1 - - [21/May/2025 03:05:58] "GET /socket.io/?EIO=4&transport=polling&t=PRlko6O HTTP/1.1" 200 -
+2025-05-21 03:05:58,528 - INFO - Client connected: 4y3Et3r60iuhy7ihAAAB
+2025-05-21 03:05:58,531 - INFO - 127.0.0.1 - - [21/May/2025 03:05:58] "POST /socket.io/?EIO=4&transport=polling&t=PRlksTu&sid=rLektmUVB8K4BqLcAAAA HTTP/1.1" 200 -
+2025-05-21 03:05:58,531 - INFO - 127.0.0.1 - - [21/May/2025 03:05:58] "GET /socket.io/?EIO=4&transport=polling&t=PRlksTx&sid=rLektmUVB8K4BqLcAAAA HTTP/1.1" 200 -
+2025-05-21 03:05:58,542 - INFO - 127.0.0.1 - - [21/May/2025 03:05:58] "GET /socket.io/?EIO=4&transport=polling&t=PRlksUC&sid=rLektmUVB8K4BqLcAAAA HTTP/1.1" 200 -
+2025-05-21 03:26:07,236 - INFO -  * Detected change in 'D:\\education-prediction\\utils\\chatbot.py', reloading
+2025-05-21 03:26:08,694 - INFO -  * Restarting with stat
+2025-05-21 03:34:33,795 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:34:34,639 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:34:34,815 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:34:34,816 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:34:39,065 - INFO - Loading existing knowledge base...
+2025-05-21 03:34:39,075 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:34:39,283 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:34:39,295 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:34:39,303 - INFO - Knowledge base loaded successfully
+2025-05-21 03:34:39,303 - INFO - Using Simple Text Generation
+2025-05-21 03:34:39,304 - INFO - Chain created successfully with simple processing
+2025-05-21 03:34:39,304 - INFO - ChatbotAgent initialized successfully
+2025-05-21 03:34:39,324 - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-21 03:34:39,325 - INFO -  * Restarting with stat
+2025-05-21 03:34:48,323 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:34:49,040 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:34:49,220 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:34:49,220 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:34:53,088 - INFO - Loading existing knowledge base...
+2025-05-21 03:34:53,094 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:34:53,121 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:34:53,375 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:34:53,383 - INFO - Knowledge base loaded successfully
+2025-05-21 03:34:53,383 - INFO - Using Simple Text Generation
+2025-05-21 03:34:53,384 - INFO - Chain created successfully with simple processing
+2025-05-21 03:34:53,384 - INFO - ChatbotAgent initialized successfully
+2025-05-21 03:34:53,404 - WARNING -  * Debugger is active!
+2025-05-21 03:34:53,407 - INFO -  * Debugger PIN: 123-685-370
+2025-05-21 03:34:53,421 - INFO - 127.0.0.1 - - [21/May/2025 03:34:53] "GET /socket.io/?EIO=4&transport=polling&t=PRlrQQm HTTP/1.1" 200 -
+2025-05-21 03:34:53,432 - INFO - Client connected: 33L0Z-98p9lh03nxAAAB
+2025-05-21 03:34:53,435 - INFO - 127.0.0.1 - - [21/May/2025 03:34:53] "POST /socket.io/?EIO=4&transport=polling&t=PRlrU1m&sid=2CSsKAmn3KwqxQPpAAAA HTTP/1.1" 200 -
+2025-05-21 03:34:53,435 - INFO - 127.0.0.1 - - [21/May/2025 03:34:53] "GET /socket.io/?EIO=4&transport=polling&t=PRlrU1o&sid=2CSsKAmn3KwqxQPpAAAA HTTP/1.1" 200 -
+2025-05-21 03:34:58,129 - INFO - Client disconnected: 33L0Z-98p9lh03nxAAAB
+2025-05-21 03:34:58,130 - INFO - 127.0.0.1 - - [21/May/2025 03:34:58] "GET /socket.io/?EIO=4&transport=websocket&sid=2CSsKAmn3KwqxQPpAAAA HTTP/1.1" 200 -
+2025-05-21 03:34:58,213 - INFO - 127.0.0.1 - - [21/May/2025 03:34:58] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-21 03:34:58,370 - INFO - 127.0.0.1 - - [21/May/2025 03:34:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-21 03:34:58,693 - INFO - 127.0.0.1 - - [21/May/2025 03:34:58] "GET /socket.io/?EIO=4&transport=polling&t=PRlrVK2 HTTP/1.1" 200 -
+2025-05-21 03:34:58,760 - INFO - Client connected: LVyWXZS3scYvr0BIAAAD
+2025-05-21 03:34:58,761 - INFO - 127.0.0.1 - - [21/May/2025 03:34:58] "POST /socket.io/?EIO=4&transport=polling&t=PRlrVKy&sid=eb9iCmtq678CtXjCAAAC HTTP/1.1" 200 -
+2025-05-21 03:34:58,774 - INFO - 127.0.0.1 - - [21/May/2025 03:34:58] "GET /socket.io/?EIO=4&transport=polling&t=PRlrVKz&sid=eb9iCmtq678CtXjCAAAC HTTP/1.1" 200 -
+2025-05-21 03:34:59,251 - INFO - 127.0.0.1 - - [21/May/2025 03:34:59] "GET /socket.io/?EIO=4&transport=polling&t=PRlrVSm&sid=eb9iCmtq678CtXjCAAAC HTTP/1.1" 200 -
+2025-05-21 03:34:59,798 - INFO - 127.0.0.1 - - [21/May/2025 03:34:59] "GET /socket.io/?EIO=4&transport=polling&t=PRlrVbJ&sid=eb9iCmtq678CtXjCAAAC HTTP/1.1" 200 -
+2025-05-21 03:35:04,485 - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-21 03:35:04,488 - INFO - Successfully saved conversation backup to D:\education-prediction\knowledge\conversations\2025-05-21\f376c07b-ff9d-40be-bc89-37e6bf21567a_1747780504.json
+2025-05-21 03:35:04,489 - INFO - Saving conversation for session f376c07b-ff9d-40be-bc89-37e6bf21567a (attempt 1/3)
+2025-05-21 03:35:04,608 - INFO - Successfully saved conversation to chatHistory collection. Document ID: 682d03983783a3738abb978e
+2025-05-21 03:35:18,689 - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-21 03:35:18,692 - INFO - Successfully saved conversation backup to D:\education-prediction\knowledge\conversations\2025-05-21\f376c07b-ff9d-40be-bc89-37e6bf21567a_1747780518.json
+2025-05-21 03:35:18,692 - INFO - Saving conversation for session f376c07b-ff9d-40be-bc89-37e6bf21567a (attempt 1/3)
+2025-05-21 03:35:18,801 - INFO - Successfully saved conversation to chatHistory collection. Document ID: 682d03a63783a3738abb978f
+2025-05-21 03:38:38,142 - INFO - Client disconnected: LVyWXZS3scYvr0BIAAAD
+2025-05-21 03:38:38,143 - INFO - 127.0.0.1 - - [21/May/2025 03:38:38] "GET /socket.io/?EIO=4&transport=websocket&sid=eb9iCmtq678CtXjCAAAC HTTP/1.1" 200 -
+2025-05-21 03:38:38,209 - INFO - 127.0.0.1 - - [21/May/2025 03:38:38] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-21 03:38:38,265 - INFO - 127.0.0.1 - - [21/May/2025 03:38:38] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-21 03:38:38,350 - INFO - 127.0.0.1 - - [21/May/2025 03:38:38] "GET /socket.io/?EIO=4&transport=polling&t=PRlsKyA HTTP/1.1" 200 -
+2025-05-21 03:38:38,515 - INFO - Client connected: f717SsPttmJQ2je7AAAF
+2025-05-21 03:38:38,516 - INFO - 127.0.0.1 - - [21/May/2025 03:38:38] "POST /socket.io/?EIO=4&transport=polling&t=PRlsK-l&sid=jTXR0hX_y5YsYllWAAAE HTTP/1.1" 200 -
+2025-05-21 03:38:38,521 - INFO - 127.0.0.1 - - [21/May/2025 03:38:38] "GET /socket.io/?EIO=4&transport=polling&t=PRlsK-m&sid=jTXR0hX_y5YsYllWAAAE HTTP/1.1" 200 -
+2025-05-21 03:38:38,590 - INFO - 127.0.0.1 - - [21/May/2025 03:38:38] "GET /socket.io/?EIO=4&transport=polling&t=PRlsK_u&sid=jTXR0hX_y5YsYllWAAAE HTTP/1.1" 200 -
+2025-05-21 03:41:48,595 - INFO -  * Detected change in 'D:\\education-prediction\\utils\\chatbot.py', reloading
+2025-05-21 03:41:50,221 - INFO -  * Restarting with stat
+2025-05-21 03:42:19,516 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:42:20,333 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:42:20,486 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:42:20,486 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:42:25,180 - INFO - Loading existing knowledge base...
+2025-05-21 03:42:25,186 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:42:25,372 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:42:25,383 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:42:25,388 - INFO - Knowledge base loaded successfully
+2025-05-21 03:42:25,389 - INFO - Using Simple Text Generation
+2025-05-21 03:42:25,390 - INFO - Chain created successfully with simple processing
+2025-05-21 03:42:25,390 - INFO - ChatbotAgent initialized successfully
+2025-05-21 03:42:25,412 - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-21 03:42:25,412 - INFO -  * Restarting with stat
+2025-05-21 03:42:37,411 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:42:38,116 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:42:38,326 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:42:38,327 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:42:43,142 - INFO - Loading existing knowledge base...
+2025-05-21 03:42:43,147 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:42:43,184 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:42:43,412 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:42:43,423 - INFO - Knowledge base loaded successfully
+2025-05-21 03:42:43,423 - INFO - Using Simple Text Generation
+2025-05-21 03:42:43,424 - INFO - Chain created successfully with simple processing
+2025-05-21 03:42:43,424 - INFO - ChatbotAgent initialized successfully
+2025-05-21 03:42:43,445 - WARNING -  * Debugger is active!
+2025-05-21 03:42:43,451 - INFO -  * Debugger PIN: 123-685-370
+2025-05-21 03:42:43,472 - INFO - 127.0.0.1 - - [21/May/2025 03:42:43] "GET /socket.io/?EIO=4&transport=polling&t=PRltDQ7 HTTP/1.1" 200 -
+2025-05-21 03:42:43,549 - INFO - 127.0.0.1 - - [21/May/2025 03:42:43] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-21 03:42:43,712 - INFO - 127.0.0.1 - - [21/May/2025 03:42:43] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-21 03:42:43,775 - INFO - 127.0.0.1 - - [21/May/2025 03:42:43] "GET /socket.io/?EIO=4&transport=polling&t=PRltGse HTTP/1.1" 200 -
+2025-05-21 03:42:43,971 - INFO - Client connected: jOyG1OZYxydLVa4FAAAC
+2025-05-21 03:42:43,971 - INFO - 127.0.0.1 - - [21/May/2025 03:42:43] "POST /socket.io/?EIO=4&transport=polling&t=PRltGvv&sid=PHIN_4Ha0qjdUFI_AAAB HTTP/1.1" 200 -
+2025-05-21 03:42:43,975 - INFO - 127.0.0.1 - - [21/May/2025 03:42:43] "GET /socket.io/?EIO=4&transport=polling&t=PRltGvw&sid=PHIN_4Ha0qjdUFI_AAAB HTTP/1.1" 200 -
+2025-05-21 03:42:44,076 - INFO - 127.0.0.1 - - [21/May/2025 03:42:44] "GET /socket.io/?EIO=4&transport=polling&t=PRltGxT&sid=PHIN_4Ha0qjdUFI_AAAB HTTP/1.1" 200 -
+2025-05-21 03:42:44,209 - INFO - 127.0.0.1 - - [21/May/2025 03:42:44] "GET /socket.io/?EIO=4&transport=polling&t=PRltGzl&sid=PHIN_4Ha0qjdUFI_AAAB HTTP/1.1" 200 -
+2025-05-21 03:42:56,817 - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-21 03:42:56,818 - INFO - Successfully saved conversation backup to D:\education-prediction\knowledge\conversations\2025-05-21\f376c07b-ff9d-40be-bc89-37e6bf21567a_1747780976.json
+2025-05-21 03:42:56,819 - INFO - Saving conversation for session f376c07b-ff9d-40be-bc89-37e6bf21567a (attempt 1/3)
+2025-05-21 03:42:56,932 - INFO - Successfully saved conversation to chatHistory collection. Document ID: 682d0570804292819c3151d5
+2025-05-21 03:46:18,811 - INFO -  * Detected change in 'D:\\education-prediction\\utils\\chatbot.py', reloading
+2025-05-21 03:46:20,435 - INFO -  * Restarting with stat
+2025-05-21 03:47:20,198 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:47:21,050 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:47:21,249 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:47:21,250 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:47:26,048 - INFO - Loading existing knowledge base...
+2025-05-21 03:47:26,053 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:47:26,295 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:47:26,310 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:47:26,316 - INFO - Knowledge base loaded successfully
+2025-05-21 03:47:26,316 - INFO - Using Simple Text Generation
+2025-05-21 03:47:26,317 - INFO - Chain created successfully with simple processing
+2025-05-21 03:47:26,317 - INFO - ChatbotAgent initialized successfully
+2025-05-21 03:47:26,345 - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-21 03:47:26,346 - INFO -  * Restarting with stat
+2025-05-21 03:47:39,778 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:47:40,544 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:47:40,780 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:47:40,781 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:47:45,392 - INFO - Loading existing knowledge base...
+2025-05-21 03:47:45,399 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:47:45,444 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:47:45,726 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:47:45,737 - INFO - Knowledge base loaded successfully
+2025-05-21 03:47:45,737 - INFO - Using Simple Text Generation
+2025-05-21 03:47:45,737 - INFO - Chain created successfully with simple processing
+2025-05-21 03:47:45,738 - INFO - ChatbotAgent initialized successfully
+2025-05-21 03:47:45,762 - WARNING -  * Debugger is active!
+2025-05-21 03:47:45,771 - INFO -  * Debugger PIN: 123-685-370
+2025-05-21 03:47:45,794 - INFO - 127.0.0.1 - - [21/May/2025 03:47:45] "GET /socket.io/?EIO=4&transport=polling&t=PRluL-3 HTTP/1.1" 200 -
+2025-05-21 03:47:45,875 - INFO - 127.0.0.1 - - [21/May/2025 03:47:45] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-21 03:47:46,045 - INFO - 127.0.0.1 - - [21/May/2025 03:47:46] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-21 03:47:46,426 - INFO - 127.0.0.1 - - [21/May/2025 03:47:46] "GET /socket.io/?EIO=4&transport=polling&t=PRluQls HTTP/1.1" 200 -
+2025-05-21 03:47:46,701 - INFO - Client connected: REdodo0cywGyM6TTAAAC
+2025-05-21 03:47:46,703 - INFO - 127.0.0.1 - - [21/May/2025 03:47:46] "POST /socket.io/?EIO=4&transport=polling&t=PRluQq7&sid=3BYkNTW2ede2_VinAAAB HTTP/1.1" 200 -
+2025-05-21 03:47:46,708 - INFO - 127.0.0.1 - - [21/May/2025 03:47:46] "GET /socket.io/?EIO=4&transport=polling&t=PRluQqA&sid=3BYkNTW2ede2_VinAAAB HTTP/1.1" 200 -
+2025-05-21 03:47:46,970 - INFO - 127.0.0.1 - - [21/May/2025 03:47:46] "GET /socket.io/?EIO=4&transport=polling&t=PRluQuM&sid=3BYkNTW2ede2_VinAAAB HTTP/1.1" 200 -
+2025-05-21 03:47:47,569 - INFO - 127.0.0.1 - - [21/May/2025 03:47:47] "GET /socket.io/?EIO=4&transport=polling&t=PRluR1j&sid=3BYkNTW2ede2_VinAAAB HTTP/1.1" 200 -
+2025-05-21 03:48:08,408 - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-21 03:48:08,623 - INFO - Saved conversation to chatHistory. Document ID: 682d06a8c4f516db2bf024b8
+2025-05-21 03:49:06,142 - INFO - Client disconnected: REdodo0cywGyM6TTAAAC
+2025-05-21 03:49:06,143 - INFO - 127.0.0.1 - - [21/May/2025 03:49:06] "GET /socket.io/?EIO=4&transport=websocket&sid=3BYkNTW2ede2_VinAAAB HTTP/1.1" 200 -
+2025-05-21 03:49:06,226 - INFO - 127.0.0.1 - - [21/May/2025 03:49:06] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-21 03:49:06,263 - INFO - 127.0.0.1 - - [21/May/2025 03:49:06] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-21 03:49:06,345 - INFO - 127.0.0.1 - - [21/May/2025 03:49:06] "GET /socket.io/?EIO=4&transport=polling&t=PRlukGc HTTP/1.1" 200 -
+2025-05-21 03:49:06,559 - INFO - Client connected: -AvckwV2Q2jmp1sLAAAE
+2025-05-21 03:49:06,560 - INFO - 127.0.0.1 - - [21/May/2025 03:49:06] "POST /socket.io/?EIO=4&transport=polling&t=PRlukJy&sid=FFBcQB0mKyHwyeXuAAAD HTTP/1.1" 200 -
+2025-05-21 03:49:06,598 - INFO - 127.0.0.1 - - [21/May/2025 03:49:06] "GET /socket.io/?EIO=4&transport=polling&t=PRlukJy.0&sid=FFBcQB0mKyHwyeXuAAAD HTTP/1.1" 200 -
+2025-05-21 03:49:06,711 - INFO - 127.0.0.1 - - [21/May/2025 03:49:06] "GET /socket.io/?EIO=4&transport=polling&t=PRlukMB&sid=FFBcQB0mKyHwyeXuAAAD HTTP/1.1" 200 -
+2025-05-21 03:50:28,023 - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-21 03:50:29,551 - INFO -  * Restarting with stat
+2025-05-21 03:50:41,541 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:50:42,374 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:50:42,568 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:50:42,569 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:50:47,059 - INFO - Loading existing knowledge base...
+2025-05-21 03:50:47,065 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:50:47,097 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:50:47,309 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:50:47,315 - INFO - Knowledge base loaded successfully
+2025-05-21 03:50:47,316 - INFO - Using Simple Text Generation
+2025-05-21 03:50:47,316 - INFO - Chain created successfully with simple processing
+2025-05-21 03:50:47,316 - INFO - ChatbotAgent initialized successfully
+2025-05-21 03:50:47,346 - WARNING -  * Debugger is active!
+2025-05-21 03:50:47,350 - INFO -  * Debugger PIN: 123-685-370
+2025-05-21 03:50:47,366 - INFO - 127.0.0.1 - - [21/May/2025 03:50:47] "GET /socket.io/?EIO=4&transport=polling&t=PRlv35H HTTP/1.1" 200 -
+2025-05-21 03:50:47,382 - INFO - Client connected: luWhm0_LGB9Bhyc1AAAB
+2025-05-21 03:50:47,387 - INFO - 127.0.0.1 - - [21/May/2025 03:50:47] "POST /socket.io/?EIO=4&transport=polling&t=PRlv6xF&sid=R5Tow95vxvpThDf4AAAA HTTP/1.1" 200 -
+2025-05-21 03:50:47,393 - INFO - 127.0.0.1 - - [21/May/2025 03:50:47] "GET /socket.io/?EIO=4&transport=polling&t=PRlv6xG&sid=R5Tow95vxvpThDf4AAAA HTTP/1.1" 200 -
+2025-05-21 03:50:47,398 - INFO - 127.0.0.1 - - [21/May/2025 03:50:47] "GET /socket.io/?EIO=4&transport=polling&t=PRlv6xa&sid=R5Tow95vxvpThDf4AAAA HTTP/1.1" 200 -
+2025-05-21 03:50:56,643 - INFO - Client disconnected: luWhm0_LGB9Bhyc1AAAB
+2025-05-21 03:50:56,643 - INFO - 127.0.0.1 - - [21/May/2025 03:50:56] "GET /socket.io/?EIO=4&transport=websocket&sid=R5Tow95vxvpThDf4AAAA HTTP/1.1" 200 -
+2025-05-21 03:50:56,726 - INFO - 127.0.0.1 - - [21/May/2025 03:50:56] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-21 03:50:56,842 - INFO - 127.0.0.1 - - [21/May/2025 03:50:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-21 03:50:56,899 - INFO - 127.0.0.1 - - [21/May/2025 03:50:56] "GET /socket.io/?EIO=4&transport=polling&t=PRlv9Fo HTTP/1.1" 200 -
+2025-05-21 03:50:56,995 - INFO - 127.0.0.1 - - [21/May/2025 03:50:56] "GET /api/chat/sessions HTTP/1.1" 200 -
+2025-05-21 03:50:57,055 - INFO - Client connected: ZSeAzH2DWcJCBBy9AAAD
+2025-05-21 03:50:57,056 - INFO - 127.0.0.1 - - [21/May/2025 03:50:57] "POST /socket.io/?EIO=4&transport=polling&t=PRlv9IR&sid=LV203VkjforQsOxjAAAC HTTP/1.1" 200 -
+2025-05-21 03:50:57,056 - INFO - 127.0.0.1 - - [21/May/2025 03:50:57] "GET /socket.io/?EIO=4&transport=polling&t=PRlv9IS&sid=LV203VkjforQsOxjAAAC HTTP/1.1" 200 -
+2025-05-21 03:50:57,124 - INFO - 127.0.0.1 - - [21/May/2025 03:50:57] "GET /socket.io/?EIO=4&transport=polling&t=PRlv9JW&sid=LV203VkjforQsOxjAAAC HTTP/1.1" 200 -
+2025-05-21 03:50:59,607 - ERROR - Error fetching chat messages: limit must be an integer
+2025-05-21 03:50:59,609 - INFO - 127.0.0.1 - - [21/May/2025 03:50:59] "GET /api/chat/sessions/fc4c0277-3cee-43c6-9972-83b4b42227c8/messages HTTP/1.1" 200 -
+2025-05-21 03:51:07,089 - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-21 03:51:07,318 - INFO - Saved conversation to chatHistory. Document ID: 682d075b178c469ea4096206
+2025-05-21 03:51:32,301 - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-21 03:51:32,567 - INFO - Saved conversation to chatHistory. Document ID: 682d0774178c469ea4096208
+2025-05-21 03:52:57,718 - INFO -  * Detected change in 'D:\\education-prediction\\utils\\knowledge_loader.py', reloading
+2025-05-21 03:52:59,298 - INFO -  * Restarting with stat
+2025-05-21 03:53:09,400 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:53:10,177 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:53:10,355 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:53:10,356 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:53:14,932 - INFO - Loading existing knowledge base...
+2025-05-21 03:53:14,940 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:53:14,973 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:53:15,166 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:53:15,176 - INFO - Knowledge base loaded successfully
+2025-05-21 03:53:15,176 - INFO - Using Simple Text Generation
+2025-05-21 03:53:15,177 - INFO - Chain created successfully with simple processing
+2025-05-21 03:53:15,177 - INFO - ChatbotAgent initialized successfully
+2025-05-21 03:53:15,204 - WARNING -  * Debugger is active!
+2025-05-21 03:53:15,208 - INFO -  * Debugger PIN: 123-685-370
+2025-05-21 03:53:15,223 - INFO - 127.0.0.1 - - [21/May/2025 03:53:15] "GET /socket.io/?EIO=4&transport=polling&t=PRlvdTN HTTP/1.1" 200 -
+2025-05-21 03:53:15,232 - INFO - Client connected: VqVdktzJJ8g5_IibAAAB
+2025-05-21 03:53:15,233 - INFO - 127.0.0.1 - - [21/May/2025 03:53:15] "POST /socket.io/?EIO=4&transport=polling&t=PRlvh1Q&sid=QHuBQEXy6jbVXs3RAAAA HTTP/1.1" 200 -
+2025-05-21 03:53:15,240 - INFO - 127.0.0.1 - - [21/May/2025 03:53:15] "GET /socket.io/?EIO=4&transport=polling&t=PRlvh1R&sid=QHuBQEXy6jbVXs3RAAAA HTTP/1.1" 200 -
+2025-05-21 03:53:22,342 - INFO -  * Detected change in 'D:\\education-prediction\\utils\\chatbot.py', reloading
+2025-05-21 03:53:24,694 - INFO -  * Restarting with stat
+2025-05-21 03:56:43,616 - INFO - Successfully loaded knowledge base
+2025-05-21 03:56:43,617 - INFO - Successfully processed 18 knowledge chunks
+2025-05-21 03:56:43,753 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:56:43,753 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:56:48,281 - INFO - Using Simple Text Generation
+2025-05-21 03:56:48,283 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:56:49,161 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:56:49,180 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:56:49,402 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:56:49,412 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:56:49,420 - INFO - Knowledge base loaded successfully
+2025-05-21 03:56:49,448 - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-21 03:56:49,448 - INFO -  * Restarting with stat
+2025-05-21 03:57:03,223 - INFO - Successfully loaded knowledge base
+2025-05-21 03:57:03,224 - INFO - Successfully processed 18 knowledge chunks
+2025-05-21 03:57:03,433 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:57:03,433 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:57:08,068 - INFO - Using Simple Text Generation
+2025-05-21 03:57:08,068 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:57:08,736 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:57:08,755 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:57:08,816 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:57:09,036 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:57:09,049 - INFO - Knowledge base loaded successfully
+2025-05-21 03:57:09,079 - WARNING -  * Debugger is active!
+2025-05-21 03:57:09,083 - INFO -  * Debugger PIN: 123-685-370
+2025-05-21 03:57:09,104 - INFO - 127.0.0.1 - - [21/May/2025 03:57:09] "GET /socket.io/?EIO=4&transport=polling&t=PRlwW77 HTTP/1.1" 200 -
+2025-05-21 03:57:09,178 - INFO - 127.0.0.1 - - [21/May/2025 03:57:09] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-21 03:57:09,378 - INFO - 127.0.0.1 - - [21/May/2025 03:57:09] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-21 03:57:09,853 - INFO - 127.0.0.1 - - [21/May/2025 03:57:09] "GET /socket.io/?EIO=4&transport=polling&t=PRlwaJL HTTP/1.1" 200 -
+2025-05-21 03:57:09,949 - INFO - 127.0.0.1 - - [21/May/2025 03:57:09] "GET /api/chat/sessions HTTP/1.1" 200 -
+2025-05-21 03:57:10,136 - INFO - Client connected: bUncWHpovauWZ-6GAAAC
+2025-05-21 03:57:10,138 - INFO - 127.0.0.1 - - [21/May/2025 03:57:10] "POST /socket.io/?EIO=4&transport=polling&t=PRlwaNn&sid=Po0XH7iypPkDud7mAAAB HTTP/1.1" 200 -
+2025-05-21 03:57:10,139 - INFO - 127.0.0.1 - - [21/May/2025 03:57:10] "GET /socket.io/?EIO=4&transport=polling&t=PRlwaNo&sid=Po0XH7iypPkDud7mAAAB HTTP/1.1" 200 -
+2025-05-21 03:57:10,366 - INFO - 127.0.0.1 - - [21/May/2025 03:57:10] "GET /socket.io/?EIO=4&transport=polling&t=PRlwaRN&sid=Po0XH7iypPkDud7mAAAB HTTP/1.1" 200 -
+2025-05-21 03:57:10,910 - INFO - 127.0.0.1 - - [21/May/2025 03:57:10] "GET /socket.io/?EIO=4&transport=polling&t=PRlwaZu&sid=Po0XH7iypPkDud7mAAAB HTTP/1.1" 200 -
+2025-05-21 03:57:16,029 - ERROR - Error fetching chat messages: limit must be an integer
+2025-05-21 03:57:16,029 - INFO - 127.0.0.1 - - [21/May/2025 03:57:16] "GET /api/chat/sessions/507bbfe0-3803-4dca-b805-9c3e16b3a037/messages HTTP/1.1" 200 -
+2025-05-21 03:57:17,060 - ERROR - Error fetching chat messages: limit must be an integer
+2025-05-21 03:57:17,061 - INFO - 127.0.0.1 - - [21/May/2025 03:57:17] "GET /api/chat/sessions/3f02f2de-3580-418b-bef6-000321d6ade6/messages HTTP/1.1" 200 -
+2025-05-21 03:57:19,000 - ERROR - Error fetching chat messages: limit must be an integer
+2025-05-21 03:57:19,001 - INFO - 127.0.0.1 - - [21/May/2025 03:57:19] "GET /api/chat/sessions/fc4c0277-3cee-43c6-9972-83b4b42227c8/messages HTTP/1.1" 200 -
+2025-05-21 03:57:19,672 - ERROR - Error fetching chat messages: limit must be an integer
+2025-05-21 03:57:19,673 - INFO - 127.0.0.1 - - [21/May/2025 03:57:19] "GET /api/chat/sessions/507bbfe0-3803-4dca-b805-9c3e16b3a037/messages HTTP/1.1" 200 -
+2025-05-21 03:57:24,755 - INFO - 127.0.0.1 - - [21/May/2025 03:57:24] "POST /api/chat/sessions/new HTTP/1.1" 200 -
+2025-05-21 03:57:24,805 - INFO - 127.0.0.1 - - [21/May/2025 03:57:24] "[31m[1m{"username":"mesum"}GET /api/chat/sessions HTTP/1.1[0m" 405 -
+2025-05-21 03:57:25,370 - INFO - 127.0.0.1 - - [21/May/2025 03:57:25] "POST /api/chat/sessions/new HTTP/1.1" 200 -
+2025-05-21 03:57:25,393 - INFO - 127.0.0.1 - - [21/May/2025 03:57:25] "[31m[1m{"username":"mesum"}GET /api/chat/sessions HTTP/1.1[0m" 405 -
+2025-05-21 03:57:29,259 - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-21 03:57:29,465 - INFO - Saved conversation to chatHistory. Document ID: 682d08d955cb6e39c4e6aab0
+2025-05-21 03:57:42,642 - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-21 03:57:42,643 - ERROR - Error in chain invocation: 'ChatbotAgent' object has no attribute 'chain'
+Traceback (most recent call last):
+  File "D:\education-prediction\utils\chatbot.py", line 625, in process_query
+    chain_response = self.chain(processed_query)
+                     ^^^^^^^^^^
+AttributeError: 'ChatbotAgent' object has no attribute 'chain'
+2025-05-21 03:57:42,853 - INFO - Saved conversation to chatHistory. Document ID: 682d08e655cb6e39c4e6aab2
+2025-05-21 03:57:55,566 - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-21 03:57:55,567 - ERROR - Error in chain invocation: 'ChatbotAgent' object has no attribute 'chain'
+Traceback (most recent call last):
+  File "D:\education-prediction\utils\chatbot.py", line 625, in process_query
+    chain_response = self.chain(processed_query)
+                     ^^^^^^^^^^
+AttributeError: 'ChatbotAgent' object has no attribute 'chain'
+2025-05-21 03:57:55,779 - INFO - Saved conversation to chatHistory. Document ID: 682d08f355cb6e39c4e6aab4
+2025-05-21 03:59:29,550 - INFO -  * Detected change in 'D:\\education-prediction\\utils\\chatbot.py', reloading
+2025-05-21 03:59:31,302 - INFO -  * Restarting with stat
+2025-05-21 03:59:42,443 - INFO - Successfully loaded knowledge base
+2025-05-21 03:59:42,443 - INFO - Successfully processed 18 knowledge chunks
+2025-05-21 03:59:42,621 - INFO - Use pytorch device_name: cpu
+2025-05-21 03:59:42,621 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 03:59:47,238 - INFO - Using Simple Text Generation
+2025-05-21 03:59:47,239 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 03:59:48,090 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 03:59:48,112 - INFO - Loading faiss with AVX2 support.
+2025-05-21 03:59:48,390 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 03:59:48,408 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 03:59:48,416 - INFO - Knowledge base loaded successfully
+2025-05-21 03:59:48,416 - INFO - Chain created successfully with document retrieval
+2025-05-21 03:59:48,446 - WARNING -  * Debugger is active!
+2025-05-21 03:59:48,450 - INFO -  * Debugger PIN: 123-685-370
+2025-05-21 03:59:48,477 - INFO - 127.0.0.1 - - [21/May/2025 03:59:48] "GET /socket.io/?EIO=4&transport=polling&t=PRlx7AO HTTP/1.1" 200 -
+2025-05-21 03:59:48,499 - INFO - Client connected: t0gSutYsOKYt6MXrAAAB
+2025-05-21 03:59:48,501 - INFO - 127.0.0.1 - - [21/May/2025 03:59:48] "POST /socket.io/?EIO=4&transport=polling&t=PRlxB20&sid=7jVlKTxMGVPNYgTzAAAA HTTP/1.1" 200 -
+2025-05-21 03:59:48,504 - INFO - 127.0.0.1 - - [21/May/2025 03:59:48] "GET /socket.io/?EIO=4&transport=polling&t=PRlxB22&sid=7jVlKTxMGVPNYgTzAAAA HTTP/1.1" 200 -
+2025-05-21 03:59:50,201 - INFO - Client disconnected: t0gSutYsOKYt6MXrAAAB
+2025-05-21 03:59:50,203 - INFO - 127.0.0.1 - - [21/May/2025 03:59:50] "GET /socket.io/?EIO=4&transport=websocket&sid=7jVlKTxMGVPNYgTzAAAA HTTP/1.1" 200 -
+2025-05-21 03:59:50,349 - INFO - 127.0.0.1 - - [21/May/2025 03:59:50] "GET /chat HTTP/1.1" 200 -
+2025-05-21 03:59:50,564 - INFO - 127.0.0.1 - - [21/May/2025 03:59:50] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-21 03:59:50,977 - INFO - 127.0.0.1 - - [21/May/2025 03:59:50] "GET /socket.io/?EIO=4&transport=polling&t=PRlxBew HTTP/1.1" 200 -
+2025-05-21 03:59:51,076 - INFO - 127.0.0.1 - - [21/May/2025 03:59:51] "GET /api/chat/sessions HTTP/1.1" 200 -
+2025-05-21 03:59:51,235 - INFO - Client connected: KprbwH8W4AV8c1JqAAAD
+2025-05-21 03:59:51,236 - INFO - 127.0.0.1 - - [21/May/2025 03:59:51] "POST /socket.io/?EIO=4&transport=polling&t=PRlxBix&sid=qKrr69ehh98w8ChHAAAC HTTP/1.1" 200 -
+2025-05-21 03:59:51,243 - INFO - 127.0.0.1 - - [21/May/2025 03:59:51] "GET /socket.io/?EIO=4&transport=polling&t=PRlxBiy&sid=qKrr69ehh98w8ChHAAAC HTTP/1.1" 200 -
+2025-05-21 03:59:51,408 - INFO - 127.0.0.1 - - [21/May/2025 03:59:51] "GET /socket.io/?EIO=4&transport=polling&t=PRlxBli&sid=qKrr69ehh98w8ChHAAAC HTTP/1.1" 200 -
+2025-05-21 03:59:51,941 - INFO - 127.0.0.1 - - [21/May/2025 03:59:51] "GET /socket.io/?EIO=4&transport=polling&t=PRlxBu2&sid=qKrr69ehh98w8ChHAAAC HTTP/1.1" 200 -
+2025-05-21 03:59:57,660 - INFO - 127.0.0.1 - - [21/May/2025 03:59:57] "POST /api/chat/sessions/new HTTP/1.1" 200 -
+2025-05-21 03:59:57,690 - INFO - 127.0.0.1 - - [21/May/2025 03:59:57] "[31m[1m{"username":"mesum"}GET /api/chat/sessions HTTP/1.1[0m" 405 -
+2025-05-21 04:00:01,886 - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-21 04:00:02,152 - INFO - Saved conversation to chatHistory. Document ID: 682d09728bd06b5dcad0eec7
+2025-05-21 04:00:10,125 - INFO - Checking for prediction parameters in query: 0 parameters found
+2025-05-21 04:00:10,410 - INFO - Saved conversation to chatHistory. Document ID: 682d097a8bd06b5dcad0eec9
+2025-05-21 04:01:27,315 - INFO -  * Detected change in 'D:\\education-prediction\\utils\\chatbot.py', reloading
+2025-05-21 04:01:28,569 - INFO -  * Restarting with stat
+2025-05-21 04:01:40,565 - INFO - Successfully loaded knowledge base
+2025-05-21 04:01:40,566 - INFO - Successfully processed 18 knowledge chunks
+2025-05-21 04:01:40,766 - INFO - Use pytorch device_name: cpu
+2025-05-21 04:01:40,766 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 04:01:45,546 - INFO - Using Simple Text Generation
+2025-05-21 04:01:45,547 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 04:01:46,362 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 04:01:46,373 - INFO - Loading faiss with AVX2 support.
+2025-05-21 04:01:46,643 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 04:01:46,658 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 04:01:46,672 - INFO - Knowledge base loaded successfully
+2025-05-21 04:01:46,673 - INFO - Chain created successfully with document retrieval
+2025-05-21 04:01:46,700 - WARNING -  * Debugger is active!
+2025-05-21 04:01:46,705 - INFO -  * Debugger PIN: 123-685-370
+2025-05-21 04:01:46,724 - INFO - 127.0.0.1 - - [21/May/2025 04:01:46] "GET /socket.io/?EIO=4&transport=polling&t=PRlxZke HTTP/1.1" 200 -
+2025-05-21 04:01:46,740 - INFO - Client connected: Mxort2zPMupm7j9wAAAB
+2025-05-21 04:01:46,742 - INFO - 127.0.0.1 - - [21/May/2025 04:01:46] "POST /socket.io/?EIO=4&transport=polling&t=PRlxdve&sid=GJU43kG8zXASs3JyAAAA HTTP/1.1" 200 -
+2025-05-21 04:01:46,749 - INFO - 127.0.0.1 - - [21/May/2025 04:01:46] "GET /socket.io/?EIO=4&transport=polling&t=PRlxdvj&sid=GJU43kG8zXASs3JyAAAA HTTP/1.1" 200 -
+2025-05-21 04:01:48,630 - INFO - Client disconnected: Mxort2zPMupm7j9wAAAB
+2025-05-21 04:01:48,631 - INFO - 127.0.0.1 - - [21/May/2025 04:01:48] "GET /socket.io/?EIO=4&transport=websocket&sid=GJU43kG8zXASs3JyAAAA HTTP/1.1" 200 -
+2025-05-21 04:01:48,733 - INFO - 127.0.0.1 - - [21/May/2025 04:01:48] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-21 04:01:48,962 - INFO - 127.0.0.1 - - [21/May/2025 04:01:48] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-21 04:01:49,470 - INFO - 127.0.0.1 - - [21/May/2025 04:01:49] "GET /socket.io/?EIO=4&transport=polling&t=PRlxeaI HTTP/1.1" 200 -
+2025-05-21 04:01:49,563 - INFO - 127.0.0.1 - - [21/May/2025 04:01:49] "GET /api/chat/sessions HTTP/1.1" 200 -
+2025-05-21 04:01:49,844 - INFO - Client connected: RskOasDrJnNTgtiSAAAD
+2025-05-21 04:01:49,846 - INFO - 127.0.0.1 - - [21/May/2025 04:01:49] "POST /socket.io/?EIO=4&transport=polling&t=PRlxegE&sid=ypvmx1eFoBo4k0m1AAAC HTTP/1.1" 200 -
+2025-05-21 04:01:49,847 - INFO - 127.0.0.1 - - [21/May/2025 04:01:49] "GET /socket.io/?EIO=4&transport=polling&t=PRlxegF&sid=ypvmx1eFoBo4k0m1AAAC HTTP/1.1" 200 -
+2025-05-21 04:01:50,079 - INFO - 127.0.0.1 - - [21/May/2025 04:01:50] "GET /socket.io/?EIO=4&transport=polling&t=PRlxejp&sid=ypvmx1eFoBo4k0m1AAAC HTTP/1.1" 200 -
+2025-05-21 04:01:50,581 - INFO - 127.0.0.1 - - [21/May/2025 04:01:50] "GET /socket.io/?EIO=4&transport=polling&t=PRlxerp&sid=ypvmx1eFoBo4k0m1AAAC HTTP/1.1" 200 -
+2025-05-21 04:01:58,013 - INFO - Saved conversation to chatHistory. Document ID: 682d09e596e23fd0f5316dae
+2025-05-21 04:02:03,983 - ERROR - WebSocket Chat Error: 'NoneType' object does not support item assignment
+2025-05-21 04:02:15,771 - ERROR - WebSocket Chat Error: 'NoneType' object does not support item assignment
+2025-05-21 04:02:28,789 - INFO - Saved conversation to chatHistory. Document ID: 682d0a0496e23fd0f5316db2
+2025-05-21 04:05:19,850 - INFO -  * Detected change in 'D:\\education-prediction\\utils\\chatbot.py', reloading
+2025-05-21 04:05:21,901 - INFO -  * Restarting with stat
+2025-05-21 04:05:33,645 - INFO - Successfully loaded knowledge base
+2025-05-21 04:05:33,645 - INFO - Successfully processed 18 knowledge chunks
+2025-05-21 04:05:33,881 - INFO - Use pytorch device_name: cpu
+2025-05-21 04:05:33,881 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-21 04:05:36,925 - INFO - Using Simple Text Generation
+2025-05-21 04:05:36,926 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-21 04:05:38,144 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-21 04:05:38,148 - INFO - Loading faiss with AVX2 support.
+2025-05-21 04:05:38,460 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-21 04:05:38,484 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-21 04:05:38,503 - INFO - Knowledge base loaded successfully
+2025-05-21 04:05:38,503 - INFO - Chain created successfully with document retrieval
+2025-05-21 04:05:38,555 - WARNING -  * Debugger is active!
+2025-05-21 04:05:38,562 - INFO -  * Debugger PIN: 123-685-370
+2025-05-21 04:05:38,581 - INFO - 127.0.0.1 - - [21/May/2025 04:05:38] "GET /socket.io/?EIO=4&transport=polling&t=PRlySd8 HTTP/1.1" 200 -
+2025-05-21 04:05:38,678 - INFO - 127.0.0.1 - - [21/May/2025 04:05:38] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-21 04:05:38,878 - INFO - 127.0.0.1 - - [21/May/2025 04:05:38] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-21 04:05:39,342 - INFO - 127.0.0.1 - - [21/May/2025 04:05:39] "GET /socket.io/?EIO=4&transport=polling&t=PRlyWi7 HTTP/1.1" 200 -
+2025-05-21 04:05:39,440 - INFO - 127.0.0.1 - - [21/May/2025 04:05:39] "GET /api/chat/sessions HTTP/1.1" 200 -
+2025-05-21 04:05:39,647 - INFO - Client connected: 3xsgbjabH_W75zLzAAAC
+2025-05-21 04:05:39,648 - INFO - 127.0.0.1 - - [21/May/2025 04:05:39] "POST /socket.io/?EIO=4&transport=polling&t=PRlyWmx&sid=RLAe4AMTWwJTzaAbAAAB HTTP/1.1" 200 -
+2025-05-21 04:05:39,649 - INFO - 127.0.0.1 - - [21/May/2025 04:05:39] "GET /socket.io/?EIO=4&transport=polling&t=PRlyWmy&sid=RLAe4AMTWwJTzaAbAAAB HTTP/1.1" 200 -
+2025-05-21 04:05:39,857 - INFO - 127.0.0.1 - - [21/May/2025 04:05:39] "GET /socket.io/?EIO=4&transport=polling&t=PRlyWqC&sid=RLAe4AMTWwJTzaAbAAAB HTTP/1.1" 200 -
+2025-05-21 04:05:40,391 - INFO - 127.0.0.1 - - [21/May/2025 04:05:40] "GET /socket.io/?EIO=4&transport=polling&t=PRlyWyZ&sid=RLAe4AMTWwJTzaAbAAAB HTTP/1.1" 200 -
+2025-05-21 04:05:44,381 - INFO - Saved conversation to chatHistory. Document ID: 682d0ac8416382e35fb5ede2
+2025-05-21 04:05:50,978 - INFO - Saved conversation to chatHistory. Document ID: 682d0ace416382e35fb5ede4
+2025-05-21 04:05:58,289 - INFO - Saved conversation to chatHistory. Document ID: 682d0ad6416382e35fb5ede6

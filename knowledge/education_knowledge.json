@@ -1,0 +1,251 @@
+{
+    "system_features": {
+        "prediction_system": {
+            "description": "The Education Prediction System analyzes student performance using three key metrics",
+            "metrics": {
+                "attendance": {
+                    "weight": 30,
+                    "description": "Student attendance percentage (0-100)",
+                    "importance": "Regular attendance is crucial for academic success",
+                    "recommendations": [
+                        "Track attendance daily",
+                        "Set minimum attendance requirements",
+                        "Address attendance issues early"
+                    ]
+                },
+                "homework_completion": {
+                    "weight": 20,
+                    "description": "Homework completion rate (0-100)",
+                    "importance": "Homework completion indicates student engagement and understanding",
+                    "recommendations": [
+                        "Assign regular homework",
+                        "Provide clear deadlines",
+                        "Offer support for challenging assignments"
+                    ]
+                },
+                "test_scores": {
+                    "weight": 50,
+                    "description": "Test scores (0-100)",
+                    "importance": "Test scores measure academic achievement and understanding",
+                    "recommendations": [
+                        "Conduct regular assessments",
+                        "Provide practice tests",
+                        "Review test results with students"
+                    ]
+                }
+            },
+            "performance_categories": {
+                "excellent": {
+                    "range": "90-100%",
+                    "description": "Outstanding academic performance",
+                    "characteristics": [
+                        "Consistently high attendance",
+                        "Regular homework completion",
+                        "Strong test performance"
+                    ],
+                    "recommendations": [
+                        "Maintain current study habits",
+                        "Consider advanced coursework",
+                        "Set higher academic goals"
+                    ]
+                },
+                "good": {
+                    "range": "70-89%",
+                    "description": "Solid academic performance",
+                    "characteristics": [
+                        "Good attendance record",
+                        "Mostly complete homework",
+                        "Satisfactory test scores"
+                    ],
+                    "recommendations": [
+                        "Identify areas for improvement",
+                        "Develop better study habits",
+                        "Set specific improvement goals"
+                    ]
+                },
+                "needs_improvement": {
+                    "range": "0-69%",
+                    "description": "Requires additional support",
+                    "characteristics": [
+                        "Irregular attendance",
+                        "Incomplete homework",
+                        "Below average test scores"
+                    ],
+                    "recommendations": [
+                        "Create improvement plan",
+                        "Schedule regular check-ins",
+                        "Provide additional support"
+                    ]
+                }
+            }
+        },
+        "features": {
+            "prediction": {
+                "description": "Make student performance predictions",
+                "requirements": "User must be logged in",
+                "inputs": [
+                    "Student name",
+                    "Student ID",
+                    "Email",
+                    "Attendance percentage",
+                    "Homework completion rate",
+                    "Test scores"
+                ],
+                "outputs": [
+                    "Performance prediction",
+                    "Confidence score",
+                    "Detailed analysis"
+                ]
+            },
+            "history": {
+                "description": "View prediction history",
+                "capabilities": [
+                    "View all past predictions",
+                    "Filter by date",
+                    "Sort by various metrics",
+                    "Generate reports"
+                ],
+                "requirements": "User must be logged in"
+            },
+            "reports": {
+                "description": "Generate detailed PDF reports",
+                "contents": [
+                    "Student information",
+                    "Performance metrics",
+                    "Prediction results",
+                    "Recommendations"
+                ],
+                "requirements": "User must be logged in"
+            }
+        }
+    },
+    "educational_concepts": {
+        "performance_indicators": {
+            "attendance": {
+                "importance": "Regular attendance is crucial for academic success",
+                "impact": "Directly affects learning and understanding",
+                "best_practices": [
+                    "Track attendance daily",
+                    "Communicate with parents about absences",
+                    "Implement attendance improvement plans"
+                ]
+            },
+            "homework": {
+                "importance": "Reinforces learning and develops study habits",
+                "impact": "Helps identify areas needing additional support",
+                "best_practices": [
+                    "Set clear expectations",
+                    "Provide timely feedback",
+                    "Offer support for challenging assignments"
+                ]
+            },
+            "testing": {
+                "importance": "Measures understanding and knowledge retention",
+                "impact": "Identifies strengths and areas for improvement",
+                "best_practices": [
+                    "Use various assessment types",
+                    "Provide practice opportunities",
+                    "Review results with students"
+                ]
+            }
+        },
+        "intervention_strategies": {
+            "early_intervention": {
+                "description": "Identify and address issues early",
+                "signs": [
+                    "Declining attendance",
+                    "Incomplete homework",
+                    "Lower test scores"
+                ],
+                "actions": [
+                    "Schedule student meetings",
+                    "Contact parents",
+                    "Create improvement plan"
+                ]
+            },
+            "support_programs": {
+                "description": "Provide additional academic support",
+                "types": [
+                    "Tutoring sessions",
+                    "Study groups",
+                    "Extra practice materials"
+                ],
+                "implementation": [
+                    "Assess student needs",
+                    "Match with appropriate support",
+                    "Monitor progress"
+                ]
+            },
+            "parent_involvement": {
+                "description": "Engage parents in student success",
+                "methods": [
+                    "Regular communication",
+                    "Progress reports",
+                    "Parent-teacher meetings"
+                ],
+                "benefits": [
+                    "Better student support",
+                    "Improved attendance",
+                    "Higher homework completion"
+                ]
+            }
+        }
+    },
+    "system_usage": {
+        "getting_started": {
+            "registration": {
+                "steps": [
+                    "Click Register button",
+                    "Enter username and email",
+                    "Create password",
+                    "Verify email"
+                ],
+                "requirements": [
+                    "Valid email address",
+                    "Unique username",
+                    "Strong password"
+                ]
+            },
+            "login": {
+                "steps": [
+                    "Enter username",
+                    "Enter password",
+                    "Click Login"
+                ],
+                "features": [
+                    "Remember me option",
+                    "Password recovery",
+                    "Session management"
+                ]
+            }
+        },
+        "making_predictions": {
+            "process": [
+                "Navigate to prediction form",
+                "Enter student details",
+                "Input performance metrics",
+                "Submit for analysis",
+                "Review results"
+            ],
+            "tips": [
+                "Ensure accurate data entry",
+                "Review all fields before submission",
+                "Save or print results"
+            ]
+        },
+        "viewing_history": {
+            "access": [
+                "Click History tab",
+                "View all predictions",
+                "Use filters as needed",
+                "Export or print reports"
+            ],
+            "features": [
+                "Date-based filtering",
+                "Performance category sorting",
+                "Detailed view of each prediction",
+                "Report generation"
+            ]
+        }
+    }
+} 

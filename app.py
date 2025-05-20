@@ -870,15 +870,15 @@ def api_predictions():
 # Chat endpoints
 @app.route('/chat')
 def chat():
-    """Public chat endpoint accessible without login"""
-    # Generate a unique session ID for this chat session if not already present
-    if 'chat_session_id' not in flask_session:
-        flask_session['chat_session_id'] = str(uuid.uuid4())
+    """Render the chat interface."""
+    session_id = request.args.get('session_id')
+    if not session_id:
+        session_id = str(uuid.uuid4())
     
-    return render_template('chat.html', 
-                           is_authenticated=False,
-                           session_id=flask_session['chat_session_id'],
-                           now=datetime.now())
+    return render_template('chat.html',
+                         session_id=session_id,
+                         is_authenticated=current_user.is_authenticated,
+                         username=current_user.username if current_user.is_authenticated else None)
 
 @app.route('/chat/authenticated')
 @login_required
@@ -1053,6 +1053,39 @@ def handle_chat_message(data):
             'error': str(e),
             'request_id': request_id
         })
+
+@app.route('/api/chat/sessions', methods=['GET'])
+@login_required
+def get_chat_sessions():
+    """Get all chat sessions for the current user."""
+    try:
+        sessions = chatbot.get_user_chat_sessions(current_user.username)
+        return jsonify(sessions)
+    except Exception as e:
+        logger.error(f"Error getting chat sessions: {str(e)}")
+        return jsonify({'error': 'Failed to get chat sessions'}), 500
+
+@app.route('/api/chat/sessions/new', methods=['POST'])
+@login_required
+def create_chat_session():
+    """Create a new chat session for the current user."""
+    try:
+        session_id = chatbot.create_new_chat_session(current_user.username)
+        return jsonify({'session_id': session_id})
+    except Exception as e:
+        logger.error(f"Error creating chat session: {str(e)}")
+        return jsonify({'error': 'Failed to create chat session'}), 500
+
+@app.route('/api/chat/sessions/<session_id>/messages', methods=['GET'])
+@login_required
+def get_chat_messages(session_id):
+    """Get all messages for a specific chat session."""
+    try:
+        messages = chatbot.get_chat_messages(session_id, current_user.username)
+        return jsonify({'messages': messages})
+    except Exception as e:
+        logger.error(f"Error getting chat messages: {str(e)}")
+        return jsonify({'error': 'Failed to get chat messages'}), 500
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)

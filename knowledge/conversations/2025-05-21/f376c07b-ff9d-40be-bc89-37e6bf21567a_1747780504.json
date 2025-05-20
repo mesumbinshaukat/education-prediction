@@ -1,0 +1,19 @@
+{
+  "session_id": "f376c07b-ff9d-40be-bc89-37e6bf21567a",
+  "user_query": "hi",
+  "bot_response": "Hi! I'm your Education Prediction assistant. What would you like to know?",
+  "is_authenticated": true,
+  "username": "mesum",
+  "timestamp": "2025-05-21 03:35:04.485697",
+  "feedback": null,
+  "metadata": {
+    "ip_address": null,
+    "user_agent": null,
+    "context_used": null,
+    "function_calls": null,
+    "processing_time_ms": null,
+    "error": null,
+    "version": "1.0",
+    "retry_count": 0
+  }
+}

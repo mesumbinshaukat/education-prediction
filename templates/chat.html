@@ -59,6 +59,118 @@
             transform-style: preserve-3d;
         }
         
+        .sidebar-header {
+            padding: 20px;
+            background: var(--input-bg);
+            border-bottom: 1px solid var(--input-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .sidebar-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+        
+        .new-chat-btn {
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--border-radius-pill);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .new-chat-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
+        }
+        
+        .chat-sessions {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .chat-session {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: var(--input-bg);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            border: 1px solid transparent;
+        }
+        
+        .chat-session:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .chat-session.active {
+            border-color: var(--accent-color);
+            background: var(--input-bg);
+        }
+        
+        .chat-session-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .chat-session-meta {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-session-date {
+            white-space: nowrap;
+        }
+        
+        .chat-session-count {
+            background: var(--accent-color);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+        }
+        
+        .chat-session:hover .chat-session-count {
+            background: white;
+            color: var(--accent-color);
+        }
+        
+        .chat-session.active .chat-session-count {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .no-sessions {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+        
+        .no-sessions i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
         .chat-main {
             flex: 1;
             background: var(--card-bg);
@@ -350,7 +462,22 @@
     <div class="container">
         <div class="chat-container">
             <div class="chat-sidebar">
-                <!-- Sidebar content -->
+                <div class="sidebar-header">
+                    <h3>Chat History</h3>
+                    <button class="new-chat-btn" id="new-chat-btn">
+                        <i class="fas fa-plus"></i>
+                        New Chat
+                    </button>
+                </div>
+                <div class="chat-sessions" id="chat-sessions">
+                    <!-- Chat sessions will be loaded here -->
+                    {% if not is_authenticated %}
+                    <div class="no-sessions">
+                        <i class="fas fa-lock"></i>
+                        <p>Please log in to view your chat history</p>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
             <div class="chat-main">
                 <div class="chat-header">
@@ -400,6 +527,146 @@
             const userInput = document.getElementById('user-input');
             const sendBtn = document.getElementById('send-btn');
             const clearBtn = document.querySelector('.header-action[title="Clear Chat"]');
+            const newChatBtn = document.getElementById('new-chat-btn');
+            const chatSessions = document.getElementById('chat-sessions');
+            
+            let currentSessionId = '{{ session_id }}';
+            let isAuthenticated = {{ 'true' if is_authenticated else 'false' }};
+            let username = '{{ username }}';
+            
+            // Load chat sessions for authenticated users
+            async function loadChatSessions() {
+                if (!isAuthenticated) return;
+                
+                try {
+                    const response = await fetch('/api/chat/sessions');
+                    if (response.ok) {
+                        const sessions = await response.json();
+                        displayChatSessions(sessions);
+                    }
+                } catch (error) {
+                    console.error('Error loading chat sessions:', error);
+                }
+            }
+            
+            // Display chat sessions in the sidebar
+            function displayChatSessions(sessions) {
+                chatSessions.innerHTML = '';
+                
+                if (sessions.length === 0) {
+                    chatSessions.innerHTML = `
+                        <div class="no-sessions">
+                            <i class="fas fa-comments"></i>
+                            <p>No chat history yet</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                sessions.forEach(session => {
+                    const sessionDiv = document.createElement('div');
+                    sessionDiv.className = `chat-session ${session.session_id === currentSessionId ? 'active' : ''}`;
+                    sessionDiv.innerHTML = `
+                        <div class="chat-session-title">${session.title}</div>
+                        <div class="chat-session-meta">
+                            <span class="chat-session-date">${formatDate(session.last_updated)}</span>
+                            <span class="chat-session-count">${session.message_count} msgs</span>
+                        </div>
+                    `;
+                    
+                    sessionDiv.addEventListener('click', () => loadChatSession(session.session_id));
+                    chatSessions.appendChild(sessionDiv);
+                });
+            }
+            
+            // Load a specific chat session
+            async function loadChatSession(sessionId) {
+                if (sessionId === currentSessionId) return;
+                
+                try {
+                    const response = await fetch(`/api/chat/sessions/${sessionId}/messages`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        currentSessionId = sessionId;
+                        
+                        // Update active session in sidebar
+                        document.querySelectorAll('.chat-session').forEach(session => {
+                            session.classList.toggle('active', session.dataset.sessionId === sessionId);
+                        });
+                        
+                        // Clear and reload messages
+                        chatMessages.innerHTML = '';
+                        data.messages.forEach(message => {
+                            addMessage(message.user_query, 'user');
+                            addMessage(message.bot_response, 'bot');
+                        });
+                        
+                        // Update URL without page reload
+                        window.history.pushState({}, '', `/chat?session=${sessionId}`);
+                    }
+                } catch (error) {
+                    console.error('Error loading chat session:', error);
+                }
+            }
+            
+            // Create a new chat session
+            async function createNewChat() {
+                if (!isAuthenticated) {
+                    window.location.href = '/login';
+                    return;
+                }
+                
+                try {
+                    const response = await fetch('/api/chat/sessions/new', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ username: username })
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        currentSessionId = data.session_id;
+                        
+                        // Clear messages and update UI
+                        chatMessages.innerHTML = '';
+                        addMessage('Hello! How can I help you today?', 'bot');
+                        
+                        // Update URL and reload sessions
+                        window.history.pushState({}, '', `/chat?session=${data.session_id}`);
+                        loadChatSessions();
+                    }
+                } catch (error) {
+                    console.error('Error creating new chat:', error);
+                }
+            }
+            
+            // Format date for display
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                const now = new Date();
+                const diff = now - date;
+                
+                // If less than 24 hours ago, show time
+                if (diff < 24 * 60 * 60 * 1000) {
+                    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                }
+                
+                // If less than 7 days ago, show day name
+                if (diff < 7 * 24 * 60 * 60 * 1000) {
+                    return date.toLocaleDateString([], { weekday: 'short' });
+                }
+                
+                // Otherwise show date
+                return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+            }
+            
+            // Initialize
+            if (isAuthenticated) {
+                loadChatSessions();
+                newChatBtn.addEventListener('click', createNewChat);
+            }
             
             let socket = null;
             let useWebSocket = true;

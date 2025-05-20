@@ -7,6 +7,7 @@ import logging
 from typing import List, Dict, Any, Optional, Tuple, Union
 from datetime import datetime, timedelta
 from pathlib import Path
+import uuid
 
 # LangChain imports
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -49,6 +50,8 @@ KNOWLEDGE_DIR = PROJECT_ROOT / "knowledge"
 KNOWLEDGE_DIR.mkdir(exist_ok=True)
 (KNOWLEDGE_DIR / "conversations").mkdir(exist_ok=True)
 
+from .knowledge_loader import KnowledgeLoader
+
 class ChatbotAgent:
     """
     Intelligent chatbot for the Education Prediction System that can:
@@ -60,70 +63,92 @@ class ChatbotAgent:
     """
     
     def __init__(self, rebuild_kb: bool = False, use_local_model: bool = False):
-        """
-        Initialize the chatbot agent.
+        """Initialize the chatbot agent with enhanced knowledge base.
         
         Args:
-            rebuild_kb: Whether to rebuild the knowledge base from scratch
-            use_local_model: Whether to use a local model or an API
+            rebuild_kb (bool): Whether to rebuild the knowledge base
+            use_local_model (bool): Whether to use a local model instead of API
         """
-        self.db = get_db()
-        self.knowledge_updated = False
+        # Store configuration
         self.use_local_model = use_local_model
-        
-        # Initialize embeddings
-        self.embeddings = HuggingFaceEmbeddings(
-            model_name="sentence-transformers/all-MiniLM-L6-v2",
-            cache_folder=str(MODELS_DIR)
-        )
-        
-        # Security patterns to detect potentially harmful queries
-        self.security_patterns = [
-            r"(?i)password|secret|token|api[_-]?key|credential",
-            r"(?i)\.env|config\.py|\.git",
-            r"(?i)exploit|vulnerability|hack|attack|inject",
-            r"(?i)sql\s*injection|xss|csrf|rce",
-            r"(?i)delete\s*from|drop\s*table|truncate\s*table",
-            r"(?i)rm\s*-rf|system\(|exec\(|eval\(",
-            r"(?i)\/etc\/passwd|\/etc\/shadow"
-        ]
-        
-        # Add a whitelist for common education-related terms
-        self.safe_patterns = [
-            r"(?i)student\s*name",
-            r"(?i)attendance",
-            r"(?i)homework",
-            r"(?i)test\s*scores?",
-            r"(?i)grade",
-            r"(?i)prediction"
-        ]
-        
-        # Load or create the knowledge base
         self.kb_path = KNOWLEDGE_DIR / "kb_faiss"
-        if not self.kb_path.exists() or rebuild_kb:
-            logger.info("Building knowledge base...")
+        
+        # Initialize existing components
+        self.embeddings = None
+        self.security_patterns = set()
+        self.safe_patterns = set()
+        self.knowledge_base = None
+        self.db = None
+        self.llm = None
+        self.chain = None  # Initialize chain attribute
+        self.vectorstore = None  # Initialize vectorstore attribute
+        
+        # Initialize knowledge loader
+        self.knowledge_loader = KnowledgeLoader()
+        self.knowledge_loader.load_knowledge_base()
+        self.knowledge_loader.process_knowledge_chunks()
+        
+        # Initialize other components
+        self._init_embeddings()
+        self._init_security_patterns()
+        self._init_safe_patterns()
+        self._init_llm()
+        self._init_db()
+        
+        # Build or load knowledge base
+        if rebuild_kb or not self.kb_path.exists():
             self._build_knowledge_base()
         else:
-            logger.info("Loading existing knowledge base...")
             self._load_knowledge_base()
             
-        # Initialize the LLM (language model)
-        self._init_llm()
-        
-        # Initialize memory and retriever
-        self.chat_history = ChatMessageHistory()
-        self.memory = ConversationBufferMemory(
-            memory_key="chat_history",
-            return_messages=True,
-            output_key="answer",
-            input_key="question"
-        )
-        
-        # Create the conversational chain
+        # Initialize the chain after knowledge base is ready
         self._create_chain()
-        
-        logger.info("ChatbotAgent initialized successfully")
-
+    
+    def _init_embeddings(self):
+        """Initialize embeddings based on configuration"""
+        try:
+            self.embeddings = HuggingFaceEmbeddings(
+                model_name="sentence-transformers/all-MiniLM-L6-v2",
+                cache_folder=str(MODELS_DIR)
+            )
+        except Exception as e:
+            logger.error(f"Failed to initialize embeddings: {e}")
+            # Fallback to simple response generation
+            self.llm = lambda x: "I'm sorry, I'm having trouble processing your request right now."
+    
+    def _init_security_patterns(self):
+        """Initialize security patterns based on configuration"""
+        try:
+            self.security_patterns = set([
+                r"(?i)password|secret|token|api[_-]?key|credential",
+                r"(?i)\.env|config\.py|\.git",
+                r"(?i)exploit|vulnerability|hack|attack|inject",
+                r"(?i)sql\s*injection|xss|csrf|rce",
+                r"(?i)delete\s*from|drop\s*table|truncate\s*table",
+                r"(?i)rm\s*-rf|system\(|exec\(|eval\(",
+                r"(?i)\/etc\/passwd|\/etc\/shadow"
+            ])
+        except Exception as e:
+            logger.error(f"Failed to initialize security patterns: {e}")
+            # Fallback to simple response generation
+            self.llm = lambda x: "I'm sorry, I'm having trouble processing your request right now."
+    
+    def _init_safe_patterns(self):
+        """Initialize safe patterns based on configuration"""
+        try:
+            self.safe_patterns = set([
+                r"(?i)student\s*name",
+                r"(?i)attendance",
+                r"(?i)homework",
+                r"(?i)test\s*scores?",
+                r"(?i)grade",
+                r"(?i)prediction"
+            ])
+        except Exception as e:
+            logger.error(f"Failed to initialize safe patterns: {e}")
+            # Fallback to simple response generation
+            self.llm = lambda x: "I'm sorry, I'm having trouble processing your request right now."
+    
     def _init_llm(self):
         """Initialize the language model based on configuration"""
         try:
@@ -288,7 +313,7 @@ class ChatbotAgent:
                         return "I'm analyzing the student data you provided. Let me make a prediction based on these values."
                     else:
                         make_responses = [
-                            "I can help you make an education prediction. Please provide the student's:\n1. Attendance percentage (0-100)\n2. Homework completion rate (0-100)\n3. Test scores (0-100)",
+                            "I can help you make an education prediction. Please provide the student's:\n1. Attendance percentage (0-100)\n2. Homework completion percentage\n3. Test score average\n\nPlease provide these values to continue.",
                             
                             "To create a new prediction, I'll need three key metrics:\n1. Student attendance percentage\n2. Homework completion percentage\n3. Test score average\n\nPlease provide these values to continue.",
                             
@@ -364,42 +389,431 @@ class ChatbotAgent:
         
         self.llm = generate_text
 
+    def _init_db(self):
+        """Initialize the database connection"""
+        try:
+            self.db = get_db()
+        except Exception as e:
+            logger.error(f"Failed to initialize database: {e}")
+            # Fallback to simple response generation
+            self.llm = lambda x: "I'm sorry, I'm having trouble processing your request right now."
+    
+    def _get_relevant_knowledge(self, query: str) -> List[Dict[str, Any]]:
+        """Get relevant knowledge chunks for a query.
+        
+        Args:
+            query (str): User query
+            
+        Returns:
+            List[Dict[str, Any]]: Relevant knowledge chunks
+        """
+        # Search in knowledge base
+        knowledge_chunks = self.knowledge_loader.search_knowledge(query)
+        
+        # If no direct matches, try to get system usage info
+        if not knowledge_chunks and any(word in query.lower() for word in ["how", "use", "help"]):
+            knowledge_chunks = self.knowledge_loader.get_knowledge_by_type("system_usage")
+            
+        return knowledge_chunks
+        
+    def process_query(self, query: str, session_id: str, is_authenticated: bool = False, 
+                     username: str = None) -> Dict[str, Any]:
+        """
+        Process a user query with enhanced session handling.
+        """
+        start_time = time.time()
+        
+        # Ensure chain is initialized
+        if self.chain is None:
+            logger.warning("Chain not initialized, creating it now")
+            self._create_chain()
+        
+        # For authenticated users, ensure session exists
+        if is_authenticated and username:
+            session = self.db.chatSessions.find_one({'session_id': session_id})
+            if not session:
+                session_result = self.create_new_chat_session(username, query)
+                if not session_result['success']:
+                    return {
+                        'response': "Error creating chat session. Please try again.",
+                        'type': 'error',
+                        'success': False,
+                        'processing_time': time.time() - start_time
+                    }
+        
+        # Check rate limiting
+        if self._check_rate_limit(session_id):
+            response = {
+                'response': "I'm receiving too many messages too quickly. Please wait a moment before sending more queries.",
+                'type': 'rate_limit',
+                'success': False,
+                'processing_time': time.time() - start_time
+            }
+            return response
+        
+        # Check if the query is safe
+        if not self.is_query_safe(query):
+            response = {
+                'response': "I'm sorry, but I cannot process that query for security reasons.",
+                'type': 'security_warning',
+                'success': False,
+                'processing_time': time.time() - start_time
+            }
+            self._save_conversation(
+                session_id=session_id,
+                user_query=query,
+                bot_response=response['response'],
+                is_authenticated=is_authenticated,
+                username=username or "guest"
+            )
+            return response
+        
+        # Preprocess the query
+        processed_query = self._preprocess_query(query)
+        query_lower = processed_query.lower()
+        
+        try:
+            # Check for prediction history request
+            history_keywords = ["show", "view", "see", "my", "predictions", "history", "past", "previous"]
+            is_history_request = any(keyword in query_lower for keyword in history_keywords)
+            
+            if is_history_request:
+                if not is_authenticated:
+                    response = {
+                        'response': "You need to be logged in to view your prediction history. Please log in to access this feature.",
+                        'type': 'auth_required',
+                        'success': False,
+                        'processing_time': time.time() - start_time
+                    }
+                else:
+                    history = self._get_prediction_history(username)
+                    if history:
+                        summary = self._summarize_prediction_history(history)
+                        response = {
+                            'response': summary,
+                            'type': 'history',
+                            'success': True,
+                            'processing_time': time.time() - start_time
+                        }
+                    else:
+                        response = {
+                            'response': "You don't have any prediction history yet. Would you like to make a new prediction?",
+                            'type': 'history',
+                            'success': True,
+                            'processing_time': time.time() - start_time
+                        }
+                
+                self._save_conversation(
+                    session_id=session_id,
+                    user_query=query,
+                    bot_response=response['response'],
+                    is_authenticated=is_authenticated,
+                    username=username or "guest"
+                )
+                return response
+
+            # Check if the query is a simple greeting
+            if self._is_greeting(processed_query):
+                greeting_response = self._get_greeting_response()
+                response = {
+                    'response': greeting_response,
+                    'type': 'greeting',
+                    'success': True,
+                    'processing_time': time.time() - start_time
+                }
+                
+                self._save_conversation(
+                    session_id=session_id,
+                    user_query=query,
+                    bot_response=response['response'],
+                    is_authenticated=is_authenticated,
+                    username=username or "guest"
+                )
+                return response
+
+            # Check for prediction parameters
+            prediction_params = self._extract_prediction_params(processed_query)
+            if prediction_params and all(param in prediction_params for param in ["attendance", "homework_completion", "test_scores"]):
+                if not is_authenticated:
+                    response = {
+                        'response': "You need to be logged in to make predictions. Please log in to use this feature.",
+                        'type': 'auth_required',
+                        'success': False,
+                        'processing_time': time.time() - start_time
+                    }
+                else:
+                    prediction_result = self._make_prediction(prediction_params)
+                    if prediction_result['success']:
+                        self._save_to_history(username, prediction_result)
+                        student_name = prediction_result.get('name', 'The student')
+                        score = round(prediction_result['prediction_score'], 1)
+                        details = (f"\n\nThis prediction is based on:\n"
+                                 f"- Attendance: {prediction_result['attendance']}%\n"
+                                 f"- Homework completion: {prediction_result['homework_completion']}%\n"
+                                 f"- Test scores: {prediction_result['test_scores']}%")
+                        
+                        if prediction_result['prediction'] == "Excellent":
+                            prediction_message = f"{student_name} has an excellent performance with a score of {score}%.{details}\n\nRecommendation: Continue with the current approach - it's working very well!"
+                        elif prediction_result['prediction'] == "Good":
+                            prediction_message = f"{student_name} is doing well with a score of {score}%.{details}\n\nRecommendation: Consider focusing more on test preparation to move into the excellent category."
+                        else:
+                            prediction_message = f"{student_name} needs improvement with a score of {score}%.{details}\n\nRecommendation: Create an improvement plan focusing first on attendance and test preparation."
+                        
+                        response = {
+                            'response': prediction_message,
+                            'type': 'prediction',
+                            'success': True,
+                            'prediction': prediction_result,
+                            'processing_time': time.time() - start_time
+                        }
+                    else:
+                        response = {
+                            'response': "I'm sorry, I couldn't process that prediction. Please check your input and try again.",
+                            'type': 'error',
+                            'success': False,
+                            'processing_time': time.time() - start_time
+                        }
+                
+                self._save_conversation(
+                    session_id=session_id,
+                    user_query=query,
+                    bot_response=response['response'],
+                    is_authenticated=is_authenticated,
+                    username=username or "guest"
+                )
+                return response
+
+            # Process general queries through the chain
+            try:
+                chain_response = self.chain(processed_query)
+                response_text = chain_response.get('result', "I'm processing your question.")
+                source_documents = chain_response.get('source_documents', [])
+                
+                # For non-authenticated users, add a note about available features
+                if not is_authenticated and not self._is_greeting(processed_query):
+                    response_text += "\n\nNote: Some features like making predictions and viewing history require you to log in. Would you like to know more about the available features?"
+                
+                response = {
+                    'response': response_text,
+                    'type': 'general',
+                    'success': True,
+                    'sources': [doc.metadata.get('source') for doc in source_documents if doc.metadata.get('source')],
+                    'processing_time': time.time() - start_time
+                }
+                
+            except Exception as chain_error:
+                logger.error(f"Error in chain invocation: {chain_error}", exc_info=True)
+                response = {
+                    'response': "I'm having trouble answering that question right now. Could you try asking something else about the Education Prediction System?",
+                    'type': 'error',
+                    'success': False,
+                    'processing_time': time.time() - start_time
+                }
+            
+            self._save_conversation(
+                session_id=session_id,
+                user_query=query,
+                bot_response=response['response'],
+                is_authenticated=is_authenticated,
+                username=username or "guest"
+            )
+            return response
+            
+        except Exception as e:
+            logger.error(f"Error processing query: {e}")
+            error_response = {
+                'response': "I'm sorry, I encountered an error while processing your request.",
+                'type': 'error',
+                'success': False,
+                'error': str(e),
+                'processing_time': time.time() - start_time
+            }
+            
+            self._save_conversation(
+                session_id=session_id,
+                user_query=query,
+                bot_response=error_response['response'],
+                is_authenticated=is_authenticated,
+                username=username or "guest"
+            )
+            return error_response
+
+    def _process_query_with_context(self, query: str, session_id: str, username: str = None) -> Dict[str, Any]:
+        """Process query with context.
+        
+        Args:
+            query (str): User query with context
+            session_id (str): Chat session ID
+            username (str, optional): Username if logged in
+            
+        Returns:
+            Dict[str, Any]: Response with chat history and metadata
+        """
+        try:
+            # Check for security patterns
+            if self._check_security_patterns(query):
+                return {
+                    "response": "I apologize, but I cannot process that request for security reasons.",
+                    "error": "Security pattern detected"
+                }
+                
+            # Check if user is logged in for restricted features
+            is_logged_in = username is not None
+            restricted_features = ["prediction", "history", "reports"]
+            
+            # Check if query is about restricted features
+            if not is_logged_in and any(feature in query.lower() for feature in restricted_features):
+                return {
+                    "response": "I apologize, but that feature requires you to be logged in. Please log in to access predictions, history, and reports.",
+                    "requires_login": True
+                }
+                
+            # Process the query using the language model
+            response_text = self.llm(query)
+            
+            # Save the conversation
+            self._save_conversation(
+                session_id=session_id,
+                user_query=query,
+                bot_response=response_text,
+                username=username or "guest"
+            )
+            
+            # Get chat history
+            history = self.get_chat_history(session_id)
+            
+            return {
+                "response": response_text,
+                "history": history,
+                "session_id": session_id,
+                "username": username or "guest"
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in _process_query_with_context: {str(e)}")
+            return {
+                "response": "I apologize, but I encountered an error processing your query. Please try again.",
+                "error": str(e)
+            }
+
+    def get_system_info(self) -> Dict[str, Any]:
+        """Get system information and features.
+        
+        Returns:
+            Dict[str, Any]: System information
+        """
+        try:
+            # Get system features from knowledge base
+            features = self.knowledge_loader.get_knowledge_by_type("system_feature")
+            
+            # Get educational concepts
+            concepts = self.knowledge_loader.get_knowledge_by_type("educational_concept")
+            
+            # Get system usage information
+            usage = self.knowledge_loader.get_knowledge_by_type("system_usage")
+            
+            return {
+                "features": features,
+                "concepts": concepts,
+                "usage": usage
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting system info: {str(e)}")
+            return {}
+            
+    def get_feature_info(self, feature_name: str) -> Dict[str, Any]:
+        """Get detailed information about a specific feature.
+        
+        Args:
+            feature_name (str): Name of the feature
+            
+        Returns:
+            Dict[str, Any]: Feature information
+        """
+        try:
+            # Search for feature in knowledge base
+            features = self.knowledge_loader.get_knowledge_by_type("system_feature")
+            feature_info = next(
+                (f for f in features if f.get("name", "").lower() == feature_name.lower()),
+                None
+            )
+            
+            if feature_info:
+                return {
+                    "name": feature_info.get("name", feature_name),
+                    "category": feature_info["category"],
+                    "content": feature_info["content"]
+                }
+            else:
+                return {"error": f"Feature '{feature_name}' not found"}
+                
+        except Exception as e:
+            logger.error(f"Error getting feature info: {str(e)}")
+            return {"error": str(e)}
+
     def _create_chain(self):
         """Create a simple but reliable chain for query processing"""
-        # Create a retriever with basic similarity search
-        self.retriever = self.vectorstore.as_retriever(
-            search_type="similarity",
-            search_kwargs={"k": 3}
-        )
-        
-        def process_response(query):
-            try:
-                # Get relevant documents
-                docs = self.retriever.get_relevant_documents(query)
-                context = "\n".join(doc.page_content for doc in docs)
-                
-                # Generate response based on context and query
-                if self._is_greeting(query):
-                    response = self._get_greeting_response()
-                else:
-                    # Use the LLM's direct response
-                    response = self.llm(f"Context: {context}\nQuestion: {query}")
-                
+        try:
+            if self.vectorstore is None:
+                logger.warning("Vectorstore not initialized, creating simple chain")
+                # Create a simple chain that just uses the LLM directly
+                def simple_chain(query):
+                    return {
+                        "result": self.llm(query),
+                        "source_documents": [],
+                        "answer": self.llm(query)
+                    }
+                self.chain = simple_chain
+                return
+
+            # Create a retriever with basic similarity search
+            self.retriever = self.vectorstore.as_retriever(
+                search_type="similarity",
+                search_kwargs={"k": 3}
+            )
+            
+            def process_response(query):
+                try:
+                    # Get relevant documents
+                    docs = self.retriever.get_relevant_documents(query)
+                    context = "\n".join(doc.page_content for doc in docs)
+                    
+                    # Generate response based on context and query
+                    if self._is_greeting(query):
+                        response = self._get_greeting_response()
+                    else:
+                        # Use the LLM's direct response
+                        response = self.llm(f"Context: {context}\nQuestion: {query}")
+                    
+                    return {
+                        "result": response,
+                        "source_documents": docs,
+                        "answer": response
+                    }
+                except Exception as e:
+                    logger.error(f"Error in chain processing: {e}", exc_info=True)
+                    # Fallback to simple response if chain processing fails
+                    return {
+                        "result": self.llm(query),
+                        "source_documents": [],
+                        "answer": self.llm(query)
+                    }
+            
+            self.chain = process_response
+            logger.info("Chain created successfully with document retrieval")
+            
+        except Exception as e:
+            logger.error(f"Error creating chain: {e}", exc_info=True)
+            # Create a simple fallback chain
+            def fallback_chain(query):
                 return {
-                    "result": response,
-                    "source_documents": docs,
-                    "answer": response
-                }
-            except Exception as e:
-                logger.error(f"Error in chain processing: {e}", exc_info=True)
-                return {
-                    "result": "I'm having trouble processing your request. Please try asking a simpler question about the Education Prediction System.",
+                    "result": self.llm(query),
                     "source_documents": [],
-                    "answer": "Error processing request"
+                    "answer": self.llm(query)
                 }
-        
-        self.chain = process_response
-        logger.info("Chain created successfully with simple processing")
+            self.chain = fallback_chain
+            logger.info("Created fallback chain due to error")
 
     def _build_knowledge_base(self):
         """Build the knowledge base from project data and code"""
@@ -1035,7 +1449,7 @@ class ChatbotAgent:
             logger.error(f"Error saving to history: {e}")
             return False
     
-    def _get_prediction_history(self, username: str, time_frame: str = None, limit: int = 5) -> List[Dict[str, Any]]:
+    def _get_prediction_history(self, username: str, time_frame: str = None, limit: int = 10) -> List[Dict[str, Any]]:
         """
         Fetch prediction history for a user.
         
@@ -1063,10 +1477,20 @@ class ChatbotAgent:
                 elif time_frame == "year":
                     query["created_at"] = {"$gte": now - timedelta(days=365)}
             
-            # Execute query
+            # Execute query with proper sorting and limiting
             cursor = self.db.predictionHistory.find(
                 query,
-                {"_id": 0, "password": 0, "email": 0}  # Exclude sensitive fields
+                {
+                    "_id": 0,
+                    "student_id": 1,
+                    "name": 1,
+                    "attendance": 1,
+                    "homework_completion": 1,
+                    "test_scores": 1,
+                    "prediction": 1,
+                    "prediction_score": 1,
+                    "created_at": 1
+                }
             ).sort("created_at", -1).limit(limit)
             
             return list(cursor)
@@ -1098,18 +1522,19 @@ class ChatbotAgent:
         avg_score = sum(scores) / len(scores) if scores else 0
         
         # Generate summary
-        summary = f"Summary of your last {len(history)} predictions:\n"
+        summary = f"Here's a summary of your last {len(history)} predictions:\n\n"
+        summary += f"Overall Statistics:\n"
         summary += f"- Average performance score: {avg_score:.1f}%\n"
-        summary += f"- Excellent: {excellent_count}\n"
-        summary += f"- Good: {good_count}\n"
+        summary += f"- Excellent predictions: {excellent_count}\n"
+        summary += f"- Good predictions: {good_count}\n"
         summary += f"- Needs Improvement: {needs_improvement_count}\n\n"
         
-        # Add recent predictions
-        summary += "Recent predictions:\n"
-        for i, p in enumerate(history[:3], 1):
+        # Add recent predictions with more details
+        summary += "Recent Predictions:\n"
+        for i, p in enumerate(history[:5], 1):
             date = p.get("created_at", "Unknown date")
             if isinstance(date, datetime):
-                date_str = date.strftime("%Y-%m-%d")
+                date_str = date.strftime("%Y-%m-%d %H:%M")
             else:
                 date_str = str(date)
                 
@@ -1117,49 +1542,357 @@ class ChatbotAgent:
             score = p.get("prediction_score", 0)
             prediction = p.get("prediction", "Unknown")
             
-            summary += f"{i}. {date_str}: {student} - {score:.1f}% ({prediction})\n"
+            # Add performance metrics
+            attendance = p.get("attendance", 0)
+            homework = p.get("homework_completion", 0)
+            test_score = p.get("test_scores", 0)
+            
+            summary += f"\n{i}. {date_str} - {student}\n"
+            summary += f"   Performance: {score:.1f}% ({prediction})\n"
+            summary += f"   Metrics:\n"
+            summary += f"   - Attendance: {attendance}%\n"
+            summary += f"   - Homework: {homework}%\n"
+            summary += f"   - Test Score: {test_score}%\n"
         
-        summary += "\nVisit the Prediction History page to see all your predictions and generate detailed reports."
+        summary += "\nYou can view your complete prediction history and generate detailed reports on the Prediction History page."
         return summary
     
     def _save_conversation(self, session_id: str, user_query: str, bot_response: str, 
-                          is_authenticated: bool, username: str = None) -> None:
+                          is_authenticated: bool, username: str = None) -> bool:
         """
-        Save a conversation exchange to the database for future training.
-        
-        Args:
-            session_id: The unique session identifier
-            user_query: The user's query
-            bot_response: The bot's response
-            is_authenticated: Whether the user is authenticated
-            username: The username if authenticated
+        Save a conversation exchange to the database with enhanced session management.
         """
         try:
+            # Prepare conversation data
             conversation_data = {
                 'session_id': session_id,
                 'user_query': user_query,
                 'bot_response': bot_response,
                 'is_authenticated': is_authenticated,
-                'username': username,
+                'username': username or "guest",
                 'timestamp': datetime.now(),
-                'feedback': None  # For future feedback collection
+                'metadata': {
+                    'ip_address': None,
+                    'user_agent': None,
+                    'context_used': None,
+                    'function_calls': None,
+                    'processing_time_ms': None,
+                    'error': None,
+                    'version': '1.0',
+                    'retry_count': 0
+                }
             }
             
-            self.db.chatbotConversations.insert_one(conversation_data)
+            # For authenticated users, update session metadata
+            if is_authenticated and username:
+                # Update session's last_updated and message_count
+                self.db.chatSessions.update_one(
+                    {'session_id': session_id},
+                    {
+                        '$set': {'last_updated': datetime.now()},
+                        '$inc': {'message_count': 1}
+                    }
+                )
+                
+                # If this is the first message, generate and update the title
+                if self.db.chatHistory.count_documents({'session_id': session_id}) == 0:
+                    title = self._generate_chat_title(user_query)
+                    self.db.chatSessions.update_one(
+                        {'session_id': session_id},
+                        {'$set': {'title': title}}
+                    )
             
-            # Also save to the file system for redundancy
+            # Save to database with retry logic
+            max_retries = 3
+            retry_delay = 1
+            
+            for attempt in range(max_retries):
+                try:
+                    with self.db.client.start_session() as session:
+                        session.start_transaction()
+                        
+                        # Insert the conversation
+                        result = self.db.chatHistory.insert_one(
+                            conversation_data,
+                            session=session
+                        )
+                        
+                        session.commit_transaction()
+                        logger.info(f"Saved conversation to chatHistory. Document ID: {result.inserted_id}")
+                        return True
+                        
+                except Exception as tx_error:
+                    session.abort_transaction()
+                    logger.error(f"Transaction error: {tx_error}")
+                    
+                    if attempt < max_retries - 1:
+                        time.sleep(retry_delay * (2 ** attempt))
+                    else:
+                        self._add_to_dead_letter_queue(conversation_data, str(tx_error))
+                        return False
+            
+            return False
+            
+        except Exception as e:
+            logger.error(f"Error saving conversation: {e}")
+            return False
+
+    def _generate_chat_title(self, first_query: str) -> str:
+        """
+        Generate a meaningful title for a chat session based on the first query.
+        
+        Args:
+            first_query: The first query in the chat session
+            
+        Returns:
+            str: A generated title for the chat session
+        """
+        try:
+            # Extract key topics from the query
+            topics = []
+            query_lower = first_query.lower()
+            
+            # Check for prediction-related topics
+            if "prediction" in query_lower or "predict" in query_lower:
+                topics.append("Prediction")
+            if "student" in query_lower:
+                topics.append("Student")
+            if "performance" in query_lower or "score" in query_lower:
+                topics.append("Performance")
+            if "attendance" in query_lower:
+                topics.append("Attendance")
+            if "homework" in query_lower:
+                topics.append("Homework")
+            if "test" in query_lower:
+                topics.append("Test")
+                
+            # Generate title based on topics
+            if topics:
+                title = "Discussion about " + ", ".join(topics)
+            else:
+                # Use timestamp if no specific topics found
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+                title = f"Chat Session {timestamp}"
+                
+            return title
+            
+        except Exception as e:
+            logger.error(f"Error generating chat title: {e}")
+            return f"Chat Session {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+
+    def create_new_chat_session(self, username: str, first_query: str = None) -> Dict[str, Any]:
+        """
+        Create a new chat session for a logged-in user.
+        
+        Args:
+            username: The username of the logged-in user
+            first_query: Optional first query to generate a meaningful title
+            
+        Returns:
+            Dict with session information
+        """
+        try:
+            if not username:
+                return {
+                    'success': False,
+                    'message': 'Username is required to create a chat session'
+                }
+                
+            # Generate a unique session ID
+            session_id = str(uuid.uuid4())
+            
+            # Generate title based on first query or use default
+            title = self._generate_chat_title(first_query) if first_query else f"New Chat {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+            
+            # Create session document
+            session_data = {
+                'session_id': session_id,
+                'username': username,
+                'title': title,
+                'created_at': datetime.now(),
+                'last_updated': datetime.now(),
+                'message_count': 0,
+                'is_active': True
+            }
+            
+            # Save to database
+            result = self.db.chatSessions.insert_one(session_data)
+            
+            return {
+                'success': True,
+                'session_id': session_id,
+                'title': title,
+                'created_at': session_data['created_at']
+            }
+            
+        except Exception as e:
+            logger.error(f"Error creating chat session: {e}")
+            return {
+                'success': False,
+                'message': f'Error creating chat session: {str(e)}'
+            }
+
+    def get_user_chat_sessions(self, username: str, limit: int = 10) -> List[Dict[str, Any]]:
+        """
+        Get all chat sessions for a logged-in user.
+        
+        Args:
+            username: The username to fetch sessions for
+            limit: Maximum number of sessions to return
+            
+        Returns:
+            List of chat sessions with basic info
+        """
+        try:
+            cursor = self.db.chatSessions.find(
+                {'username': username},
+                {'_id': 0, 'session_id': 1, 'title': 1, 'created_at': 1, 'last_updated': 1, 'message_count': 1}
+            ).sort('last_updated', -1).limit(limit)
+            
+            sessions = []
+            for doc in cursor:
+                sessions.append({
+                    'session_id': doc['session_id'],
+                    'title': doc['title'],
+                    'created_at': doc['created_at'].strftime("%Y-%m-%d %H:%M:%S"),
+                    'last_updated': doc['last_updated'].strftime("%Y-%m-%d %H:%M:%S"),
+                    'message_count': doc['message_count']
+                })
+            
+            return sessions
+            
+        except Exception as e:
+            logger.error(f"Error fetching chat sessions: {e}")
+            return []
+
+    def get_chat_messages(self, session_id: str, limit: int = 50) -> List[Dict[str, Any]]:
+        """
+        Get messages for a specific chat session in chronological order.
+        
+        Args:
+            session_id: The session ID to fetch messages for
+            limit: Maximum number of messages to return
+            
+        Returns:
+            List of messages in the chat session
+        """
+        try:
+            cursor = self.db.chatHistory.find(
+                {'session_id': session_id},
+                {'_id': 1, 'user_query': 1, 'bot_response': 1, 'timestamp': 1}
+            ).sort('timestamp', 1).limit(limit)
+            
+            messages = []
+            for doc in cursor:
+                messages.append({
+                    'id': str(doc['_id']),
+                    'user_query': doc['user_query'],
+                    'bot_response': doc['bot_response'],
+                    'timestamp': doc['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+                })
+            
+            return messages
+            
+        except Exception as e:
+            logger.error(f"Error fetching chat messages: {e}")
+            return []
+
+    def _save_conversation_backup(self, conversation_data: dict, session_id: str) -> bool:
+        """
+        Save a backup of the conversation to the file system for redundancy.
+        
+        Args:
+            conversation_data: The conversation data to save
+            session_id: The session identifier for logging
+            
+        Returns:
+            bool: True if backup was successful, False otherwise
+        """
+        try:
+            # Ensure the backup directory exists
             conversation_dir = KNOWLEDGE_DIR / "conversations"
             conversation_dir.mkdir(exist_ok=True)
             
-            # Create a filename based on the session ID and timestamp
-            filename = f"{session_id}_{int(time.time())}.json"
-            filepath = conversation_dir / filename
+            # Create organized directory structure by date
+            today = datetime.now().strftime("%Y-%m-%d")
+            date_dir = conversation_dir / today
+            date_dir.mkdir(exist_ok=True)
             
+            # Create a filename based on the session ID and timestamp
+            timestamp = int(time.time())
+            filename = f"{session_id}_{timestamp}.json"
+            filepath = date_dir / filename
+            
+            # Write the data to file with pretty formatting for readability
             with open(filepath, 'w') as f:
-                json.dump(conversation_data, f, default=str)
+                json.dump(conversation_data, f, default=str, indent=2)
+                
+            logger.info(f"Successfully saved conversation backup to {filepath}")
+            return True
                 
         except Exception as e:
-            logger.error(f"Error saving conversation: {e}")
+            logger.error(f"Error saving conversation backup: {e}")
+            return False
+            
+    def _add_to_dead_letter_queue(self, data: dict, error_msg: str) -> None:
+        """
+        Add failed conversation saves to a dead letter queue for later diagnostics and retry.
+        
+        Args:
+            data: The conversation data that failed to save
+            error_msg: The error message explaining the failure
+        """
+        try:
+            # Prepare the dead letter queue entry
+            dlq_entry = {
+                'original_data': data,
+                'error_message': error_msg,
+                'timestamp': datetime.now(),
+                'processed': False  # Flag for later processing
+            }
+            
+            # Save to a special MongoDB collection for dead letter queue
+            try:
+                self.db.chatbotConversationsDLQ.insert_one(dlq_entry)
+                logger.info(f"Added failed conversation to dead letter queue. Session: {data.get('session_id')}")
+            except Exception as mongodb_error:
+                logger.error(f"Failed to add to MongoDB DLQ: {mongodb_error}")
+                # Fall back to file-based DLQ if MongoDB is unavailable
+                self._save_to_file_dlq(dlq_entry)
+                
+        except Exception as e:
+            logger.error(f"Error adding to dead letter queue: {e}")
+            # Try a last-resort file save
+            try:
+                self._save_to_file_dlq({
+                    'partial_data': str(data)[:1000] + "...[truncated]",
+                    'error': str(e),
+                    'original_error': error_msg,
+                    'timestamp': str(datetime.now())
+                })
+            except Exception as final_error:
+                logger.critical(f"Complete failure in DLQ handling: {final_error}")
+    
+    def _save_to_file_dlq(self, dlq_entry: dict) -> None:
+        """Save dead letter queue entry to filesystem when MongoDB is unavailable"""
+        try:
+            # Ensure the DLQ directory exists
+            dlq_dir = KNOWLEDGE_DIR / "conversations" / "dlq"
+            dlq_dir.mkdir(exist_ok=True, parents=True)
+            
+            # Create a unique filename
+            timestamp = int(time.time())
+            filename = f"dlq_{timestamp}.json"
+            filepath = dlq_dir / filename
+            
+            # Write the data to file
+            with open(filepath, 'w') as f:
+                json.dump(dlq_entry, f, default=str, indent=2)
+                
+            logger.info(f"Saved dead letter queue entry to {filepath}")
+                
+        except Exception as e:
+            logger.critical(f"Failed to save to file DLQ: {e}")
     
     def _check_rate_limit(self, session_id: str) -> bool:
         """
@@ -1188,363 +1921,49 @@ class ChatbotAgent:
             logger.error(f"Error checking rate limit: {e}")
             return False  # Default to not rate limiting on error
     
-    def process_query(self, query: str, session_id: str, is_authenticated: bool = False, 
-                     username: str = None) -> Dict[str, Any]:
+    def get_chat_history(self, username: str = None, session_id: str = None, limit: int = 50) -> List[Dict[str, Any]]:
         """
-        Process a user query and generate a response.
+        Fetch chat history for a user or session.
         
         Args:
-            query: The user query
-            session_id: The unique session identifier
-            is_authenticated: Whether the user is authenticated
-            username: The username if authenticated
+            username: The username to fetch history for (if logged in)
+            session_id: The session ID to fetch history for
+            limit: Maximum number of records to return
             
         Returns:
-            Dict with response information
+            List of chat history records
         """
-        start_time = time.time()
-        
-        # Check rate limiting
-        if self._check_rate_limit(session_id):
-            response = {
-                'response': "I'm receiving too many messages too quickly. Please wait a moment before sending more queries.",
-                'type': 'rate_limit',
-                'success': False,
-                'processing_time': time.time() - start_time
-            }
-            
-            return response
-        
-        # Check if the query is safe
-        if not self.is_query_safe(query):
-            response = {
-                'response': "I'm sorry, but I cannot process that query for security reasons.",
-                'type': 'security_warning',
-                'success': False,
-                'processing_time': time.time() - start_time
-            }
-            
-            self._save_conversation(
-                session_id=session_id,
-                user_query=query,
-                bot_response=response['response'],
-                is_authenticated=is_authenticated,
-                username=username
-            )
-            
-            return response
-        
-        # Preprocess the query
-        processed_query = self._preprocess_query(query)
-        
         try:
-            # First, check for prediction parameters - this should take highest priority
-            # Move this up to handle prediction requests before other processing
-            prediction_params = self._extract_prediction_params(processed_query)
-            logger.info(f"Checking for prediction parameters in query: {len(prediction_params)} parameters found")
+            # Build query
+            query = {}
+            if username:
+                query["username"] = username
+            if session_id:
+                query["session_id"] = session_id
+                
+            # Execute query
+            cursor = self.db.chatHistory.find(
+                query,
+                {"_id": 1, "user_query": 1, "bot_response": 1, "timestamp": 1, "username": 1}
+            ).sort("timestamp", -1).limit(limit)
             
-            # Check if we have all required parameters for a prediction
-            required_prediction_params = ["attendance", "homework_completion", "test_scores"]
-            has_prediction_params = all(param in prediction_params for param in required_prediction_params)
+            # Convert cursor to list and format timestamps
+            history = []
+            for doc in cursor:
+                history.append({
+                    "id": str(doc["_id"]),
+                    "user_query": doc["user_query"],
+                    "bot_response": doc["bot_response"],
+                    "timestamp": doc["timestamp"].strftime("%Y-%m-%d %H:%M:%S"),
+                    "username": doc.get("username", "guest")
+                })
             
-            # Log detailed parameter information
-            if has_prediction_params:
-                logger.info(f"Prediction parameters detected: Attendance={prediction_params['attendance']}, " +
-                           f"Homework={prediction_params['homework_completion']}, " +
-                           f"Test scores={prediction_params['test_scores']}, " +
-                           f"Name={prediction_params.get('name', 'Not provided')}")
-                
-            # First check if this is a history request
-            if prediction_params.get("request_type") == "history":
-                if is_authenticated and username:
-                    # Fetch actual history data
-                    time_frame = prediction_params.get("time_frame")
-                    history = self._get_prediction_history(username, time_frame)
-                    summary = self._summarize_prediction_history(history)
-                    
-                    response = {
-                        'response': summary,
-                        'type': 'history',
-                        'success': True,
-                        'processing_time': time.time() - start_time
-                    }
-                else:
-                    response = {
-                        'response': "You need to be logged in to view your prediction history. Please log in and try again.",
-                        'type': 'auth_required',
-                        'success': False,
-                        'processing_time': time.time() - start_time
-                    }
-                
-                self._save_conversation(
-                    session_id=session_id,
-                    user_query=query,
-                    bot_response=response['response'],
-                    is_authenticated=is_authenticated,
-                    username=username
-                )
-                
-                return response
-                
-            # If we have enough parameters for a prediction, make one immediately
-            # This takes precedence over other query handling
-            if has_prediction_params:
-                prediction_result = self._make_prediction(prediction_params)
-                
-                if prediction_result['success']:
-                    # Save to history if authenticated
-                    if is_authenticated and username:
-                        self._save_to_history(username, prediction_result)
-                        
-                    # Prepare a personalized response with the student's name if available
-                    student_name = prediction_result.get('name', 'The student')
-                    
-                    # Format the score to 1 decimal place
-                    score = round(prediction_result['prediction_score'], 1)
-                    
-                    # Add details about the parameters used
-                    details = (f"\n\nThis prediction is based on:\n"
-                              f"- Attendance: {prediction_result['attendance']}%\n"
-                              f"- Homework completion: {prediction_result['homework_completion']}%\n"
-                              f"- Test scores: {prediction_result['test_scores']}%")
-                              
-                    # Add a recommendation based on the prediction
-                    if prediction_result['prediction'] == "Excellent":
-                        prediction_message = f"{student_name} has an excellent performance with a score of {score}%.{details}\n\nRecommendation: Continue with the current approach - it's working very well!"
-                    elif prediction_result['prediction'] == "Good":
-                        prediction_message = f"{student_name} is doing well with a score of {score}%.{details}\n\nRecommendation: Consider focusing more on test preparation to move into the excellent category."
-                    else:
-                        prediction_message = f"{student_name} needs improvement with a score of {score}%.{details}\n\nRecommendation: Create an improvement plan focusing first on attendance and test preparation."
-                    
-                    response = {
-                        'response': prediction_message,
-                        'type': 'prediction',
-                        'success': True,
-                        'prediction': prediction_result,
-                        'processing_time': time.time() - start_time
-                    }
-                    
-                    self._save_conversation(
-                        session_id=session_id,
-                        user_query=query,
-                        bot_response=response['response'],
-                        is_authenticated=is_authenticated,
-                        username=username
-                    )
-                    
-                    return response
-            
-            # Check if the query is a simple greeting
-            if self._is_greeting(processed_query):
-                greeting_response = self._get_greeting_response()
-                response = {
-                    'response': greeting_response,
-                    'type': 'greeting',
-                    'success': True,
-                    'processing_time': time.time() - start_time
-                }
-                
-                self._save_conversation(
-                    session_id=session_id,
-                    user_query=query,
-                    bot_response=response['response'],
-                    is_authenticated=is_authenticated,
-                    username=username
-                )
-                
-                return response
-            
-            # Check for task requests (for authenticated users)
-            is_task, task_response = self._handle_task_request(processed_query, is_authenticated)
-            
-            if is_task:
-                response = {
-                    'response': task_response,
-                    'type': 'task',
-                    'success': True,
-                    'processing_time': time.time() - start_time
-                }
-                
-                self._save_conversation(
-                    session_id=session_id,
-                    user_query=query,
-                    bot_response=response['response'],
-                    is_authenticated=is_authenticated,
-                    username=username
-                )
-                
-                return response
-            
-            # At this point, check if this looks like a prediction request
-            # but we don't have all the parameters
-            prediction_request_indicators = [
-                "prediction", "predict", "student performance", 
-                "attendance", "homework", "test score", "grade"
-            ]
-            
-            # Check if it has prediction keywords but we didn't have all params
-            is_likely_prediction_request = any(
-                indicator in processed_query.lower() 
-                for indicator in prediction_request_indicators
-            )
-            
-            if is_likely_prediction_request and not has_prediction_params:
-                # This looks like a prediction request but we don't have all parameters
-                # Ask the user for the missing information
-                missing_params = [
-                    param for param in required_prediction_params 
-                    if param not in prediction_params
-                ]
-                
-                available_params = [
-                    f"{param}: {prediction_params[param]}%" 
-                    for param in required_prediction_params 
-                    if param in prediction_params
-                ]
-                
-                # Create a helpful response asking for missing parameters
-                if available_params:
-                    params_found = "\n".join(available_params)
-                    missing = ", ".join(missing_params).replace("_", " ")
-                    
-                    response_text = (
-                        f"I've detected some prediction parameters:\n{params_found}\n\n"
-                        f"To make a complete prediction, I still need: {missing}.\n\n"
-                        "Please provide these missing values."
-                    )
-                else:
-                    response_text = (
-                        "To make an education prediction, I need the following information:\n"
-                        "1. Attendance percentage (0-100)\n"
-                        "2. Homework completion rate (0-100)\n"
-                        "3. Test scores (0-100)\n\n"
-                        "Please provide all three values."
-                    )
-                    
-                response = {
-                    'response': response_text,
-                    'type': 'prediction_request',
-                    'success': True,
-                    'partial_params': prediction_params,
-                    'processing_time': time.time() - start_time
-                }
-                
-                self._save_conversation(
-                    session_id=session_id,
-                    user_query=query,
-                    bot_response=response['response'],
-                    is_authenticated=is_authenticated,
-                    username=username
-                )
-                
-                return response
-                
-                if prediction_result['success']:
-                    # Save to history if authenticated
-                    if is_authenticated and username:
-                        self._save_to_history(username, prediction_result)
-                        
-                    # Prepare a personalized response with the student's name if available
-                    student_name = prediction_result.get('name', 'The student')
-                    
-                    # Format the score to 1 decimal place
-                    score = round(prediction_result['prediction_score'], 1)
-                    
-                    # Add details about the parameters used
-                    details = (f"\n\nThis prediction is based on:\n"
-                              f"- Attendance: {prediction_result['attendance']}%\n"
-                              f"- Homework completion: {prediction_result['homework_completion']}%\n"
-                              f"- Test scores: {prediction_result['test_scores']}%")
-                              
-                    # Add a recommendation based on the prediction
-                    if prediction_result['prediction'] == "Excellent":
-                        prediction_message = f"{student_name} has an excellent performance with a score of {score}%.{details}\n\nRecommendation: Continue with the current approach - it's working very well!"
-                    elif prediction_result['prediction'] == "Good":
-                        prediction_message = f"{student_name} is doing well with a score of {score}%.{details}\n\nRecommendation: Consider focusing more on test preparation to move into the excellent category."
-                    else:
-                        prediction_message = f"{student_name} needs improvement with a score of {score}%.{details}\n\nRecommendation: Create an improvement plan focusing first on attendance and test preparation."
-                    
-                    response = {
-                        'response': prediction_message,
-                        'type': 'prediction',
-                        'success': True,
-                        'prediction': prediction_result,
-                        'processing_time': time.time() - start_time
-                    }
-                    
-                    self._save_conversation(
-                        session_id=session_id,
-                        user_query=query,
-                        bot_response=response['response'],
-                        is_authenticated=is_authenticated,
-                        username=username
-                    )
-                    
-                    return response
-            
-                else:
-                    # Handle the case where we don't have prediction parameters
-                    # but should indicate this is a prediction-related query
-                    pass
-            
-            # Process general queries through the chain
-            try:
-                chain_response = self.chain(processed_query)
-                response_text = chain_response.get('result', "I'm processing your question.")
-                source_documents = chain_response.get('source_documents', [])
-                
-                logger.debug(f"Chain response type: {type(chain_response)}")
-                
-                logger.info(f"Generated response of length: {len(response_text)}")
-                
-            except Exception as chain_error:
-                
-                logger.info(f"Generated response of length: {len(response_text)}")
-                
-            except Exception as chain_error:
-                logger.error(f"Error in chain invocation: {chain_error}", exc_info=True)
-                # Provide a useful fallback response
-                response_text = "I'm having trouble answering that question right now. Could you try asking something else about the Education Prediction System?"
-                source_documents = []
-            
-            # Format source information if available
-            sources = []
-            if source_documents:
-                for doc in source_documents:
-                    if 'source' in doc.metadata:
-                        source = doc.metadata['source']
-                        if source not in sources:
-                            sources.append(source)
-            
-            response = {
-                'response': response_text,
-                'type': 'general',
-                'success': True,
-                'sources': sources,
-                'processing_time': time.time() - start_time
-            }
-            
-            self._save_conversation(
-                session_id=session_id,
-                user_query=query,
-                bot_response=response['response'],
-                is_authenticated=is_authenticated,
-                username=username
-            )
-            
-            return response
+            return history
             
         except Exception as e:
-            logger.error(f"Error processing query: {e}")
-            error_response = {
-                'response': "I'm sorry, I encountered an error while processing your request.",
-                'type': 'error',
-                'success': False,
-                'error': str(e),
-                'processing_time': time.time() - start_time
-            }
-            return error_response
-            
+            logger.error(f"Error fetching chat history: {e}")
+            return []
+
     def reset_conversation(self, session_id: str) -> Dict[str, Any]:
         """
         Reset the conversation history for a session.
@@ -1593,7 +2012,7 @@ class ChatbotAgent:
         """
         try:
             # Update the conversation record with feedback
-            result = self.db.chatbotConversations.update_one(
+            result = self.db.chatHistory.update_one(
                 {'session_id': session_id, '_id': ObjectId(message_id)},
                 {'$set': {'feedback': feedback}}
             )
@@ -1622,41 +2041,53 @@ class ChatbotAgent:
                 'error': str(e)
             }
 
-    def get_chatbot_stats(self) -> Dict[str, Any]:
+    def get_conversation_metrics(self) -> Dict[str, Any]:
         """
-        Get statistics about the chatbot usage.
-        Only available to authenticated users.
+        Get metrics about conversation storage success and database performance.
         
         Returns:
-            Dict with usage statistics
+            Dict with performance metrics
         """
         try:
-            # Get total conversations
-            total_conversations = self.db.chatbotConversations.count_documents({})
+            # Get basic counts
+            total_saved = self.db.chatHistory.count_documents({})
+            total_failed = self.db.chatHistoryDLQ.count_documents({})
             
-            # Get conversations in last 24 hours
+            # Get failures in the last 24 hours
             one_day_ago = datetime.now() - timedelta(days=1)
-            recent_conversations = self.db.chatbotConversations.count_documents({
+            recent_failures = self.db.chatHistoryDLQ.count_documents({
                 'timestamp': {'$gte': one_day_ago}
             })
             
-            # Get prediction requests
-            prediction_requests = self.db.chatbotConversations.count_documents({
-                'bot_response': {'$regex': 'prediction', '$options': 'i'}
-            })
+            # Get retry statistics
+            retry_stats = self.db.chatHistory.aggregate([
+                {
+                    '$match': {
+                        'metadata.retry_count': {'$gt': 0}
+                    }
+                },
+                {
+                    '$group': {
+                        '_id': None,
+                        'total_retries': {'$sum': '$metadata.retry_count'},
+                        'avg_retries': {'$avg': '$metadata.retry_count'},
+                        'max_retries': {'$max': '$metadata.retry_count'}
+                    }
+                }
+            ])
             
-            # Get successful task executions
-            task_executions = self.db.chatbotConversations.count_documents({
-                'type': 'task', 
-                'success': True
-            })
+            retry_data = list(retry_stats)
+            retry_metrics = retry_data[0] if retry_data else {
+                'total_retries': 0,
+                'avg_retries': 0,
+                'max_retries': 0
+            }
             
             return {
-                'total_conversations': total_conversations,
-                'recent_conversations': recent_conversations,
-                'prediction_requests': prediction_requests,
-                'task_executions': task_executions,
-                'knowledge_updated': self.knowledge_updated,
+                'total_saved': total_saved,
+                'total_failed': total_failed,
+                'recent_failures': recent_failures,
+                'retry_metrics': retry_metrics,
                 'success': True
             }
             
@@ -1670,9 +2101,17 @@ class ChatbotAgent:
 # Initialize a global chatbot instance
 chatbot = None
 
-def get_chatbot(rebuild_kb=False):
-    """Get or initialize the global chatbot instance"""
+def get_chatbot(rebuild_kb: bool = False, use_local_model: bool = False):
+    """Get or initialize the global chatbot instance
+    
+    Args:
+        rebuild_kb (bool): Whether to rebuild the knowledge base
+        use_local_model (bool): Whether to use a local model instead of API
+        
+    Returns:
+        ChatbotAgent: The chatbot instance
+    """
     global chatbot
     if chatbot is None:
-        chatbot = ChatbotAgent(rebuild_kb=rebuild_kb, use_local_model=False)
+        chatbot = ChatbotAgent(rebuild_kb=rebuild_kb, use_local_model=use_local_model)
     return chatbot

@@ -1,0 +1,19 @@
+{
+  "session_id": "f376c07b-ff9d-40be-bc89-37e6bf21567a",
+  "user_query": "Hi",
+  "bot_response": "Greetings! How may I assist you?",
+  "is_authenticated": true,
+  "username": "mesum",
+  "timestamp": "2025-05-21 03:42:56.817402",
+  "feedback": null,
+  "metadata": {
+    "ip_address": null,
+    "user_agent": null,
+    "context_used": null,
+    "function_calls": null,
+    "processing_time_ms": null,
+    "error": null,
+    "version": "1.0",
+    "retry_count": 0
+  }
+}
