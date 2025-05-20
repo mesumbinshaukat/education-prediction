@@ -2003,3 +2003,146 @@ StopIteration
 2025-05-19 15:23:10,480 - chatbot - INFO - ChatbotAgent initialized successfully
 2025-05-19 15:23:10,556 - werkzeug - WARNING -  * Debugger is active!
 2025-05-19 15:23:10,561 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-19 15:25:44,748 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:25:44] "GET /dashboard HTTP/1.1" 200 -
+2025-05-19 15:25:44,932 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:25:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:25:46,454 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:25:46] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-19 15:25:46,523 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:25:46] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:25:47,778 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:25:47] "GET /analytics HTTP/1.1" 200 -
+2025-05-19 15:25:49,050 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:25:49] "GET /dashboard HTTP/1.1" 200 -
+2025-05-19 15:25:49,107 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:25:49] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:27:31,708 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:31] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-19 15:27:31,800 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:31] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:27:37,418 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:37] "GET /chat/authenticated HTTP/1.1" 200 -
+2025-05-19 15:27:37,472 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:37] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:27:37,594 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:37] "GET /socket.io/?EIO=4&transport=polling&t=PRe5Q_p HTTP/1.1" 200 -
+2025-05-19 15:27:37,851 - app - INFO - Client connected: JqiH-4VOgTfpTqMyAAAB
+2025-05-19 15:27:37,853 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:37] "POST /socket.io/?EIO=4&transport=polling&t=PRe5R3r&sid=rMdk3KZIeS0kOSRmAAAA HTTP/1.1" 200 -
+2025-05-19 15:27:37,867 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:37] "GET /socket.io/?EIO=4&transport=polling&t=PRe5R3t&sid=rMdk3KZIeS0kOSRmAAAA HTTP/1.1" 200 -
+2025-05-19 15:27:38,001 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:38] "GET /socket.io/?EIO=4&transport=polling&t=PRe5R6E&sid=rMdk3KZIeS0kOSRmAAAA HTTP/1.1" 200 -
+2025-05-19 15:27:38,021 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:38] "GET /socket.io/?EIO=4&transport=polling&t=PRe5R6S&sid=rMdk3KZIeS0kOSRmAAAA HTTP/1.1" 200 -
+2025-05-19 15:27:39,061 - app - INFO - Client disconnected: JqiH-4VOgTfpTqMyAAAB
+2025-05-19 15:27:39,062 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:39] "GET /socket.io/?EIO=4&transport=websocket&sid=rMdk3KZIeS0kOSRmAAAA HTTP/1.1" 200 -
+2025-05-19 15:27:39,201 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:39] "GET /analytics HTTP/1.1" 200 -
+2025-05-19 15:27:48,796 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:48] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-19 15:27:48,812 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:48] "GET /login HTTP/1.1" 200 -
+2025-05-19 15:27:48,856 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:27:48] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:28:06,805 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:28:06] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-05-19 15:28:06,816 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:28:06] "GET /login HTTP/1.1" 200 -
+2025-05-19 15:28:06,882 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:28:06] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:28:14,762 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:28:14] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-19 15:28:14,829 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:28:14] "GET /dashboard HTTP/1.1" 200 -
+2025-05-19 15:28:14,882 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:28:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:28:17,727 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:28:17] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-19 15:28:17,795 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:28:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-19 15:28:21,623 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:28:21] "GET / HTTP/1.1" 200 -
+2025-05-19 15:28:21,935 - werkzeug - INFO - 127.0.0.1 - - [19/May/2025 15:28:21] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-20 16:30:26,885 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-20 16:30:26,885 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 16:30:30,476 - chatbot - INFO - Loading existing knowledge base...
+2025-05-20 16:30:30,485 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-20 16:30:30,624 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 16:30:30,908 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 16:30:30,917 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-20 16:30:30,918 - chatbot - INFO - Using Simple Text Generation
+2025-05-20 16:30:30,918 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-20 16:30:30,918 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-20 16:30:31,027 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-20 16:30:31,028 - werkzeug - INFO -  * Restarting with stat
+2025-05-20 16:30:45,802 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-20 16:30:45,802 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 16:30:50,339 - chatbot - INFO - Loading existing knowledge base...
+2025-05-20 16:30:50,347 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-20 16:30:50,384 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 16:30:50,611 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 16:30:50,620 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-20 16:30:50,620 - chatbot - INFO - Using Simple Text Generation
+2025-05-20 16:30:50,621 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-20 16:30:50,621 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-20 16:30:50,696 - werkzeug - WARNING -  * Debugger is active!
+2025-05-20 16:30:50,699 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-20 16:30:51,308 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:30:51] "GET / HTTP/1.1" 200 -
+2025-05-20 16:30:52,081 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:30:52] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-20 16:31:26,688 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:31:26] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-20 16:31:26,723 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:31:26] "GET /login HTTP/1.1" 200 -
+2025-05-20 16:31:27,185 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:31:27] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 16:31:34,306 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:31:34] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-20 16:31:34,402 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:31:34] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 16:31:34,517 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:31:34] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 16:31:45,545 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:31:45] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-20 16:31:45,648 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:31:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 16:32:01,666 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:32:01] "GET /analytics HTTP/1.1" 200 -
+2025-05-20 16:32:43,090 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:32:43] "GET / HTTP/1.1" 200 -
+2025-05-20 16:32:43,675 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:32:43] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-20 16:32:45,715 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:32:45] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-20 16:33:21,966 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:33:21] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 16:33:22,099 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:33:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 16:35:11,066 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:35:11] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-20 16:35:11,229 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:35:11] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 16:35:17,104 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:35:17] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 16:35:17,180 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:35:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 16:36:38,726 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:36:38] "[32mPOST /predict HTTP/1.1[0m" 302 -
+2025-05-20 16:36:38,792 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:36:38] "[32mGET /login HTTP/1.1[0m" 302 -
+2025-05-20 16:36:38,864 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:36:38] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 16:36:39,066 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:36:39] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 16:36:44,758 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:36:44] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-20 16:36:44,816 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:36:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 16:36:53,056 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:36:53] "GET / HTTP/1.1" 200 -
+2025-05-20 16:36:53,388 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 16:36:53] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-20 18:12:46,311 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-20 18:12:46,312 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 18:12:52,447 - chatbot - INFO - Loading existing knowledge base...
+2025-05-20 18:12:52,454 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-20 18:12:52,797 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 18:12:52,993 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 18:12:53,023 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-20 18:12:53,023 - chatbot - INFO - Using Simple Text Generation
+2025-05-20 18:12:53,024 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-20 18:12:53,024 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-20 18:12:53,085 - werkzeug - INFO -  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2025-05-20 18:12:53,085 - werkzeug - INFO -  * Restarting with stat
+2025-05-20 18:13:06,102 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-20 18:13:06,103 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 18:13:08,931 - chatbot - INFO - Loading existing knowledge base...
+2025-05-20 18:13:08,936 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-20 18:13:08,970 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 18:13:09,146 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 18:13:09,153 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-20 18:13:09,153 - chatbot - INFO - Using Simple Text Generation
+2025-05-20 18:13:09,153 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-20 18:13:09,153 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-20 18:13:09,208 - werkzeug - WARNING -  * Debugger is active!
+2025-05-20 18:13:09,211 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-20 18:13:27,673 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 18:13:27] "GET / HTTP/1.1" 200 -
+2025-05-20 18:13:28,593 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 18:13:28] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-20 18:13:46,702 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 18:13:46] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 18:13:46,799 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 18:13:46] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 18:25:10,574 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 18:25:10] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 18:25:10,631 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 18:25:10] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 18:26:28,840 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 18:26:28] "[32mPOST /predict HTTP/1.1[0m" 302 -
+2025-05-20 18:26:28,928 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 18:26:28] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 18:26:29,003 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 18:26:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 18:26:34,327 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 18:26:34] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-20 18:26:34,383 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 18:26:34] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 18:31:07,230 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-20 18:31:07,231 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-20 18:31:09,010 - werkzeug - INFO -  * Restarting with stat
+2025-05-20 18:31:19,043 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-05-20 18:31:19,043 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 18:31:22,008 - chatbot - INFO - Loading existing knowledge base...
+2025-05-20 18:31:22,016 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-05-20 18:31:22,042 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 18:31:22,216 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 18:31:22,222 - chatbot - INFO - Knowledge base loaded successfully
+2025-05-20 18:31:22,223 - chatbot - INFO - Using Simple Text Generation
+2025-05-20 18:31:22,224 - chatbot - INFO - Chain created successfully with simple processing
+2025-05-20 18:31:22,224 - chatbot - INFO - ChatbotAgent initialized successfully
+2025-05-20 18:31:22,280 - werkzeug - WARNING -  * Debugger is active!
+2025-05-20 18:31:22,283 - werkzeug - INFO -  * Debugger PIN: 123-685-370
+2025-05-20 18:35:22,314 - werkzeug - INFO -  * Detected change in 'D:\\education-prediction\\config.py', reloading
+2025-05-20 18:35:23,746 - werkzeug - INFO -  * Restarting with stat
+2025-05-20 18:47:16,060 - werkzeug - INFO -  * Restarting with stat
+2025-05-20 18:56:11,292 - werkzeug - INFO -  * Restarting with stat
+2025-05-20 19:04:39,029 - werkzeug - INFO -  * Restarting with stat
+2025-05-20 19:52:16,533 - werkzeug - INFO -  * Restarting with stat
+2025-05-20 20:15:19,753 - werkzeug - INFO -  * Restarting with stat
+2025-05-20 20:15:56,203 - werkzeug - INFO -  * Restarting with stat

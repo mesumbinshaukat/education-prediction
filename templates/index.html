@@ -478,8 +478,6 @@
             position: relative;
             overflow: hidden;
             z-index: 2;
-            transform-style: preserve-3d;
-            transform: translateZ(20px);
             box-shadow: 0 8px 20px rgba(255, 65, 108, 0.3);
         }
 
@@ -496,12 +494,12 @@
         }
 
         .btn-primary:hover {
-            transform: translateZ(20px) translateY(-5px);
+            transform: translateY(-5px);
             box-shadow: 0 12px 30px rgba(255, 65, 108, 0.4);
         }
 
         .btn-primary:active {
-            transform: translateZ(20px) translateY(-2px);
+            transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
         }
 
@@ -785,11 +783,97 @@
                         <span class="input-help" id="testScoresHelp">Enter a value between 0 and 100</span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mt-4">
+                    <button type="submit" class="btn btn-primary w-100 mt-4" id="submitBtn">
                         Predict Performance <i class="fas fa-arrow-right btn-icon"></i>
                     </button>
+                    
+                    <!-- Form Submission Status -->
+                    <div class="form-submission-status mt-3" id="formStatus" style="display: none;">
+                        <div class="alert alert-info">
+                            <div class="d-flex align-items-center">
+                                <div class="spinner-border spinner-border-sm me-2" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <span id="statusMessage">Processing your submission...</span>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
+            
+            <!-- Form Submission Logging Script -->
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.getElementById('predictionForm');
+                const submitBtn = document.getElementById('submitBtn');
+                const formStatus = document.getElementById('formStatus');
+                const statusMessage = document.getElementById('statusMessage');
+                
+                if (form) {
+                    console.log('Form submission logger initialized');
+                    
+                    form.addEventListener('submit', function(event) {
+                        // Don't prevent default - we still want the form to submit normally
+                        
+                        try {
+                            // Show submission status
+                            formStatus.style.display = 'block';
+                            submitBtn.disabled = true;
+                            
+                            // Log the submission attempt
+                            console.log('Form submission started at:', new Date().toISOString());
+                            
+                            // Log form data
+                            const formData = new FormData(form);
+                            console.log('Form data being submitted:');
+                            for (let [key, value] of formData.entries()) {
+                                console.log(`  ${key}: ${value}`);
+                            }
+                            
+                            // Log authentication status if possible
+                            console.log('Current page URL:', window.location.href);
+                            console.log('Form action URL:', form.action);
+                            
+                            // Set a timeout to check if submission is taking too long
+                            setTimeout(function() {
+                                if (formStatus.style.display !== 'none') {
+                                    console.warn('Form submission taking longer than expected (5 seconds)');
+                                    statusMessage.textContent = 'Submission taking longer than expected...';
+                                }
+                            }, 5000);
+                            
+                            // Reset status if page is still here after 10 seconds (likely an error)
+                            setTimeout(function() {
+                                if (formStatus.style.display !== 'none') {
+                                    console.error('Form submission likely failed - timeout after 10 seconds');
+                                    formStatus.style.display = 'none';
+                                    submitBtn.disabled = false;
+                                    
+                                    // Show error alert
+                                    const errorAlert = document.createElement('div');
+                                    errorAlert.className = 'alert alert-danger mt-3';
+                                    errorAlert.innerHTML = '<strong>Error:</strong> Form submission timed out. Please check console for details and try again.';
+                                    form.appendChild(errorAlert);
+                                    
+                                    // Remove error after 5 seconds
+                                    setTimeout(function() {
+                                        form.removeChild(errorAlert);
+                                    }, 5000);
+                                }
+                            }, 10000);
+                            
+                        } catch (error) {
+                            console.error('Error during form submission:', error);
+                            
+                            // Don't prevent form submission even if our logging fails
+                            return true;
+                        }
+                    });
+                } else {
+                    console.error('Prediction form not found in the document');
+                }
+            });
+            </script>
         </div>
     </div>
 

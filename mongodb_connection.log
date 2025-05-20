@@ -1,0 +1,254 @@
+2025-05-20 18:35:32,638 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-20 18:35:33,475 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-20 18:35:33,625 - INFO - Use pytorch device_name: cpu
+2025-05-20 18:35:33,625 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 18:35:37,891 - INFO - Loading existing knowledge base...
+2025-05-20 18:35:37,903 - INFO - Loading faiss with AVX2 support.
+2025-05-20 18:35:37,934 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 18:35:38,096 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 18:35:38,104 - INFO - Knowledge base loaded successfully
+2025-05-20 18:35:38,105 - INFO - Using Simple Text Generation
+2025-05-20 18:35:38,105 - INFO - Chain created successfully with simple processing
+2025-05-20 18:35:38,106 - INFO - ChatbotAgent initialized successfully
+2025-05-20 18:35:38,123 - WARNING -  * Debugger is active!
+2025-05-20 18:35:38,126 - INFO -  * Debugger PIN: 123-685-370
+2025-05-20 18:35:49,293 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-20 18:35:50,044 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-20 18:36:50,318 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-20 18:36:51,172 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-20 18:36:51,230 - INFO - Testing write permissions...
+2025-05-20 18:36:51,423 - INFO - Connecting to MongoDB Atlas...
+2025-05-20 18:36:51,423 - INFO - Attempting to write test document with ID: TEST-20250520183651
+2025-05-20 18:36:51,547 - INFO - Retrieved document: {
+  "_id": {
+    "$oid": "682c8573f0b151c76b8e70b3"
+  },
+  "student_id": "TEST-20250520183651",
+  "name": "Test Student TEST-20250520183651",
+  "email": "test@example.com",
+  "attendance": 85.0,
+  "homework_completion": 90.0,
+  "test_scores": 88.0,
+  "prediction_score": 87.5,
+  "prediction": "Excellent",
+  "binary_prediction": 1,
+  "confidence": 0.875,
+  "probability": 87.5,
+  "username": "test_script",
+  "created_at": {
+    "$date": 1747766211423
+  },
+  "test_flag": true
+}
+2025-05-20 18:36:51,547 - INFO - Recent documents in predictionHistory collection:
+2025-05-20 18:36:51,603 - INFO - 1. ID: 682c8573f0b151c76b8e70b3, Name: Test Student TEST-20250520183651, Created: 2025-05-20 18:36:51.423000
+2025-05-20 18:36:51,603 - INFO - 2. ID: 6821324e6be5a93485e54a70, Name: kali, Created: 2025-05-12 04:27:10.386000
+2025-05-20 18:36:51,604 - INFO - 3. ID: 6821316a6be5a93485e54a6f, Name: Ahmad, Created: 2025-05-12 04:23:22.628000
+2025-05-20 18:36:51,604 - INFO - 4. ID: 68212c701dc2a0322b1df5f0, Name: Huzaifa, Created: 2025-05-12 04:02:08.671000
+2025-05-20 18:36:51,604 - INFO - 5. ID: 682124d152f2308bfa3b5155, Name: sarim, Created: 2025-05-12 03:29:37.025000
+2025-05-20 18:36:51,662 - INFO - Removed test document with student_id: TEST-20250520183651
+2025-05-20 18:43:29,691 - INFO - 127.0.0.1 - - [20/May/2025 18:43:29] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-20 18:43:29,832 - INFO - 127.0.0.1 - - [20/May/2025 18:43:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 18:43:37,916 - INFO - 127.0.0.1 - - [20/May/2025 18:43:37] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 18:43:37,961 - INFO - 127.0.0.1 - - [20/May/2025 18:43:37] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 18:44:04,384 - INFO - ==== PREDICTION FORM SUBMISSION STARTED ====
+2025-05-20 18:44:04,387 - INFO - Form data received: ImmutableMultiDict([('name', 'Mesum'), ('student_id', '1391522'), ('email', 'mesum@gmail.com'), ('attendance', '100'), ('homework_completion', '100'), ('test_scores', '100')])
+2025-05-20 18:44:04,387 - INFO - Current user: mesum
+2025-05-20 18:44:04,387 - INFO - Session data: <SecureCookieSession {'_flashes': [('success', 'Login successful!'), ('info', 'You have been logged out.'), ('success', 'Registration successful! Please log in.'), ('success', 'Login successful!'), ('info', 'You have been logged out.'), ('success', 'Login successful!'), ('danger', 'Please login to make predictions'), ('danger', 'Prediction failed: [WinError 233] No process is on the other end of the pipe')], '_fresh': True, '_id': 'b42f574a0db665008e5871b8820a048262a1cec362240e8665f84fbc2e273fd473a73f214d645c32ec6b13b298b27718c281f20567964b8fd1e2e6f4f046fb10', '_user_id': '6820d6947017a3267a9192ca', 'chat_session_id': '80d8c360-545e-470b-b267-13862d6f62c4'}>
+2025-05-20 18:44:04,387 - ERROR - Username not in session. Redirecting to login.
+2025-05-20 18:44:04,388 - INFO - 127.0.0.1 - - [20/May/2025 18:44:04] "[32mPOST /predict HTTP/1.1[0m" 302 -
+2025-05-20 18:44:04,453 - INFO - 127.0.0.1 - - [20/May/2025 18:44:04] "[32mGET /login HTTP/1.1[0m" 302 -
+2025-05-20 18:44:04,515 - INFO - 127.0.0.1 - - [20/May/2025 18:44:04] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 18:44:04,569 - INFO - 127.0.0.1 - - [20/May/2025 18:44:04] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 18:47:14,651 - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-20 18:47:25,318 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-20 18:47:26,801 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-20 18:47:26,961 - INFO - Use pytorch device_name: cpu
+2025-05-20 18:47:26,961 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 18:47:30,311 - INFO - Loading existing knowledge base...
+2025-05-20 18:47:30,319 - INFO - Loading faiss with AVX2 support.
+2025-05-20 18:47:30,349 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 18:47:30,526 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 18:47:30,533 - INFO - Knowledge base loaded successfully
+2025-05-20 18:47:30,533 - INFO - Using Simple Text Generation
+2025-05-20 18:47:30,534 - INFO - Chain created successfully with simple processing
+2025-05-20 18:47:30,534 - INFO - ChatbotAgent initialized successfully
+2025-05-20 18:47:30,552 - WARNING -  * Debugger is active!
+2025-05-20 18:47:30,556 - INFO -  * Debugger PIN: 123-685-370
+2025-05-20 18:56:09,808 - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-20 18:56:20,236 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-20 18:56:21,071 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-20 18:56:21,213 - INFO - Use pytorch device_name: cpu
+2025-05-20 18:56:21,214 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 18:56:26,125 - INFO - Loading existing knowledge base...
+2025-05-20 18:56:26,135 - INFO - Loading faiss with AVX2 support.
+2025-05-20 18:56:26,165 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 18:56:26,333 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 18:56:26,340 - INFO - Knowledge base loaded successfully
+2025-05-20 18:56:26,340 - INFO - Using Simple Text Generation
+2025-05-20 18:56:26,341 - INFO - Chain created successfully with simple processing
+2025-05-20 18:56:26,341 - INFO - ChatbotAgent initialized successfully
+2025-05-20 18:56:26,361 - WARNING -  * Debugger is active!
+2025-05-20 18:56:26,365 - INFO -  * Debugger PIN: 123-685-370
+2025-05-20 19:04:37,501 - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-20 19:04:48,464 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-20 19:04:49,308 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-20 19:04:49,441 - INFO - Use pytorch device_name: cpu
+2025-05-20 19:04:49,441 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 19:04:54,229 - INFO - Loading existing knowledge base...
+2025-05-20 19:04:54,238 - INFO - Loading faiss with AVX2 support.
+2025-05-20 19:04:54,266 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 19:04:54,429 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 19:04:54,436 - INFO - Knowledge base loaded successfully
+2025-05-20 19:04:54,436 - INFO - Using Simple Text Generation
+2025-05-20 19:04:54,436 - INFO - Chain created successfully with simple processing
+2025-05-20 19:04:54,437 - INFO - ChatbotAgent initialized successfully
+2025-05-20 19:04:54,454 - WARNING -  * Debugger is active!
+2025-05-20 19:04:54,458 - INFO -  * Debugger PIN: 123-685-370
+2025-05-20 19:05:40,261 - INFO - 127.0.0.1 - - [20/May/2025 19:05:40] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-20 19:05:40,287 - INFO - 127.0.0.1 - - [20/May/2025 19:05:40] "GET /login HTTP/1.1" 200 -
+2025-05-20 19:05:40,433 - INFO - 127.0.0.1 - - [20/May/2025 19:05:40] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 19:05:52,495 - INFO - 127.0.0.1 - - [20/May/2025 19:05:52] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-20 19:05:52,588 - INFO - 127.0.0.1 - - [20/May/2025 19:05:52] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 19:05:52,636 - INFO - 127.0.0.1 - - [20/May/2025 19:05:52] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 19:51:08,969 - INFO - ==== PREDICTION FORM SUBMISSION STARTED ====
+2025-05-20 19:51:08,970 - INFO - Form data received: ImmutableMultiDict([('name', 'Huzaifa Motu Lulli'), ('student_id', '138388'), ('email', 'huzaifa@gmail.com'), ('attendance', '90'), ('homework_completion', '90'), ('test_scores', '90')])
+2025-05-20 19:51:08,970 - INFO - Current user: mesum
+2025-05-20 19:51:08,970 - INFO - User ID: 6820d6947017a3267a9192ca
+2025-05-20 19:51:08,971 - ERROR - PREDICTION ERROR: cannot access local variable 'session' where it is not associated with a value
+2025-05-20 19:51:08,971 - ERROR - Error type: UnboundLocalError
+2025-05-20 19:51:08,971 - ERROR - Error location: D:\education-prediction\app.py line 139
+2025-05-20 19:51:08,971 - ERROR - Request form data: ImmutableMultiDict([('name', 'Huzaifa Motu Lulli'), ('student_id', '138388'), ('email', 'huzaifa@gmail.com'), ('attendance', '90'), ('homework_completion', '90'), ('test_scores', '90')])
+2025-05-20 19:51:09,066 - INFO - 127.0.0.1 - - [20/May/2025 19:51:09] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2025-05-20 19:51:09,188 - INFO - 127.0.0.1 - - [20/May/2025 19:51:09] "GET /predict?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-05-20 19:51:09,215 - INFO - 127.0.0.1 - - [20/May/2025 19:51:09] "GET /predict?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-05-20 19:51:09,701 - INFO - 127.0.0.1 - - [20/May/2025 19:51:09] "GET /predict?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-05-20 19:51:10,720 - INFO - 127.0.0.1 - - [20/May/2025 19:51:10] "[36mGET /predict?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-20 19:52:14,917 - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-20 19:52:28,792 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-20 19:52:29,664 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-20 19:52:29,920 - INFO - Use pytorch device_name: cpu
+2025-05-20 19:52:29,921 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 19:52:33,135 - INFO - Loading existing knowledge base...
+2025-05-20 19:52:33,146 - INFO - Loading faiss with AVX2 support.
+2025-05-20 19:52:33,180 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 19:52:33,348 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 19:52:33,359 - INFO - Knowledge base loaded successfully
+2025-05-20 19:52:33,359 - INFO - Using Simple Text Generation
+2025-05-20 19:52:33,360 - INFO - Chain created successfully with simple processing
+2025-05-20 19:52:33,360 - INFO - ChatbotAgent initialized successfully
+2025-05-20 19:52:33,378 - WARNING -  * Debugger is active!
+2025-05-20 19:52:33,382 - INFO -  * Debugger PIN: 123-685-370
+2025-05-20 20:01:25,815 - INFO - ==== PREDICTION FORM SUBMISSION STARTED ====
+2025-05-20 20:01:25,821 - INFO - Form data received: ImmutableMultiDict([('name', 'Huzaifa Motu Lulli'), ('student_id', '138388'), ('email', 'huzaifa@gmail.com'), ('attendance', '90'), ('homework_completion', '90'), ('test_scores', '90')])
+2025-05-20 20:01:25,822 - INFO - Current user: mesum
+2025-05-20 20:01:25,822 - INFO - User ID: 6820d6947017a3267a9192ca
+2025-05-20 20:01:25,823 - ERROR - PREDICTION ERROR: cannot access local variable 'session' where it is not associated with a value
+2025-05-20 20:01:25,824 - ERROR - Error type: UnboundLocalError
+2025-05-20 20:01:25,824 - ERROR - Error location: D:\education-prediction\app.py line 139
+2025-05-20 20:01:25,824 - ERROR - Request form data: ImmutableMultiDict([('name', 'Huzaifa Motu Lulli'), ('student_id', '138388'), ('email', 'huzaifa@gmail.com'), ('attendance', '90'), ('homework_completion', '90'), ('test_scores', '90')])
+2025-05-20 20:01:25,838 - INFO - 127.0.0.1 - - [20/May/2025 20:01:25] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2025-05-20 20:01:25,998 - INFO - 127.0.0.1 - - [20/May/2025 20:01:25] "[36mGET /predict?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-05-20 20:01:26,003 - INFO - 127.0.0.1 - - [20/May/2025 20:01:26] "[36mGET /predict?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-05-20 20:01:26,027 - INFO - 127.0.0.1 - - [20/May/2025 20:01:26] "[36mGET /predict?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-20 20:01:26,348 - INFO - 127.0.0.1 - - [20/May/2025 20:01:26] "[36mGET /predict?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-20 20:13:16,152 - INFO - 127.0.0.1 - - [20/May/2025 20:13:16] "[31m[1mGET /predict HTTP/1.1[0m" 405 -
+2025-05-20 20:13:20,260 - INFO - 127.0.0.1 - - [20/May/2025 20:13:20] "GET / HTTP/1.1" 200 -
+2025-05-20 20:13:20,804 - INFO - 127.0.0.1 - - [20/May/2025 20:13:20] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-20 20:13:22,927 - INFO - 127.0.0.1 - - [20/May/2025 20:13:22] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 20:13:22,998 - INFO - 127.0.0.1 - - [20/May/2025 20:13:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 20:13:48,449 - INFO - ==== PREDICTION FORM SUBMISSION STARTED ====
+2025-05-20 20:13:48,452 - INFO - Form data received: ImmutableMultiDict([('name', 'Mesum Bin Shaukat'), ('student_id', '1391522'), ('email', 'mesum@gmail.com'), ('attendance', '100'), ('homework_completion', '100'), ('test_scores', '100')])
+2025-05-20 20:13:48,454 - INFO - Current user: mesum
+2025-05-20 20:13:48,455 - INFO - User ID: 6820d6947017a3267a9192ca
+2025-05-20 20:13:48,457 - ERROR - PREDICTION ERROR: cannot access local variable 'session' where it is not associated with a value
+2025-05-20 20:13:48,458 - ERROR - Error type: UnboundLocalError
+2025-05-20 20:13:48,458 - ERROR - Error location: D:\education-prediction\app.py line 139
+2025-05-20 20:13:48,459 - ERROR - Request form data: ImmutableMultiDict([('name', 'Mesum Bin Shaukat'), ('student_id', '1391522'), ('email', 'mesum@gmail.com'), ('attendance', '100'), ('homework_completion', '100'), ('test_scores', '100')])
+2025-05-20 20:13:48,485 - INFO - 127.0.0.1 - - [20/May/2025 20:13:48] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2025-05-20 20:13:48,545 - INFO - 127.0.0.1 - - [20/May/2025 20:13:48] "[36mGET /predict?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-05-20 20:13:48,547 - INFO - 127.0.0.1 - - [20/May/2025 20:13:48] "[36mGET /predict?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-05-20 20:13:48,637 - INFO - 127.0.0.1 - - [20/May/2025 20:13:48] "[36mGET /predict?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-20 20:13:49,021 - INFO - 127.0.0.1 - - [20/May/2025 20:13:49] "[36mGET /predict?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-05-20 20:15:18,309 - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-20 20:15:29,420 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-20 20:15:30,670 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-20 20:15:30,829 - INFO - Use pytorch device_name: cpu
+2025-05-20 20:15:30,829 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 20:15:36,095 - INFO - Loading existing knowledge base...
+2025-05-20 20:15:36,110 - INFO - Loading faiss with AVX2 support.
+2025-05-20 20:15:36,168 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 20:15:36,358 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 20:15:36,364 - INFO - Knowledge base loaded successfully
+2025-05-20 20:15:36,364 - INFO - Using Simple Text Generation
+2025-05-20 20:15:36,365 - INFO - Chain created successfully with simple processing
+2025-05-20 20:15:36,365 - INFO - ChatbotAgent initialized successfully
+2025-05-20 20:15:36,384 - WARNING -  * Debugger is active!
+2025-05-20 20:15:36,389 - INFO -  * Debugger PIN: 123-685-370
+2025-05-20 20:15:54,624 - INFO -  * Detected change in 'D:\\education-prediction\\app.py', reloading
+2025-05-20 20:16:05,980 - INFO - Attempting to connect to MongoDB Atlas...
+2025-05-20 20:16:06,801 - INFO - Successfully connected to MongoDB Atlas. Available databases: ['edupredict', 'admin', 'local']
+2025-05-20 20:16:06,981 - INFO - Use pytorch device_name: cpu
+2025-05-20 20:16:06,981 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-20 20:16:11,116 - INFO - Loading existing knowledge base...
+2025-05-20 20:16:11,122 - INFO - Loading faiss with AVX2 support.
+2025-05-20 20:16:11,149 - INFO - Successfully loaded faiss with AVX2 support.
+2025-05-20 20:16:11,319 - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-20 20:16:11,326 - INFO - Knowledge base loaded successfully
+2025-05-20 20:16:11,327 - INFO - Using Simple Text Generation
+2025-05-20 20:16:11,327 - INFO - Chain created successfully with simple processing
+2025-05-20 20:16:11,328 - INFO - ChatbotAgent initialized successfully
+2025-05-20 20:16:11,346 - WARNING -  * Debugger is active!
+2025-05-20 20:16:11,349 - INFO -  * Debugger PIN: 123-685-370
+2025-05-20 20:16:11,449 - INFO - 127.0.0.1 - - [20/May/2025 20:16:11] "GET / HTTP/1.1" 200 -
+2025-05-20 20:16:12,252 - INFO - 127.0.0.1 - - [20/May/2025 20:16:12] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -
+2025-05-20 20:16:14,511 - INFO - 127.0.0.1 - - [20/May/2025 20:16:14] "GET /api/predictions?skip=6&limit=20 HTTP/1.1" 200 -
+2025-05-20 20:16:19,911 - INFO - 127.0.0.1 - - [20/May/2025 20:16:19] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-20 20:16:20,079 - INFO - 127.0.0.1 - - [20/May/2025 20:16:20] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 20:16:29,328 - INFO - 127.0.0.1 - - [20/May/2025 20:16:29] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 20:16:29,368 - INFO - 127.0.0.1 - - [20/May/2025 20:16:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 20:17:41,751 - INFO - ==== PREDICTION FORM SUBMISSION STARTED ====
+2025-05-20 20:17:41,757 - INFO - Form data received: ImmutableMultiDict([('name', 'Mesum Bin Shaukat'), ('student_id', '1391522'), ('email', 'mesum@gmail.com'), ('attendance', '100'), ('homework_completion', '96'), ('test_scores', '100')])
+2025-05-20 20:17:41,758 - INFO - Current user: mesum
+2025-05-20 20:17:41,759 - INFO - User ID: 6820d6947017a3267a9192ca
+2025-05-20 20:17:41,759 - INFO - Session data: {'_flashes': [('success', 'Login successful!'), ('info', 'You have been logged out.'), ('success', 'Registration successful! Please log in.'), ('success', 'Login successful!'), ('info', 'You have been logged out.'), ('success', 'Login successful!'), ('danger', 'Please login to make predictions'), ('danger', 'Prediction failed: [WinError 233] No process is on the other end of the pipe'), ('danger', 'Please login to make predictions'), ('info', 'You have been logged out.'), ('success', 'Login successful!')], '_fresh': True, '_id': 'b42f574a0db665008e5871b8820a048262a1cec362240e8665f84fbc2e273fd473a73f214d645c32ec6b13b298b27718c281f20567964b8fd1e2e6f4f046fb10', '_user_id': '6820d6947017a3267a9192ca', 'chat_session_id': '80d8c360-545e-470b-b267-13862d6f62c4', 'username': 'mesum'}
+2025-05-20 20:17:41,760 - INFO - Request method: POST
+2025-05-20 20:17:41,760 - INFO - Request path: /predict
+2025-05-20 20:17:41,760 - INFO - Authentication status:
+2025-05-20 20:17:41,760 - INFO -   - current_user.is_authenticated: True
+2025-05-20 20:17:41,761 - INFO -   - 'username' in session: True
+2025-05-20 20:17:41,761 - INFO -   - session.get('user_id'): None
+2025-05-20 20:17:41,761 - INFO -   - session.get('_id'): b42f574a0db665008e5871b8820a048262a1cec362240e8665f84fbc2e273fd473a73f214d645c32ec6b13b298b27718c281f20567964b8fd1e2e6f4f046fb10
+2025-05-20 20:17:41,762 - INFO - Getting database connection from config.py...
+2025-05-20 20:17:41,822 - INFO - MongoDB connection verified: Connection to Atlas is active
+2025-05-20 20:17:41,881 - INFO - Available collections: ['predictionHistory', 'users', 'chatbotConversations', 'chatHistory']
+2025-05-20 20:17:41,882 - INFO - Validating form data...
+2025-05-20 20:17:41,883 - INFO - Extracted text fields - Name: Mesum Bin Shaukat, Student ID: 1391522, Email: mesum@gmail.com
+2025-05-20 20:17:41,884 - INFO - Raw numeric inputs - Attendance: '100', Homework: '96', Test Scores: '100'
+2025-05-20 20:17:41,885 - INFO - Processed numeric inputs - Attendance: 100.0, Homework: 96.0, Test Scores: 100.0
+2025-05-20 20:17:41,886 - INFO - Calculated percentage: 99.2%
+2025-05-20 20:17:41,886 - INFO - Prediction category determined: Excellent
+2025-05-20 20:17:41,887 - INFO - Preparing document for MongoDB insertion...
+2025-05-20 20:17:41,888 - INFO - Document prepared for insertion: {"student_id": "1391522", "name": "Mesum Bin Shaukat", "email": "mesum@gmail.com", "attendance": 100.0, "homework_completion": 96.0, "test_scores": 100.0, "prediction": "Excellent", "prediction_score": 99.2, "binary_prediction": 1, "confidence": 0.992, "probability": 99.2, "username": "mesum", "created_at": "2025-05-20 20:17:41.887956", "client_info": {"ip": "127.0.0.1", "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36", "platform": null, "browser": null}}
+2025-05-20 20:17:41,889 - INFO - Using the database connection from config.py...
+2025-05-20 20:17:41,890 - INFO - Starting MongoDB session for transaction...
+2025-05-20 20:17:41,891 - INFO - Attempting to insert data into predictionHistory with transaction...
+2025-05-20 20:17:42,226 - INFO - Transaction committed successfully
+2025-05-20 20:17:42,228 - INFO - Storing data in session for PDF generation
+2025-05-20 20:17:42,297 - ERROR - PREDICTION ERROR: 'attendance'
+2025-05-20 20:17:42,297 - ERROR - Error type: KeyError
+2025-05-20 20:17:42,298 - ERROR - Error location: D:\education-prediction\app.py line 363
+2025-05-20 20:17:42,299 - ERROR - Request form data: ImmutableMultiDict([('name', 'Mesum Bin Shaukat'), ('student_id', '1391522'), ('email', 'mesum@gmail.com'), ('attendance', '100'), ('homework_completion', '96'), ('test_scores', '100')])
+2025-05-20 20:17:42,300 - ERROR - Session data: {'_flashes': [('success', 'Login successful!'), ('info', 'You have been logged out.'), ('success', 'Registration successful! Please log in.'), ('success', 'Login successful!'), ('info', 'You have been logged out.'), ('success', 'Login successful!'), ('danger', 'Please login to make predictions'), ('danger', 'Prediction failed: [WinError 233] No process is on the other end of the pipe'), ('danger', 'Please login to make predictions'), ('info', 'You have been logged out.'), ('success', 'Login successful!')], '_fresh': True, '_id': 'b42f574a0db665008e5871b8820a048262a1cec362240e8665f84fbc2e273fd473a73f214d645c32ec6b13b298b27718c281f20567964b8fd1e2e6f4f046fb10', '_user_id': '6820d6947017a3267a9192ca', 'chat_session_id': '80d8c360-545e-470b-b267-13862d6f62c4', 'username': 'mesum', 'student_data': {'student_id': '1391522', 'name': 'Mesum Bin Shaukat', 'email': 'mesum@gmail.com', 'attendance': 100.0, 'homework_completion': 96.0, 'test_scores': 100.0, 'prediction': 'Excellent', 'prediction_score': 99.2, 'binary_prediction': 1, 'confidence': 0.992, 'probability': 99.2, 'username': 'mesum', 'client_info': {'ip': '127.0.0.1', 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36', 'platform': None, 'browser': None}, '_id': '682c9d15e6fc0e9b965e15b0'}}
+2025-05-20 20:17:42,301 - ERROR - MongoDB connection failed during error handling: name 'MONGO_URI' is not defined
+2025-05-20 20:17:42,301 - ERROR - ==== PREDICTION FORM SUBMISSION FAILED ====
+2025-05-20 20:17:42,308 - INFO - 127.0.0.1 - - [20/May/2025 20:17:42] "[32mPOST /predict HTTP/1.1[0m" 302 -
+2025-05-20 20:17:42,380 - INFO - 127.0.0.1 - - [20/May/2025 20:17:42] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 20:17:42,478 - INFO - 127.0.0.1 - - [20/May/2025 20:17:42] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 20:17:48,040 - INFO - 127.0.0.1 - - [20/May/2025 20:17:48] "GET /prediction-history HTTP/1.1" 200 -
+2025-05-20 20:17:48,092 - INFO - 127.0.0.1 - - [20/May/2025 20:17:48] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 20:22:49,393 - INFO - 127.0.0.1 - - [20/May/2025 20:22:49] "GET /dashboard HTTP/1.1" 200 -
+2025-05-20 20:22:49,447 - INFO - 127.0.0.1 - - [20/May/2025 20:22:49] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-05-20 20:22:55,126 - INFO - 127.0.0.1 - - [20/May/2025 20:22:55] "GET /analytics HTTP/1.1" 200 -
+2025-05-20 20:22:57,907 - INFO - 127.0.0.1 - - [20/May/2025 20:22:57] "GET / HTTP/1.1" 200 -
+2025-05-20 20:22:58,149 - INFO - 127.0.0.1 - - [20/May/2025 20:22:58] "GET /api/predictions?skip=0&limit=20 HTTP/1.1" 200 -

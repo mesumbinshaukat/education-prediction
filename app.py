@@ -1,7 +1,7 @@
 import os
 import json
 import uuid
-from flask import Flask, render_template, request, redirect, url_for, session, flash, send_file, jsonify, Response
+from flask import Flask, render_template, request, redirect, url_for, session as flask_session, flash, send_file, jsonify, Response
 from flask_socketio import SocketIO, emit
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -107,6 +107,7 @@ def login():
             if user_data and check_password_hash(user_data['password'], password):
                 user = User(user_data)
                 login_user(user, remember=True)  # Enable remember me functionality
+                flask_session['username'] = username  # Store username in session
                 
                 # Get the next page from the request args
                 next_page = request.args.get('next')
@@ -130,29 +131,86 @@ def logout():
 @login_required
 def predict():
     try:
-        # Debug logging
-        print(f"Form data received: {request.form}")
-        print(f"Current user: {current_user.username}")
-
-        if 'username' not in session:
+        # Enhanced debug logging
+        app.logger.info("==== PREDICTION FORM SUBMISSION STARTED ====")
+        app.logger.info(f"Form data received: {request.form}")
+        app.logger.info(f"Current user: {current_user.username if current_user.is_authenticated else 'Not authenticated'}")
+        app.logger.info(f"User ID: {current_user.id if current_user.is_authenticated else 'None'}")
+        try:
+            session_data = dict(flask_session)
+            app.logger.info(f"Session data: {session_data}")
+        except Exception as sess_err:
+            app.logger.warning(f"Could not log session data: {sess_err}")
+        app.logger.info(f"Request method: {request.method}")
+        app.logger.info(f"Request path: {request.path}")
+        
+        # Detailed authentication logging
+        app.logger.info(f"Authentication status:")
+        app.logger.info(f"  - current_user.is_authenticated: {current_user.is_authenticated}")
+        app.logger.info(f"  - 'username' in session: {'username' in flask_session}")
+        app.logger.info(f"  - session.get('user_id'): {flask_session.get('user_id')}")
+        app.logger.info(f"  - session.get('_id'): {flask_session.get('_id')}")
+        
+        # Verify MongoDB connection from config (single consistent connection)
+        try:
+            # Use the get_db function from config
+            app.logger.info("Getting database connection from config.py...")
+            db = get_db()
+            
+            # Test connection
+            db.client.admin.command('ping')
+            app.logger.info("MongoDB connection verified: Connection to Atlas is active")
+            
+            # Check collections
+            collections = db.list_collection_names()
+            app.logger.info(f"Available collections: {collections}")
+        except Exception as db_err:
+            app.logger.error(f"CRITICAL: MongoDB connection failed: {db_err}")
+            app.logger.error(f"Error type: {type(db_err).__name__}")
+            flash("Database connection error. Please try again later.", "danger")
+            return redirect(url_for('index'))
+        
+        # Check if user is authenticated with detailed logging
+        if not current_user.is_authenticated:
+            app.logger.error("User not authenticated despite @login_required decorator")
+            app.logger.error(f"current_user object: {vars(current_user)}")
             flash("Please login to make predictions", 'danger')
+            return redirect(url_for('login'))
+
+        if 'username' not in flask_session:
+            app.logger.error("Username not in session even though user is authenticated")
+            app.logger.error(f"Session keys: {list(flask_session.keys())}")
+            flash("Session error. Please log out and log in again.", 'danger')
             return redirect(url_for('login'))
             
         # Get and validate form data
+        app.logger.info("Validating form data...")
         name = request.form['name'].strip()
         student_id = request.form['student_id'].strip()
         email = request.form['email'].strip()
         
+        app.logger.info(f"Extracted text fields - Name: {name}, Student ID: {student_id}, Email: {email}")
+        
         # Validate and cap numeric inputs
         try:
+            app.logger.info(f"Raw numeric inputs - Attendance: '{request.form.get('attendance')}', " +
+                          f"Homework: '{request.form.get('homework_completion')}', " +
+                          f"Test Scores: '{request.form.get('test_scores')}'")
+            
             attendance = min(max(float(request.form['attendance']), 0), 100)
             homework_completion = min(max(float(request.form['homework_completion']), 0), 100)
             test_scores = min(max(float(request.form['test_scores']), 0), 100)
             
+            app.logger.info(f"Processed numeric inputs - Attendance: {attendance}, " +
+                          f"Homework: {homework_completion}, Test Scores: {test_scores}")
+            
             # Calculate capped percentage
             percentage = round((test_scores * 0.5) + (attendance * 0.3) + (homework_completion * 0.2), 2)
             percentage = min(percentage, 100)  # Ensure percentage never exceeds 100
+            app.logger.info(f"Calculated percentage: {percentage}%")
         except ValueError as e:
+            app.logger.error(f"Numeric validation error: {e}")
+            app.logger.error(f"Raw form data for numeric fields: {request.form}")
             flash("Invalid input: Please enter numbers between 0 and 100", 'danger')
             return redirect(url_for('index'))
         
@@ -163,11 +221,14 @@ def predict():
             prediction_text = "Good"
         else:
             prediction_text = "Needs Improvement"
+        
+        app.logger.info(f"Prediction category determined: {prediction_text}")
             
         # Legacy values for backward compatibility
         binary_prediction = 1 if percentage >= 60 else 0
         
         # Create prediction record with standardized fields
+        app.logger.info("Preparing document for MongoDB insertion...")
         prediction_data = {
             # Student information
             'student_id': student_id,
@@ -187,16 +248,105 @@ def predict():
             # Metadata
             'username': current_user.username,
             'created_at': datetime.now(),
+            'client_info': {
+                'ip': request.remote_addr,
+                'user_agent': request.user_agent.string,
+                'platform': request.user_agent.platform,
+                'browser': request.user_agent.browser,
+            }
         }
         
-        # Insert the prediction
-        result = db.predictionHistory.insert_one(prediction_data)
+        app.logger.info(f"Document prepared for insertion: {json.dumps(prediction_data, default=str)}")
+        
+        # Use a single database connection from config.py with transaction support
+        try:
+            # Get a reference to the database using the global connection
+            app.logger.info("Using the database connection from config.py...")
+            db = get_db()
+            
+            # Get a reference to the collection
+            prediction_collection = db.predictionHistory
+            
+            # Start a session for transaction support
+            app.logger.info("Starting MongoDB session for transaction...")
+            with db.client.start_session() as session:
+                # Start a transaction
+                session.start_transaction()
+                
+                try:
+                    # Insert the prediction with transaction support
+                    app.logger.info("Attempting to insert data into predictionHistory with transaction...")
+                    result = prediction_collection.insert_one(prediction_data, session=session)
+                    
+                    if result.acknowledged:
+                        app.logger.info(f"✅ MongoDB insert SUCCESS: Document inserted with ID: {result.inserted_id}")
+                        
+                        # Verify the document was actually inserted
+                        verification = prediction_collection.find_one(
+                            {"_id": result.inserted_id}, 
+                            session=session
+                        )
+                        
+                        if verification:
+                            app.logger.info(f"✅ Document verification SUCCESS: Document found in database")
+                            # Compare fields to ensure data integrity
+                            for key in ['student_id', 'name', 'email', 'prediction']:
+                                if verification.get(key) != prediction_data.get(key):
+                                    app.logger.warning(f"Data mismatch in {key}: {verification.get(key)} != {prediction_data.get(key)}")
+                            
+                            # Commit the transaction
+                            session.commit_transaction()
+                            app.logger.info("Transaction committed successfully")
+                        else:
+                            # Document verification failed, abort transaction
+                            app.logger.error(f"❌ Document verification FAILED: Document not found after insertion")
+                            session.abort_transaction()
+                            app.logger.info("Transaction aborted due to verification failure")
+                            flash("Database error: Document verification failed", 'danger')
+                            return redirect(url_for('index'))
+                    else:
+                        # Insert not acknowledged, abort transaction
+                        app.logger.error(f"❌ MongoDB insert FAILED: Insert not acknowledged by server")
+                        session.abort_transaction()
+                        app.logger.info("Transaction aborted due to unacknowledged insert")
+                        flash("Database error: Insert not acknowledged", 'danger')
+                        return redirect(url_for('index'))
+                        
+                except Exception as tx_error:
+                    # Transaction failed, abort and log
+                    app.logger.error(f"TRANSACTION ERROR: {str(tx_error)}")
+                    app.logger.error(f"Error type: {type(tx_error).__name__}")
+                    try:
+                        session.abort_transaction()
+                        app.logger.info("Transaction aborted due to error")
+                    except Exception as abort_error:
+                        app.logger.error(f"Failed to abort transaction: {str(abort_error)}")
+                    
+                    flash(f"Database transaction error: {str(tx_error)}", 'danger')
+                    return redirect(url_for('index'))
+                    
+        except Exception as db_error:
+            app.logger.error(f"DATABASE ERROR: Failed to insert prediction data: {db_error}")
+            app.logger.error(f"Error type: {type(db_error).__name__}")
+            app.logger.error(f"Error location: {db_error.__traceback__.tb_frame.f_code.co_filename}:{db_error.__traceback__.tb_lineno}")
+            
+            # Try to determine the specific error type
+            error_message = str(db_error)
+            if "not authorized" in error_message.lower():
+                flash("Database permission error: Not authorized to write data", 'danger')
+            elif "connection" in error_message.lower():
+                flash("Database connection error: Could not connect to MongoDB Atlas", 'danger')
+            else:
+                flash(f"Database error: {str(db_error)}", 'danger')
+                
+            return redirect(url_for('index'))
         
         # Store in session for PDF generation
+        app.logger.info("Storing data in session for PDF generation")
         session_data = {k: v for k, v in prediction_data.items() if not isinstance(v, datetime)}
         if '_id' in session_data:
             session_data['_id'] = str(session_data['_id'])
-        session['student_data'] = session_data
+        flask_session['student_data'] = session_data
     
         # Determine prediction message based on text
         if prediction_text == "Excellent":
@@ -228,9 +378,32 @@ def predict():
                 print("Best_model.pkl updated successfully.")
         # --- END: Retrain and save the model ---
 
+        app.logger.info(f"Prediction complete: {prediction_text}, Score: {percentage}%")
+        app.logger.info("==== PREDICTION FORM SUBMISSION COMPLETED SUCCESSFULLY ====")
+        app.logger.info("Rendering result template...")
+        app.logger.info("==== PREDICTION FORM SUBMISSION COMPLETED SUCCESSFULLY ====")
         return render_template('result.html', prediction=prediction_text, probability=percentage, prediction_message=prediction_message, student=prediction_data)
 
     except Exception as e:
+        app.logger.error(f"PREDICTION ERROR: {str(e)}")
+        app.logger.error(f"Error type: {type(e).__name__}")
+        app.logger.error(f"Error location: {str(e.__traceback__.tb_frame.f_code.co_filename)} line {e.__traceback__.tb_lineno}")
+        app.logger.error(f"Request form data: {request.form}")
+        try:
+            session_data = dict(flask_session)
+            app.logger.error(f"Session data: {session_data}")
+        except Exception as sess_err:
+            app.logger.warning(f"Could not log session data in error handler: {sess_err}")
+        
+        # Try to log MongoDB status
+        try:
+            mongodb_client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=2000)
+            mongodb_client.admin.command('ping')
+            app.logger.info("MongoDB connection is still active despite the error")
+        except Exception as db_err:
+            app.logger.error(f"MongoDB connection failed during error handling: {db_err}")
+            
+        app.logger.error("==== PREDICTION FORM SUBMISSION FAILED ====")
         flash(f"Prediction failed: {e}", 'danger')
         return redirect(url_for('index'))
 
@@ -238,7 +411,7 @@ def predict():
 @app.route('/report/<student_id>', methods=['GET'])
 @login_required
 def report(student_id):
-    student = session.get('student_data')
+    student = flask_session.get('student_data')
     
     if student and student['student_id'] == student_id:
         try:
@@ -699,12 +872,12 @@ def api_predictions():
 def chat():
     """Public chat endpoint accessible without login"""
     # Generate a unique session ID for this chat session if not already present
-    if 'chat_session_id' not in session:
-        session['chat_session_id'] = str(uuid.uuid4())
+    if 'chat_session_id' not in flask_session:
+        flask_session['chat_session_id'] = str(uuid.uuid4())
     
     return render_template('chat.html', 
                            is_authenticated=False,
-                           session_id=session['chat_session_id'],
+                           session_id=flask_session['chat_session_id'],
                            now=datetime.now())
 
 @app.route('/chat/authenticated')
@@ -712,13 +885,13 @@ def chat():
 def authenticated_chat():
     """Authenticated chat endpoint with enhanced capabilities"""
     # Generate a unique session ID for this chat session if not already present
-    if 'chat_session_id' not in session:
-        session['chat_session_id'] = str(uuid.uuid4())
+    if 'chat_session_id' not in flask_session:
+        flask_session['chat_session_id'] = str(uuid.uuid4())
     
     return render_template('chat.html', 
                            is_authenticated=True,
                            username=current_user.username,
-                           session_id=session['chat_session_id'],
+                           session_id=flask_session['chat_session_id'],
                            now=datetime.now())
 
 @app.route('/api/chat', methods=['POST'])
